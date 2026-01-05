@@ -1,0 +1,65 @@
+{
+  "adversarial_mode": {
+    "enabled": true,
+    "problem_generator": {
+      "model": "starcoder2:instruct",
+      "provider": "ollama",
+      "host": "http://localhost:11434",
+      "temperature": 0.2,
+      "max_tokens": 512,
+      "timeout_seconds": 180
+    },
+    "solver_models": [
+      {
+        "temperature": 0.2,
+        "max_tokens": 512,
+        "name": "GPT-4o",
+        "api_key_env": "OPENAI_API_KEY",
+        "model": "gpt-4o",
+        "provider": "openai"
+      },
+      {
+        "temperature": 0.2,
+        "max_tokens": 512,
+        "name": "GPT-4o mini",
+        "api_key_env": "OPENAI_API_KEY",
+        "model": "gpt-4o-mini",
+        "provider": "openai"
+      },
+      {
+        "temperature": 0.2,
+        "max_tokens": 512,
+        "name": "StarCoder2 Instruct (Ollama)",
+        "model": "starcoder2:instruct",
+        "provider": "ollama",
+        "host": "http://localhost:11434"
+      }
+    ],
+    "evaluator_model": {
+      "temperature": 0.1,
+      "max_tokens": 512,
+      "name": "Evaluator (GPT-4o)",
+      "api_key_env": "OPENAI_API_KEY",
+      "model": "gpt-4o",
+      "provider": "openai"
+    },
+    "execution": {
+      "docker_enabled": true,
+      "container_timeout_seconds": 30,
+      "sandbox_enabled": true,
+      "max_parallel_validations": 3
+    }
+  },
+  "cline": {
+    "mode": "adversarial",
+    "system_prompt_path": "./.cline/system_prompt_adversarial.md",
+    "task_directory": "./adversarial_tasks",
+    "context_directory": "./.context",
+    "output_directory": "./results",
+    "auto_load_patterns": true
+  },
+  "logging": {
+    "level": "INFO",
+    "console_output": true
+  }
+}

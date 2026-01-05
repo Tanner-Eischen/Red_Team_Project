@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+results/
+logs/
+adversarial_tasks/
+.context/failure_patterns/
+.context/success_rates.json

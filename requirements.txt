@@ -1,0 +1,7 @@
+anthropic==0.75.0
+langchain==1.2.0
+langgraph==1.0.5
+ollama==0.6.1
+openai==1.99.9
+python-dotenv==1.2.1
+requests==2.32.5
