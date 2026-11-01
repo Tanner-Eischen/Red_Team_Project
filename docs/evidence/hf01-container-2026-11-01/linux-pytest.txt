@@ -1,0 +1,25 @@
+........................................................................ [ 33%]
+........................................................................ [ 66%]
+........................................................................ [ 99%]
+..                                                                       [100%]
+=============================== warnings summary ===============================
+tests/test_discovery_policy.py: 24 warnings
+tests/test_families.py: 36 warnings
+tests/test_mutation_catalog.py: 99 warnings
+  /home/tanne/.cache/harborforge-wave3-runtime/environment/lib/python3.12/site-packages/rasterio/transform.py:178: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(xsize, -ysize)
+
+tests/test_discovery_policy.py: 369 warnings
+tests/test_families.py: 183 warnings
+tests/test_mutation_catalog.py: 987 warnings
+  /mnt/c/Users/tanne/OneDrive/Documents/ChatGPT/Red-team/src/harborforge/task_families/geospatial_raster.py:156: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    lon, lat = affine_a * (col + .5, row + .5)
+
+tests/test_discovery_policy.py: 369 warnings
+tests/test_families.py: 183 warnings
+tests/test_mutation_catalog.py: 987 warnings
+  /mnt/c/Users/tanne/OneDrive/Documents/ChatGPT/Red-team/src/harborforge/task_families/geospatial_raster.py:159: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    source_col, source_row = ~affine_b * (x, y)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+218 passed, 3237 warnings in 50.60s

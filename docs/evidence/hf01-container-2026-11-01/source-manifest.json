@@ -1,0 +1,91 @@
+{
+  "base_commit": "125872830a9445b79d22124d45a066d84aa73139",
+  "files": {
+    "pyproject.toml": {
+      "canonical_git_lf_sha256": "8ba3f01a6a161a2e0b58df7aa77a7c20c8589468959dcba5b5a0375945d15e83",
+      "executed_worktree_sha256": "b281272df1e30ec1d511ecf0dec006ee8bcb3636431522e1e7490ca13f8f2d1a"
+    },
+    "scripts/audit_container_images.py": {
+      "canonical_git_lf_sha256": "adc79738e9aa957f154592dc14bbf82870667c9f24fbcd8d950b645fcfee405b",
+      "executed_worktree_sha256": "adc79738e9aa957f154592dc14bbf82870667c9f24fbcd8d950b645fcfee405b"
+    },
+    "scripts/probe_container_boundary.py": {
+      "canonical_git_lf_sha256": "9262a961ed8d4f43bdae99e5259d52f92548044dbbed541f6590c550bb1aeed8",
+      "executed_worktree_sha256": "9262a961ed8d4f43bdae99e5259d52f92548044dbbed541f6590c550bb1aeed8"
+    },
+    "scripts/run_container_controls.py": {
+      "canonical_git_lf_sha256": "d8abcf6f9e03fd60f5880281fa4aff590452ca880de190bf433828ef428e6774",
+      "executed_worktree_sha256": "d8abcf6f9e03fd60f5880281fa4aff590452ca880de190bf433828ef428e6774"
+    },
+    "src/harborforge/adapters/harbor_adapter.py": {
+      "canonical_git_lf_sha256": "bbb1754c7672e8b2dc76f1a1444a44594dcede79d0fd4808edc8ea56d6aa908c",
+      "executed_worktree_sha256": "bbb1754c7672e8b2dc76f1a1444a44594dcede79d0fd4808edc8ea56d6aa908c"
+    },
+    "src/harborforge/adapters/isolated_docker.py": {
+      "canonical_git_lf_sha256": "5d2084405dd59fecbc9212b3ae78191e57a33db00deafd2abf3081a4a1bcd48d",
+      "executed_worktree_sha256": "5d2084405dd59fecbc9212b3ae78191e57a33db00deafd2abf3081a4a1bcd48d"
+    },
+    "src/harborforge/authoring/mutations.py": {
+      "canonical_git_lf_sha256": "9a12113dc78fc305b8c9ba0acb8faedcdca199d33b89f7c37ca7e3f588212847",
+      "executed_worktree_sha256": "9a12113dc78fc305b8c9ba0acb8faedcdca199d33b89f7c37ca7e3f588212847"
+    },
+    "src/harborforge/authoring/proposals.py": {
+      "canonical_git_lf_sha256": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589",
+      "executed_worktree_sha256": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589"
+    },
+    "src/harborforge/config.py": {
+      "canonical_git_lf_sha256": "2e60909cac9eb76538d08023b16e7278f75388aedffdb65c82551b5c7b97e18f",
+      "executed_worktree_sha256": "2e60909cac9eb76538d08023b16e7278f75388aedffdb65c82551b5c7b97e18f"
+    },
+    "src/harborforge/execution/campaign.py": {
+      "canonical_git_lf_sha256": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5",
+      "executed_worktree_sha256": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5"
+    },
+    "src/harborforge/execution/policy.py": {
+      "canonical_git_lf_sha256": "5a2d546811e432435ea080c24576be132cf0fcc893624881b370239c8a597b27",
+      "executed_worktree_sha256": "5a2d546811e432435ea080c24576be132cf0fcc893624881b370239c8a597b27"
+    },
+    "src/harborforge/task_families/geospatial_raster.py": {
+      "canonical_git_lf_sha256": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+      "executed_worktree_sha256": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc"
+    },
+    "src/harborforge/task_families/registry.py": {
+      "canonical_git_lf_sha256": "3f96fa405a2f9571536a332c6d33dc6b4811e8f7001ba5b7625259a11f97d5b8",
+      "executed_worktree_sha256": "3f96fa405a2f9571536a332c6d33dc6b4811e8f7001ba5b7625259a11f97d5b8"
+    },
+    "src/harborforge/task_families/repository_debug.py": {
+      "canonical_git_lf_sha256": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+      "executed_worktree_sha256": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1"
+    },
+    "src/harborforge/task_families/scientific_etl.py": {
+      "canonical_git_lf_sha256": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+      "executed_worktree_sha256": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc"
+    },
+    "src/harborforge/task_families/verifier_template.py": {
+      "canonical_git_lf_sha256": "c12a7b46b45d53cdd2d4bbc05d776b7542f2fede40671ae1331a180faeef672c",
+      "executed_worktree_sha256": "c12a7b46b45d53cdd2d4bbc05d776b7542f2fede40671ae1331a180faeef672c"
+    },
+    "src/harborforge/validation/quality_gates.py": {
+      "canonical_git_lf_sha256": "2acbcb69e8ca555c965518975003f097109b4e5c07202be836a43f16696dd21d",
+      "executed_worktree_sha256": "2acbcb69e8ca555c965518975003f097109b4e5c07202be836a43f16696dd21d"
+    },
+    "tests/test_harness_adapter.py": {
+      "canonical_git_lf_sha256": "054baf7823b65c9b6509e9569767a84ec0ccf624dfd3a43c9324946f20015a88",
+      "executed_worktree_sha256": "054baf7823b65c9b6509e9569767a84ec0ccf624dfd3a43c9324946f20015a88"
+    },
+    "tests/test_harness_quality.py": {
+      "canonical_git_lf_sha256": "f88ef028b378496fbacc744b748408532439f47a59003129cd05d6742e65671b",
+      "executed_worktree_sha256": "f88ef028b378496fbacc744b748408532439f47a59003129cd05d6742e65671b"
+    },
+    "tests/test_isolated_runtime.py": {
+      "canonical_git_lf_sha256": "55577ad760516c936baffeffbc0e5cd2ce81810bba7aa14be7ea2568bec5bc8a",
+      "executed_worktree_sha256": "55577ad760516c936baffeffbc0e5cd2ce81810bba7aa14be7ea2568bec5bc8a"
+    },
+    "uv.lock": {
+      "canonical_git_lf_sha256": "990d69fca01a3fc35deacebb6f6f612ac661c4a5392e96bd68ab14f59133649b",
+      "executed_worktree_sha256": "990d69fca01a3fc35deacebb6f6f612ac661c4a5392e96bd68ab14f59133649b"
+    }
+  },
+  "source_identity_scope": "Raw executed worktree bytes and canonical Git LF source hashes; task manifests identify exact generated task bytes separately. Fields captured after verification; listed owned runtime source was frozen throughout the final checks.",
+  "worktree_dirty_during_tests": true
+}

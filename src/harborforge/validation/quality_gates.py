@@ -27,10 +27,21 @@ def _structure(task: Path) -> tuple[dict, list[dict]]:
     gates = []
     manifest = read_manifest(task, verify=True)
     required = ["instruction.md", "task.toml", "environment/Dockerfile", "solution/solve.py",
-                "solution/solve.sh", "tests/verify.py", "tests/test.sh", "controls/alternate.py", "controls/bad.py"]
+                "solution/solve.sh", "tests/verify.py", "tests/test.sh", "tests/Dockerfile",
+                "controls/alternate.py", "controls/bad.py"]
     missing = [name for name in required if not (task / name).is_file()]
     gates.append(_gate("structure", not missing, missing=missing))
     config = tomllib.loads((task / "task.toml").read_text(encoding="utf-8"))
+    allowed_sections = {"schema_version", "metadata", "artifacts", "agent", "verifier", "environment"}
+    allowed_fields = {
+        "agent": {"timeout_sec", "user", "network_mode"},
+        "verifier": {"timeout_sec", "user", "environment_mode", "network_mode"},
+        "environment": {"build_timeout_sec", "cpus", "memory_mb", "storage_mb", "network_mode"},
+    }
+    unknown = sorted(set(config) - allowed_sections)
+    for section, fields in allowed_fields.items():
+        unknown.extend(f"{section}.{key}" for key in set(config.get(section, {})) - fields)
+    gates.append(_gate("pinned_schema", not unknown, unsupported_fields=unknown))
     artifacts = config.get("artifacts", [])
     artifact_paths = [item if isinstance(item, str) else item.get("source") for item in artifacts]
     declared = manifest.get("public_artifacts", [])
@@ -38,6 +49,8 @@ def _structure(task: Path) -> tuple[dict, list[dict]]:
                        and config.get("verifier", {}).get("environment_mode") == "separate"
                        and config.get("environment", {}).get("network_mode") == "no-network"
                        and config.get("verifier", {}).get("network_mode") == "no-network"
+                       and config.get("agent", {}).get("user") == "agent"
+                       and config.get("verifier", {}).get("user") == "root"
                        and bool(declared) and sorted(artifact_paths) == sorted(declared),
                        schema_version=config.get("schema_version"), artifacts=artifact_paths))
     if missing:
@@ -53,6 +66,8 @@ def _structure(task: Path) -> tuple[dict, list[dict]]:
                 bad_copy.append(line)
     verifier = (task / "tests" / "test.sh").read_text(encoding="utf-8")
     gates.append(_gate("leakage_static", not leaked and not bad_copy
+                       and not (task / "environment" / "docker-compose.yaml").exists()
+                       and not (task / "tests" / "docker-compose.yaml").exists()
                        and "/solution/" not in verifier and "--oracle" not in verifier,
                        leaked_paths=leaked, unsupported_copies=bad_copy,
                        limitation="Static source check; Docker image inspection is required for production approval"))

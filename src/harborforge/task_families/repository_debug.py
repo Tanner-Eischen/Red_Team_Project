@@ -88,11 +88,20 @@ if __name__ == '__main__':
 BUGGY = SOURCE.replace("start <= merged[-1][1]", "start < merged[-1][1]")
 
 
-def fixture(seed: int, level: int = 0) -> tuple[list, dict]:
+def fixture(seed: int, level: int = 0, *, variant: str | None = None) -> tuple[list, dict]:
+    if variant not in {None, "repository-boundary-overlap", "repository-input-ordering"}:
+        raise ValueError("Unsupported repository fixture variant")
     rng = random.Random(seed)
     intervals = [[-4, 0], [0, 3], [7, 7], [9, 11], [10, 14], [9, 11]]
     intervals += [[value, value + rng.randint(0, 5)] for value in rng.sample(range(-20, 25), 4 + level)]
+    if variant == "repository-boundary-overlap":
+        start = 100 + level * 10
+        intervals += [[start, start + 2], [start + 2, start + 5], [start + 5, start + 5], [start, start + 2]]
+    elif variant == "repository-input-ordering":
+        intervals += [[100 + n * 10, 103 + n * 10] for n in range(3 + level)]
     rng.shuffle(intervals)
+    if variant == "repository-input-ordering":
+        intervals.sort(reverse=True)
     # Independent verifier fixture expectation: finite integer cells, rather
     # than duplicating either interval-merging implementation.
     occupied = {point for start, end in intervals for point in range(start, end)}

@@ -140,13 +140,20 @@ class HarborAdapter:
                 "job_name": "trial", "jobs_dir": str(output_dir / "jobs"),
                 "n_attempts": 1, "n_concurrent_trials": 1, "quiet": True,
                 "retry": {"max_retries": 0},
-                "environment": {"type": "docker", "delete": True,
+                "environment": {"type": None,
+                                "import_path": "harborforge.adapters.isolated_docker:IsolatedDockerEnvironment", "delete": True,
                                 "cpu_enforcement_policy": "limit", "memory_enforcement_policy": "limit",
                                 "override_cpus": harness.get("cpus", 1),
                                 "override_memory_mb": harness.get("memory_mb", 2048)},
                 "verifier": {"override_timeout_sec": harness.get("verifier_time_limit_sec", harness.get("verifier_timeout_seconds", 120))},
                 "agents": [agent_config], "tasks": [{"path": str(task_path)}],
             }
+            # Validate against the installed pinned implementation, and check the
+            # import hook survives parsing instead of being silently ignored.
+            from harbor.models.job.config import JobConfig
+            parsed = JobConfig.model_validate(config)
+            if parsed.environment.import_path != config["environment"]["import_path"]:
+                raise ValueError("Harbor ignored the isolated environment import hook")
             config_path = output_dir / "job-config.json"
             config_path.write_text(json.dumps(config, indent=2), encoding="utf-8")
             timeout = float(harness.get("trial_time_limit_sec", harness.get("timeout_seconds", 600) + 900))
@@ -172,12 +179,24 @@ class HarborAdapter:
             else:
                 result_path, value = trials[0]
                 base.update(parse_trial_result(value), result_path=str(result_path))
+                if base["outcome"] in {"PASS", "MODEL_FAIL"}:
+                    proofs = {}
+                    for role in ("agent", "verifier"):
+                        path = result_path.parent / f"runtime-{role}.json"
+                        if path.is_file():
+                            proofs[role] = json.loads(path.read_text(encoding="utf-8"))
+                    if not all(proofs.get(role, {}).get("passed") is True
+                               and proofs[role].get("policy_version") == "hf-docker-v1"
+                               for role in ("agent", "verifier")):
+                        base.update(outcome="UNSCORABLE", reward=None, error_code="MISSING_RUNTIME_ISOLATION_EVIDENCE")
+                    else:
+                        base["runtime_isolation"] = proofs
                 # A failed job without a per-trial exception is not a clean scored run.
                 if proc.returncode != 0 and base["outcome"] in {"PASS", "MODEL_FAIL"}:
                     base.update(outcome="INFRA_ERROR", reward=None, error_code="HARBOR_JOB_FAILED")
         except subprocess.TimeoutExpired:
             base.update(error_code="HARNESS_WALL_TIMEOUT")
-        except (OSError, ValueError, KeyError) as exc:
+        except (ImportError, OSError, ValueError, KeyError) as exc:
             base.update(error_code=type(exc).__name__, error_message=redact(str(exc)))
         return self._finish(base, started, output_dir)
 

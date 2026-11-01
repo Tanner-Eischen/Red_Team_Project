@@ -72,6 +72,7 @@ def run_campaign(config: CampaignConfig, registry_path: Path | str, output_dir: 
         raise ValueError("the same task version cannot occur twice in a campaign")
     output = Path(output_dir).resolve()
     output.mkdir(parents=True, exist_ok=False)
+    adapter_injected = adapter is not None
     adapter = adapter or HarborAdapter()
     validator = validator or validate_task
     ledger = BudgetLedger(config.budgets)
@@ -79,11 +80,14 @@ def run_campaign(config: CampaignConfig, registry_path: Path | str, output_dir: 
     (output / "campaign.json").write_text(json.dumps(config_dict, indent=2), encoding="utf-8")
     summary = {"campaign_id": config.campaign_id, "started_utc": utc_now(), "status": "complete",
                "stop_reason": None, "quality_valid": 0, "quality_invalid": 0, "quality_errors": 0,
-               "revisions": [], "promotions": [], "output_dir": str(output)}
+               "revisions": [], "promotions": [], "output_dir": str(output),
+               "provider_retries_started": 0, "provider_retries_skipped": 0,
+               "execution_mode": "offline_contract_test" if adapter_injected else "harbor_terminal_runtime"}
     stop = False
     revisions = 0
     revised_parents: set[str] = set()
     validation_cache: dict[str, tuple[dict, str]] = {}
+    last_trial_id: str | None = None
     with Registry(registry_path) as registry:
         campaign_id = registry.create_campaign(config_dict)
         if registry.list_trials(campaign_id):
@@ -123,7 +127,19 @@ def run_campaign(config: CampaignConfig, registry_path: Path | str, output_dir: 
 
         def attempt(path: Path, manifest: dict, validation: dict, validation_id: str,
                     model: Any, repeat: int, retry: int) -> dict | None:
-            nonlocal stop
+            nonlocal stop, last_trial_id
+            retry_ceiling = config.budgets.max_provider_retries_total
+            if retry and retry_ceiling is not None and summary["provider_retries_started"] >= retry_ceiling:
+                summary["provider_retries_skipped"] += 1
+                if last_trial_id:
+                    registry.append_event(last_trial_id, "provider_retry_quota_exhausted", {
+                        "max_provider_retries_total": retry_ceiling,
+                        "provider_retries_started": summary["provider_retries_started"],
+                        "task_version_id": manifest["task_version_id"],
+                        "model_profile_id": model_ids[model.profile_id], "repeat_index": repeat,
+                        "reason": "Skip this extra retry; retain failure and continue registered primary attempts",
+                    })
+                return None
             trial_id = "trial-" + uuid.uuid4().hex
             if not validation.get("valid"):
                 outcome = "INFRA_ERROR" if validation.get("status") == "VALIDATION_ERROR" else "INVALID_TASK"
@@ -139,6 +155,8 @@ def run_campaign(config: CampaignConfig, registry_path: Path | str, output_dir: 
                     summary.update(status="budget_stopped", stop_reason=str(error))
                     return None
                 started = time.monotonic()
+                if retry:
+                    summary["provider_retries_started"] += 1
                 try:
                     result = adapter.run(path, model.model_dump(mode="json"), harness, output / "trials" / trial_id)
                 except Exception as error:
@@ -153,7 +171,8 @@ def run_campaign(config: CampaignConfig, registry_path: Path | str, output_dir: 
             record = {**result, "trial_id": trial_id, "campaign_id": campaign_id,
                       "task_version_id": manifest["task_version_id"], "validation_id": validation_id,
                       "model_profile_id": model_ids[model.profile_id], "harness_profile_id": harness_id,
-                      "repeat_index": repeat, "attempt_number": retry}
+                      "repeat_index": repeat, "attempt_number": retry,
+                      "execution_mode": summary["execution_mode"]}
             trace_files = []
             trial_output = output / "trials" / trial_id
             if trial_output.is_dir():
@@ -167,6 +186,7 @@ def run_campaign(config: CampaignConfig, registry_path: Path | str, output_dir: 
                 record["trace_artifact_sha256"] = artifact["sha256"]
                 record["trace_files"] = trace_files
             registry.record_trial(record)
+            last_trial_id = trial_id
             registry.append_event(trial_id, "final_outcome", record)
             registry.export_events(trial_id, output / "events" / f"{trial_id}.jsonl")
             if ledger.uncertain:
@@ -179,68 +199,73 @@ def run_campaign(config: CampaignConfig, registry_path: Path | str, output_dir: 
                 quality(path)
             summary.update(status="validation_only", stop_reason="no model profiles configured; no inference requested")
 
-        active = paths
-        for tier in sorted({m.tier for m in config.model_profiles}):
-            if stop:
-                break
-            next_tier: list[Path] = []
-            for initial in active:
-                path = initial
-                lineage_depth = 0
-                while not stop:
-                    manifest, validation, validation_id = quality(path)
-                    task_id = manifest["task_version_id"]
-                    if tier == 3 and config.promotion.require_human_review_for_tier3 and \
-                            task_id not in config.promotion.human_reviewed_task_ids and not fixed:
-                        summary["promotions"].append({"task": task_id, "tier": tier, "eligible": False,
-                                                      "reason": "human review required"})
-                        break
-                    results = []
-                    for model in (m for m in config.model_profiles if m.tier == tier):
-                        for repeat in range(model.repeats):
-                            for retry in range(config.budgets.retry_provider_errors + 1):
+        if config.schema_version == "2" and not fixed and config.model_profiles:
+            from harborforge.execution.policy import run_discovery
+
+            run_discovery(config, paths, output, registry, quality, attempt, lambda: stop, summary)
+        else:
+            active = paths
+            for tier in sorted({m.tier for m in config.model_profiles}):
+                if stop:
+                    break
+                next_tier: list[Path] = []
+                for initial in active:
+                    path = initial
+                    lineage_depth = 0
+                    while not stop:
+                        manifest, validation, validation_id = quality(path)
+                        task_id = manifest["task_version_id"]
+                        if tier == 3 and config.promotion.require_human_review_for_tier3 and \
+                                task_id not in config.promotion.human_reviewed_task_ids and not fixed:
+                            summary["promotions"].append({"task": task_id, "tier": tier, "eligible": False,
+                                                          "reason": "human review required"})
+                            break
+                        results = []
+                        for model in (m for m in config.model_profiles if m.tier == tier):
+                            for repeat in range(model.repeats):
+                                for retry in range(config.budgets.retry_provider_errors + 1):
+                                    if stop:
+                                        break
+                                    result = attempt(path, manifest, validation, validation_id, model, repeat, retry)
+                                    if result is not None:
+                                        results.append(result)
+                                    if result is None or result["outcome"] != "PROVIDER_ERROR":
+                                        break
                                 if stop:
-                                    break
-                                result = attempt(path, manifest, validation, validation_id, model, repeat, retry)
-                                if result is not None:
-                                    results.append(result)
-                                if result is None or result["outcome"] != "PROVIDER_ERROR":
                                     break
                             if stop:
                                 break
-                        if stop:
+                        failures = [r for r in results if r["outcome"] == "MODEL_FAIL"]
+                        informative = (len(failures) >= config.promotion.minimum_model_failures and
+                                       validation.get("valid") and not any(r["outcome"] in
+                                       {"INFRA_ERROR", "PROVIDER_ERROR", "UNSCORABLE", "INVALID_TASK"} for r in results))
+                        if fixed:
+                            next_tier.append(path)
                             break
-                    failures = [r for r in results if r["outcome"] == "MODEL_FAIL"]
-                    informative = (len(failures) >= config.promotion.minimum_model_failures and
-                                   validation.get("valid") and not any(r["outcome"] in
-                                   {"INFRA_ERROR", "PROVIDER_ERROR", "UNSCORABLE", "INVALID_TASK"} for r in results))
-                    if fixed:
-                        next_tier.append(path)
-                        break
-                    summary["promotions"].append({"task": task_id, "tier": tier, "eligible": bool(informative),
-                                                  "failures": len(failures), "attempts": len(results)})
-                    if informative:
-                        next_tier.append(path)
-                    if not informative or stop or task_id in revised_parents or \
-                            manifest["version"] - 1 >= config.budgets.max_task_revisions or \
-                            revisions >= config.budgets.max_task_revisions or \
-                            lineage_depth >= config.budgets.max_task_revisions:
-                        break
-                    from harborforge.authoring.mutations import revise_task
+                        summary["promotions"].append({"task": task_id, "tier": tier, "eligible": bool(informative),
+                                                      "failures": len(failures), "attempts": len(results)})
+                        if informative:
+                            next_tier.append(path)
+                        if not informative or stop or task_id in revised_parents or \
+                                manifest["version"] - 1 >= config.budgets.max_task_revisions or \
+                                revisions >= config.budgets.max_task_revisions or \
+                                lineage_depth >= config.budgets.max_task_revisions:
+                            break
+                        from harborforge.authoring.mutations import revise_task
 
-                    child = revise_task(path, output / "revisions", max_iterations=config.budgets.max_task_revisions)
-                    child_manifest = _manifest(child, "discovery")
-                    summary["revisions"].append({"parent": task_id, "child": child_manifest["task_version_id"],
-                                                  "evidence_trials": [r["trial_id"] for r in failures]})
-                    for failure in failures:
-                        registry.append_event(failure["trial_id"], "revision_proposed", summary["revisions"][-1])
-                    path = child
-                    revised_parents.add(task_id)
-                    revisions += 1
-                    lineage_depth += 1
-                if stop:
-                    break
-            active = list(dict.fromkeys(next_tier))
+                        child = revise_task(path, output / "revisions", max_iterations=config.budgets.max_task_revisions)
+                        child_manifest = _manifest(child, "discovery")
+                        summary["revisions"].append({"parent": task_id, "child": child_manifest["task_version_id"],
+                                                      "evidence_trials": [r["trial_id"] for r in failures]})
+                        for failure in failures:
+                            registry.append_event(failure["trial_id"], "revision_proposed", summary["revisions"][-1])
+                        path = child
+                        revised_parents.add(task_id)
+                        revisions += 1
+                        lineage_depth += 1
+                    if stop:
+                        break
+                active = list(dict.fromkeys(next_tier))
         for recorded in registry.list_trials(campaign_id):
             registry.export_events(recorded["trial_id"], output / "events" / f"{recorded['trial_id']}.jsonl")
     if summary["quality_invalid"] and summary["status"] in {"complete", "validation_only"}:

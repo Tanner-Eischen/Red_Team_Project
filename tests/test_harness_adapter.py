@@ -64,6 +64,8 @@ def test_adapter_uses_individual_trial_and_supported_oracle(monkeypatch, tmp_pat
         trial = Path(config["jobs_dir"]) / config["job_name"] / "etl__a"
         trial.mkdir(parents=True)
         (trial / "result.json").write_text(json.dumps(result_data(0)))
+        for role in ("agent", "verifier"):
+            (trial / f"runtime-{role}.json").write_text(json.dumps({"passed": True, "policy_version": "hf-docker-v1"}))
         return subprocess.CompletedProcess(command, 0, "Job finished", "")
 
     monkeypatch.setattr(subprocess, "run", fake_run)

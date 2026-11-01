@@ -1,0 +1,31 @@
+schema_version: "2"
+campaign_id: offline-discovery-policy-v2-example
+objective: adversarial_discovery
+cohort: discovery
+tasks:
+  - ../../tasks/generated/scientific-etl-f2-20261101-v1
+  - ../../tasks/generated/geospatial-raster-f2-20261102-v1
+  - ../../tasks/generated/repository-debug-f2-20261103-v1
+model_profiles: []
+budgets:
+  campaign_usd_max: 0
+  total_input_tokens_max: 0
+  total_output_tokens_max: 0
+  max_model_attempts: 0
+  max_concurrency: 1
+  retry_provider_errors: 0
+  max_provider_retries_total: 0
+  max_task_revisions: 0
+  wall_time_seconds_max: 7200
+discovery_policy:
+  max_revisions_per_lineage: 1
+  max_revisions_total: 3
+  max_generation_attempts: 3
+  max_no_progress: 1
+  max_attempts_per_tier: 14
+  exploration_quota: 0
+  all_pass_operator_ids:
+    - etl-nullable-revisions
+    - raster-non-square-spacing
+    - repository-boundary-overlap
+  reviewed_finding_ids: []

@@ -1,0 +1,37 @@
+{
+  "agent_images_layer_audited": 3,
+  "all_runtime_gates_passed": true,
+  "baseline_controls": 18,
+  "baseline_families": 3,
+  "controller_python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "distinct_adversarial_probes": 8,
+  "docker_engine_version": "29.1.3",
+  "evidence_sha256": {
+    "README.md": "1cf85ff4010cdfecc7d1791c85a3eca43f2af88c80abd7eec283184c5e3dcdb2",
+    "boundary-probes.json": "ab28bfb0fbf8abb30a0e1d5f24cb02416946b939bd55a2900e9a90c3c7c2b773",
+    "family-controls.json": "9a08059239f779c43bf3ef67ccfe5d236d894a84b80854f72b30cd9ce7c03e5e",
+    "image-audit.json": "63c0589cb0c2db790e9476fc3c0c1035ba19e6f31cdd92e93748310a3a25862f",
+    "linux-pytest.txt": "db4392212fce7a85ab315c48a60f170cde138cc92b92aef3dd56fb330e38e2e0",
+    "linux-ruff.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "source-manifest.json": "e282c0337049b943235d9e70e00b1f314923c075d0ea12fa062ea425bf578ef3"
+  },
+  "harbor_version": "0.13.2",
+  "immutable_child_controls": 7,
+  "limitations": [
+    "Tests exercise the stated runtime boundary, not a formal proof against all Docker/kernel escapes.",
+    "No real model edits, model failures, learned difficulty changes or frozen-suite model measurements have been observed.",
+    "Original public family-v1 fixtures are immutable local-control snapshots; new family-v2 tasks include separate verifier build definitions and supported runtime requirements.",
+    "A public analytic raster input reused in private cases is excluded from private-only content matching; complete protected expected-case records are still checked.",
+    "Base image is digest-pinned, while apt repositories/transitive image dependencies are mutable; bit-identical image rebuilds are not claimed."
+  ],
+  "linux_ruff": "passed",
+  "linux_tests_passed": 218,
+  "model_attempts": 0,
+  "model_calls": 0,
+  "paid_model_cost_usd": 0,
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "recorded_utc": "2026-11-01T16:03:35.578780+00:00",
+  "schema_version": 1,
+  "scope": "Native Linux Docker/Harbor author controls and hostile local fixtures. Zero actual model/provider inference calls; no model-capability measurements or R1 real-agent pilot claim.",
+  "targeted_protected_worker_repeat": 1
+}

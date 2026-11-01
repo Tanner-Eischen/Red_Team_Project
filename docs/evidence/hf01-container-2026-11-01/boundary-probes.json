@@ -1,0 +1,153 @@
+{
+  "latest_private_namespace_guard_repeat": {
+    "model_calls": 0,
+    "passed": true,
+    "probes": [
+      {
+        "error_code": null,
+        "expected": [
+          "PASS"
+        ],
+        "outcome": "PASS",
+        "passed": true,
+        "probe": "protected-worker-double-fork",
+        "reward": 1.0,
+        "solver_sha256": "b23896fe5d62c8a7803557feb3b8f3dc26fcf7a7fc06457e8367e4059ac4a95c",
+        "test_sha256": "e08a5a998d5bbcbd0cd19399ade3e7d3169e4822c9e0a6d5be6a647d2f9f5fe0",
+        "wall_time_s": 21.806771793000053,
+        "worker": {
+          "capabilities_zero": true,
+          "judge_environment_denied": true,
+          "limits_checked": true,
+          "network_denied": true,
+          "protected_reads_denied": true,
+          "reward_write_denied": true,
+          "uid": 65534
+        }
+      }
+    ],
+    "schema_version": 1,
+    "scope": "Actual authored adversarial container controls; zero model calls"
+  },
+  "latest_repeat_original_summary_sha256": "6c51d935424b2be87e06547f201b26995cc18e4c9b2b0e58bfaafec8868211fe",
+  "model_calls": 0,
+  "original_summary_sha256": "a55a99495adae59ee0096a0ae5703caa1be903cfcfd723dc09fd7b1bd7a51882",
+  "passed": true,
+  "probes": [
+    {
+      "error_code": null,
+      "expected": [
+        "PASS"
+      ],
+      "outcome": "PASS",
+      "passed": true,
+      "probe": "protected-worker-double-fork",
+      "reward": 1.0,
+      "solver_sha256": "b23896fe5d62c8a7803557feb3b8f3dc26fcf7a7fc06457e8367e4059ac4a95c",
+      "test_sha256": "e08a5a998d5bbcbd0cd19399ade3e7d3169e4822c9e0a6d5be6a647d2f9f5fe0",
+      "wall_time_s": 24.669252676999804,
+      "worker": {
+        "capabilities_zero": true,
+        "judge_environment_denied": true,
+        "limits_checked": true,
+        "network_denied": true,
+        "protected_reads_denied": true,
+        "reward_write_denied": true,
+        "uid": 65534
+      }
+    },
+    {
+      "error_code": null,
+      "expected": [
+        "MODEL_FAIL"
+      ],
+      "outcome": "MODEL_FAIL",
+      "passed": true,
+      "probe": "forged-reward-rejected",
+      "reward": 0.0,
+      "solver_sha256": "3bd1bbbb550ef05c88a0275e5a06275d57e96e29038263d60662e4526390b62c",
+      "test_sha256": "7392d575b10efe4f63b47fe63df3ff7736b4b16f3378120c5ceff0b4afc8fc0a",
+      "wall_time_s": 22.602125117000014
+    },
+    {
+      "error_code": null,
+      "expected": [
+        "MODEL_FAIL"
+      ],
+      "outcome": "MODEL_FAIL",
+      "passed": true,
+      "probe": "symlink-submission",
+      "reward": 0.0,
+      "solver_sha256": "788e80b909e0931ace3e6d72ce9bc5120b22982d2de89f453b2c462aca6715dd",
+      "test_sha256": "7392d575b10efe4f63b47fe63df3ff7736b4b16f3378120c5ceff0b4afc8fc0a",
+      "wall_time_s": 17.038211457999978
+    },
+    {
+      "error_code": null,
+      "expected": [
+        "MODEL_FAIL"
+      ],
+      "outcome": "MODEL_FAIL",
+      "passed": true,
+      "probe": "hardlinked-output",
+      "reward": 0.0,
+      "solver_sha256": "c331cf521cb984a347c37ac70be6a380e5fd1e33a3998799ddaec1424ecd1a20",
+      "test_sha256": "7392d575b10efe4f63b47fe63df3ff7736b4b16f3378120c5ceff0b4afc8fc0a",
+      "wall_time_s": 16.81696835999992
+    },
+    {
+      "error_code": null,
+      "expected": [
+        "MODEL_FAIL"
+      ],
+      "outcome": "MODEL_FAIL",
+      "passed": true,
+      "probe": "oversized-output",
+      "reward": 0.0,
+      "solver_sha256": "68092122b48b3d6b44c8b3a630ed71c5ce8c747c6fac1743c98c3e38693496b4",
+      "test_sha256": "7392d575b10efe4f63b47fe63df3ff7736b4b16f3378120c5ceff0b4afc8fc0a",
+      "wall_time_s": 16.19565736300001
+    },
+    {
+      "error_code": "RewardFileNotFoundError",
+      "expected": [
+        "UNSCORABLE"
+      ],
+      "outcome": "UNSCORABLE",
+      "passed": true,
+      "probe": "missing-reward",
+      "reward": null,
+      "solver_sha256": "1d0a390c52b5702319c3ebd1f0a395e309c70b82f229824286d0d08c434b67ce",
+      "test_sha256": "cf117709d1cfeefbb8e89ae03f66bd9b0af776c066dc13ab2f3a13c976a3486f",
+      "wall_time_s": 17.057865739000135
+    },
+    {
+      "error_code": "MISSING_OR_INVALID_REWARD",
+      "expected": [
+        "UNSCORABLE"
+      ],
+      "outcome": "UNSCORABLE",
+      "passed": true,
+      "probe": "malformed-reward",
+      "reward": null,
+      "solver_sha256": "1d0a390c52b5702319c3ebd1f0a395e309c70b82f229824286d0d08c434b67ce",
+      "test_sha256": "822334e5a391eb4d47c19877af01b4ab326dde09c8a613f8023a4a23c49839fc",
+      "wall_time_s": 20.174290389999896
+    },
+    {
+      "error_code": "VerifierTimeoutError",
+      "expected": [
+        "INFRA_ERROR"
+      ],
+      "outcome": "INFRA_ERROR",
+      "passed": true,
+      "probe": "verifier-timeout",
+      "reward": null,
+      "solver_sha256": "1d0a390c52b5702319c3ebd1f0a395e309c70b82f229824286d0d08c434b67ce",
+      "test_sha256": "876e2b0dc714a65e8f3080af42a6572e2249ea0530dbccfe6610a88f362a8369",
+      "wall_time_s": 22.65368910799998
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Actual authored adversarial container controls; zero model calls"
+}

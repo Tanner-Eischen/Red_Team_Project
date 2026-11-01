@@ -80,6 +80,10 @@ class BudgetedLLM:
         kwargs["num_retries"] = 0
         input_before, cost_before = self.budget.input_reserved, self.budget.cost_reserved
         kwargs["max_tokens"] = self.budget.reserve(prompt, kwargs)
+        # Capture this request's envelope before awaiting: another in-flight
+        # request must not enlarge the allowance used to validate this response.
+        input_allowance = self.budget.input_reserved - input_before
+        cost_allowance = self.budget.cost_reserved - cost_before
         # Harbor 0.13.2 adds tenacity retries around LiteLLM.call. Each retry
         # would need its own reservation; use its undecorated method instead.
         try:
@@ -105,9 +109,9 @@ class BudgetedLLM:
                     not 0 <= cost <= sys.float_info.max):
                 self.budget.usage_uncertain = True
                 raise ProviderUsageError("Provider usage is missing or invalid; reconciliation required")
-            if (tokens_in > self.budget.input_reserved - input_before
+            if (tokens_in > input_allowance
                     or tokens_out > kwargs["max_tokens"]
-                    or cost > self.budget.cost_reserved - cost_before + 1e-12):
+                    or cost > cost_allowance + 1e-12):
                 self.budget.usage_uncertain = True
                 raise ProviderUsageError("Provider-reported usage exceeded the configured reservation")
         return response

@@ -115,7 +115,9 @@ if __name__ == '__main__':
 BUGGY = SOURCE.replace("if row['status'] != 'ok':", "if row['status'] not in ('ok', ''):")
 
 
-def fixture(seed: int, level: int = 0) -> tuple[str, list[dict]]:
+def fixture(seed: int, level: int = 0, *, variant: str | None = None) -> tuple[str, list[dict]]:
+    if variant not in {None, "etl-nullable-revisions", "etl-mixed-unit-ordering"}:
+        raise ValueError("Unsupported ETL fixture variant")
     rng = random.Random(seed)
     records = []
     for station in ("alpha", "beta", "empty"):
@@ -131,6 +133,16 @@ def fixture(seed: int, level: int = 0) -> tuple[str, list[dict]]:
                             status="ok", revision="3"))
         records.append(dict(station_id=station, timestamp="2026-01-04T00:00:00Z", value="Infinity", unit="C",
                             status="ok", revision="4"))
+    if variant == "etl-nullable-revisions":
+        for station in ("alpha", "beta"):
+            for day in range(20, 20 + max(1, level)):
+                key = dict(station_id=station, timestamp=f"2026-02-{day - 19:02d}T00:00:00Z", unit="C")
+                records += [{**key, "value": "12.5", "status": "ok", "revision": "0"},
+                            {**key, "value": "25", "status": "", "revision": str(10 + level)}]
+    elif variant == "etl-mixed-unit-ordering":
+        for index, (unit, value) in enumerate((("C", "10"), ("F", "50"), ("K", "283.15"))):
+            records.append(dict(station_id="unit-control", timestamp=f"2026-03-{index + 1:02d}T00:00:00Z",
+                                value=value, unit=unit, status="ok", revision=str(level)))
     rng.shuffle(records)
     if seed % 5 == 0:
         for row in records:

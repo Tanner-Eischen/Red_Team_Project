@@ -1,0 +1,393 @@
+{
+  "actual_controls_all_passed": true,
+  "actual_controls_passed": 25,
+  "actual_layer_audits_passed": 3,
+  "executed_agent_layer_audits": [
+    {
+      "already_public_duplicate_fixture_hashes_excluded": 1,
+      "family": "geospatial-raster",
+      "image_id": "sha256:4fd47f8d5d5f9fe5b6a0573775f80ee3e626e17e953224b8b21c1d1eedaa5a28",
+      "image_rootfs_layers": [
+        "sha256:9eb9a78eeb101ab215acf43ffb2a709d5fca9ca2a22178564c7ee5cc30774c60",
+        "sha256:9a0912b10e7336b5032c96abfaaad92f0fba6c03cbb315ea5f9ff37442520911",
+        "sha256:78a4eeeff9630145665d0439c75b49eb0fb4ae92de07a5fa541365d8587ac5aa",
+        "sha256:1f6b48d1b8f31d448ca0c4f981b51eaec48e38809d015e7d941534aa12c452b6",
+        "sha256:ad058c892d69f8763f092409ff0578d7e5fcc5fe45c09f7af3e391c041fc25bd",
+        "sha256:5f43e81db1a86702e14d42f68aa17ed4cef668f9065b5ff5ef8f5323030680ae",
+        "sha256:d457cbd83cce30681faed776357a40b12be9ff246c7a8d4d6e8ea60eb38992db",
+        "sha256:e148ac30c8f0b3ea11234a1ce7d3c851ae159e66fbb629eb09201f7806b5cfe2",
+        "sha256:0217d06c750b45b7567f9a3f8bd3882b6c0ab86cff742b2bc39d45f540daa92b",
+        "sha256:e125f238e1c8fde2305f4b8813bfa34d32779b4a545d3c92baeb4d54fb542bc5",
+        "sha256:59644964abbcdadd9afe832541f041739bc4f60681df095c873c95c1a24167f6"
+      ],
+      "layers_inspected": 11,
+      "passed": true,
+      "private_content_matches": [],
+      "scope": "Standalone quality-gate image built from the same immutable public agent context; actual Harbor role IDs are recorded separately. No image files extracted onto host.",
+      "task_sha256": "d382447b9d1b44560d07f4d5708abddf6b6b84d0d704c91505fabefed1805197"
+    },
+    {
+      "already_public_duplicate_fixture_hashes_excluded": 0,
+      "family": "repository-debug",
+      "image_id": "sha256:d840bb6f06e3aec193e3e1b9b0c829656aea743bcdf99780705739bff1bbf8f6",
+      "image_rootfs_layers": [
+        "sha256:9eb9a78eeb101ab215acf43ffb2a709d5fca9ca2a22178564c7ee5cc30774c60",
+        "sha256:9a0912b10e7336b5032c96abfaaad92f0fba6c03cbb315ea5f9ff37442520911",
+        "sha256:78a4eeeff9630145665d0439c75b49eb0fb4ae92de07a5fa541365d8587ac5aa",
+        "sha256:1f6b48d1b8f31d448ca0c4f981b51eaec48e38809d015e7d941534aa12c452b6",
+        "sha256:ad058c892d69f8763f092409ff0578d7e5fcc5fe45c09f7af3e391c041fc25bd",
+        "sha256:ea43f90410d18747d52945f9c5b98fce54ff8fd8f65173b8e8c849ef6dfc94bc",
+        "sha256:de20f0b91d3c8fdf8ec58625d5e501f3b696535e7c7e14882f47bc6521052e3b",
+        "sha256:a02135d342bb32eadffae8b667f1ce5f5f34b112944d20ae55eacec57e686cb6",
+        "sha256:3171f3788cde4d5d56e96be59e22d1bfe0248fe0f8fed6bdb676dc3994405c2f"
+      ],
+      "layers_inspected": 9,
+      "passed": true,
+      "private_content_matches": [],
+      "scope": "Standalone quality-gate image built from the same immutable public agent context; actual Harbor role IDs are recorded separately. No image files extracted onto host.",
+      "task_sha256": "3284688e69840c585f0a6ee17d5637fbd70f5ff0c119e9cffe7374584d316d1b"
+    },
+    {
+      "already_public_duplicate_fixture_hashes_excluded": 0,
+      "family": "scientific-etl",
+      "image_id": "sha256:ece158f1f30c3c2c544b7fa8a0ae6f31165f21476f76170b0530a6705543834c",
+      "image_rootfs_layers": [
+        "sha256:9eb9a78eeb101ab215acf43ffb2a709d5fca9ca2a22178564c7ee5cc30774c60",
+        "sha256:9a0912b10e7336b5032c96abfaaad92f0fba6c03cbb315ea5f9ff37442520911",
+        "sha256:78a4eeeff9630145665d0439c75b49eb0fb4ae92de07a5fa541365d8587ac5aa",
+        "sha256:1f6b48d1b8f31d448ca0c4f981b51eaec48e38809d015e7d941534aa12c452b6",
+        "sha256:ad058c892d69f8763f092409ff0578d7e5fcc5fe45c09f7af3e391c041fc25bd",
+        "sha256:ea43f90410d18747d52945f9c5b98fce54ff8fd8f65173b8e8c849ef6dfc94bc",
+        "sha256:de20f0b91d3c8fdf8ec58625d5e501f3b696535e7c7e14882f47bc6521052e3b",
+        "sha256:064791442c4bd6096eb2eab5f2de3aa1ad2bcd44de287c80557d9b0b9abdfb0a",
+        "sha256:3988d575322fa527764db5d52a999bfb01902968ad8d9430bb8aeec7b16cb3ec"
+      ],
+      "layers_inspected": 9,
+      "passed": true,
+      "private_content_matches": [],
+      "scope": "Standalone quality-gate image built from the same immutable public agent context; actual Harbor role IDs are recorded separately. No image files extracted onto host.",
+      "task_sha256": "fd2a6ac36491bd311661b01f044de9f67c6a2b7d0021c55dec2720640dc4eb48"
+    }
+  ],
+  "executed_image_audit_sha256": "e962e620b2a55fe467cdc63b3117f52ad6809b03fd397f0a5b79728ca28f4ca3",
+  "executed_retake_summary_sha256": "07ddd3c2501b40f2e50257dce03b15e460bdb288fa08d007f96322fcd3b04480",
+  "final_hashes_require_fresh_quality_validation_before_model_run": true,
+  "final_source_sha256": {
+    "src/harborforge/adapters/harbor_adapter.py": "bbb1754c7672e8b2dc76f1a1444a44594dcede79d0fd4808edc8ea56d6aa908c",
+    "src/harborforge/adapters/isolated_docker.py": "5d2084405dd59fecbc9212b3ae78191e57a33db00deafd2abf3081a4a1bcd48d",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "eb5e552fcfa527c800c67b08f92fd88e4c2ac49da201f96cdca462425ce37320",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "src/harborforge/task_families/verifier_template.py": "c12a7b46b45d53cdd2d4bbc05d776b7542f2fede40671ae1331a180faeef672c",
+    "src/harborforge/validation/quality_gates.py": "2acbcb69e8ca555c965518975003f097109b4e5c07202be836a43f16696dd21d"
+  },
+  "limits": [
+    "No model/provider calls, model performance or empirical difficulty comparison.",
+    "The final public wording-only package hash is explicitly distinguished from the executed package hash. Campaign validation must run for the actual registered hash before model inference."
+  ],
+  "model_calls": 0,
+  "old_quality_evidence_reused_for_new_task_hash": false,
+  "prior_packet_unchanged": true,
+  "recorded_utc": "2026-11-01T16:21:57.582681+00:00",
+  "schema_version": 1,
+  "scope": "Final disclosure-contract retake:25 actual Docker controls and3 full saved-image layer audits passed on the runtime-bounds-disclosed packages. A subsequent single public sentence clarifies read-only grading cwd; it changes instructions/README/manifest only and was not execution-retested.",
+  "source_files_changed_after_execution": [
+    "src/harborforge/task_families/registry.py"
+  ],
+  "task_results": [
+    {
+      "changed_files_after_execution": [
+        "environment/public/README.md",
+        "instruction.md",
+        "manifest.json"
+      ],
+      "executed_controls": [
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_1",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_2",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "nop",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "known_bad",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "alternate",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "negative_mutation_1",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        }
+      ],
+      "executed_task_sha256": "fd2a6ac36491bd311661b01f044de9f67c6a2b7d0021c55dec2720640dc4eb48",
+      "executed_validation_sha256": "4577041f9f1ace476ed2c7692604f5287b84a74bdd611fb335e180616a313877",
+      "final_disclosed_task_sha256": "1dabc41793d6bacd4354c8a0bcc5d60c5a43508c747d413f1e99402f25e0c0b6",
+      "final_hash_execution_retested": false,
+      "private_fixture_scorer_dockerfile_control_bytes_unchanged": true,
+      "public_instruction_delta": [
+        "--- ",
+        "+++ ",
+        "@@ -43,4 +43,7 @@",
+        " writes otherwise have a 16 MiB per-file ceiling. Descendants are stopped",
+        " before grading reads results. Grading runs under a different user;",
+        " private grading files and reward paths are not writable by the candidate.",
+        "+During behavioral checks, source, input and the current working directory",
+        "+are read-only; place scratch files in /tmp or the supplied --output",
+        "+directory.",
+        " The same invocation is repeated to check overwrite/idempotence behavior."
+      ],
+      "task": "scientific-etl"
+    },
+    {
+      "changed_files_after_execution": [
+        "environment/public/README.md",
+        "instruction.md",
+        "manifest.json"
+      ],
+      "executed_controls": [
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_1",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_2",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "nop",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "known_bad",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "alternate",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "negative_mutation_1",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        }
+      ],
+      "executed_task_sha256": "d382447b9d1b44560d07f4d5708abddf6b6b84d0d704c91505fabefed1805197",
+      "executed_validation_sha256": "98a16a0327f5d81eebd0ecdf29a8ca2c14de96cf33b31468dd9809de5ae7581d",
+      "final_disclosed_task_sha256": "94d54459e943901ffc30249ac77ab8dffa91d5d829db9c1429c6fe34aed3139c",
+      "final_hash_execution_retested": false,
+      "private_fixture_scorer_dockerfile_control_bytes_unchanged": true,
+      "public_instruction_delta": [
+        "--- ",
+        "+++ ",
+        "@@ -42,4 +42,7 @@",
+        " writes otherwise have a 16 MiB per-file ceiling. Descendants are stopped",
+        " before grading reads results. Grading runs under a different user;",
+        " private grading files and reward paths are not writable by the candidate.",
+        "+During behavioral checks, source, input and the current working directory",
+        "+are read-only; place scratch files in /tmp or the supplied --output",
+        "+directory.",
+        " The same invocation is repeated to check overwrite/idempotence behavior."
+      ],
+      "task": "geospatial-raster"
+    },
+    {
+      "changed_files_after_execution": [
+        "environment/public/README.md",
+        "instruction.md",
+        "manifest.json"
+      ],
+      "executed_controls": [
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_1",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_2",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "nop",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "known_bad",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "alternate",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "negative_mutation_1",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        }
+      ],
+      "executed_task_sha256": "3284688e69840c585f0a6ee17d5637fbd70f5ff0c119e9cffe7374584d316d1b",
+      "executed_validation_sha256": "8ce942013318fc3c23f716f281dc525a61422cdeaf94b9b114f4c57c0b7c0044",
+      "final_disclosed_task_sha256": "15f802c67b29610c4c5042262f07954aefef774606a695241d5dc0dbfd1f84f2",
+      "final_hash_execution_retested": false,
+      "private_fixture_scorer_dockerfile_control_bytes_unchanged": true,
+      "public_instruction_delta": [
+        "--- ",
+        "+++ ",
+        "@@ -41,4 +41,7 @@",
+        " writes otherwise have a 16 MiB per-file ceiling. Descendants are stopped",
+        " before grading reads results. Grading runs under a different user;",
+        " private grading files and reward paths are not writable by the candidate.",
+        "+During behavioral checks, source, input and the current working directory",
+        "+are read-only; place scratch files in /tmp or the supplied --output",
+        "+directory.",
+        " The same invocation is repeated to check overwrite/idempotence behavior."
+      ],
+      "task": "repository-debug"
+    },
+    {
+      "changed_files_after_execution": [
+        "environment/public/README.md",
+        "instruction.md",
+        "manifest.json"
+      ],
+      "executed_controls": [
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_1",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "oracle_2",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "nop",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "known_bad",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "PASS",
+          "name": "alternate",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "negative_mutation_1",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        },
+        {
+          "expected_outcome": "MODEL_FAIL",
+          "name": "negative_mutation_2",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0
+        }
+      ],
+      "executed_task_sha256": "164bcd5a3f4a6cb02e54555fe01d190e245efec566e354364c41ce0334f4b12e",
+      "executed_validation_sha256": "2081f2e1f482ff9ccd6d8b686596a106acc555721d9e703bab2091d29dbad65d",
+      "final_disclosed_task_sha256": "95d144b3eecdaace8fae06ef437df601d102248421c1bae2b40a53b9dc46ed10",
+      "final_hash_execution_retested": false,
+      "private_fixture_scorer_dockerfile_control_bytes_unchanged": true,
+      "public_instruction_delta": [
+        "--- ",
+        "+++ ",
+        "@@ -43,4 +43,7 @@",
+        " writes otherwise have a 16 MiB per-file ceiling. Descendants are stopped",
+        " before grading reads results. Grading runs under a different user;",
+        " private grading files and reward paths are not writable by the candidate.",
+        "+During behavioral checks, source, input and the current working directory",
+        "+are read-only; place scratch files in /tmp or the supplied --output",
+        "+directory.",
+        " The same invocation is repeated to check overwrite/idempotence behavior."
+      ],
+      "task": "etl-nullable-child"
+    }
+  ],
+  "tested_source_sha256": {
+    "src/harborforge/adapters/harbor_adapter.py": "bbb1754c7672e8b2dc76f1a1444a44594dcede79d0fd4808edc8ea56d6aa908c",
+    "src/harborforge/adapters/isolated_docker.py": "5d2084405dd59fecbc9212b3ae78191e57a33db00deafd2abf3081a4a1bcd48d",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "11b3ad9fd518aa028d209c2b533b374fc28547d6936b8920ea614e7299ea4f6f",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "src/harborforge/task_families/verifier_template.py": "c12a7b46b45d53cdd2d4bbc05d776b7542f2fede40671ae1331a180faeef672c",
+    "src/harborforge/validation/quality_gates.py": "2acbcb69e8ca555c965518975003f097109b4e5c07202be836a43f16696dd21d"
+  }
+}

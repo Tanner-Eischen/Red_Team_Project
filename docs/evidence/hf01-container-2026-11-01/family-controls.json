@@ -1,0 +1,2124 @@
+{
+  "families": [
+    {
+      "controls": [
+        {
+          "control": "oracle_1",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "88c22a51-0f2c-4bed-928a-3724b4f3badd",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:921c536316a868dda9883532a0868fe53383aa5867a26b0216507bfc9455babe",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:d34d63f67bd766698483357e88f1f45c4e04886df426a3ba0bded3cfab4bad11",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 28.340513357999953
+        },
+        {
+          "control": "oracle_2",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "f2c19f28-55da-404d-8327-a9908ddd45bd",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:3d40e04bdae606d3f404e6b1d7fdca09ee8cb4dc826072ea63906a1d819184d4",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:354f3363a0cd356bbcdbf49f05e47c644b8969045d498b87c5282c0c61e51862",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 18.24356835200001
+        },
+        {
+          "control": "nop",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "8e3b691b-7dd3-4b22-b6e2-3012177febc7",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:c3f189f77a108ab39b6adac6cb5e4ecdb72d7330dcae24750ea0bda2edb1cf69",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:ab362785ef99ed328ed03e495b7d75613c3208d98336718cf7bad9ef7061caf7",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 13.78184906599995
+        },
+        {
+          "control": "known_bad",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "e5e0881a-e363-47d3-b00f-32f416c7c1cd",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:3742601e2ab8f175e784b235d33ae13f694e92f9fbd89d6b3b1404503f6cee16",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:71823f89ed0957a25ac57e917b18be03f3704e50f47e2d3263111152e1b794a0",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 15.315898888999982
+        },
+        {
+          "control": "alternate",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "4788c451-464f-4087-b12e-3cf666406e49",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:36c9080eebe76a84b665923b833946f01fb5691d8ea6095a3b30f78651cba7c0",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:d059b6d0e584d3e9aad285873eda7fb1fad61496fa9a9508825851f220e17320",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.50064364800005
+        },
+        {
+          "control": "negative_mutation_1",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "e9257a00-bd62-4c57-8794-f7b7faa9e24d",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:a7534cfc2992b19e2e3893f304db254f4f5c75c13d27d0b88c57ce24da4b9f3e",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:f0083571989a06b8e0d16e4ccd974817d17d383748fff58427925ca47d8f064e",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.39102358299988
+        }
+      ],
+      "eligible_for_model_evaluation": true,
+      "family": "geospatial-raster",
+      "original_report_sha256": "9a45007f8ee006596dc80df8bdb1538e250c760022fdc0c67d0ceb58b87dad2d",
+      "review_status": "pending",
+      "runtime": "docker",
+      "task_sha256": "c7ebb12c477decf73d26e41e9d0f20c40fffeaf909ac7fb3fff363bcc6930602",
+      "valid": true
+    },
+    {
+      "controls": [
+        {
+          "control": "oracle_1",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "7010c945-18fc-49bc-ba64-c96990308485",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:7aa35ef94d879bd01fe74eb7adb7e1a80c6c4f66f3417fd0175d6b4b3440c0d7",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:d07e2a1c69f0e8fe33a8581230bf41863b77bb284b1bc46b545e361e4ffb4799",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 17.333351451
+        },
+        {
+          "control": "oracle_2",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "c5a74005-4432-4fc2-9fe6-6e577840a157",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:2c1737dc3dd9c3d247ddde6e3ccfd270d2bdf3f05611e7fb3dfd541fc7e2da06",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:69ed5f21eb09b518020efabacc99f702fbc64dd7bdcf528322652a24c5ac44e6",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 20.573088819000077
+        },
+        {
+          "control": "nop",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "4cfa4f9b-a071-4dec-a4de-67e280d957d5",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:06e96dffdf8e67fe44c2154399b408f72c485dd96043f721c13d458f50de57de",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:a7e257ada5cb899aa1602ebe13dd95c0deed49c8608ee156d29cd39912d41b32",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 13.393756403999987
+        },
+        {
+          "control": "known_bad",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "6867d1f3-28d4-4de2-84b6-9eee19e7051d",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:fac1944ec0f9616ae967df41d7dcfbb85dcacc4b225707273196dbfbc4a1155b",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:037b22d79a38a424867f9cadf5ff5344b6e75477def06be66b3b73257d25652f",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 14.834525414000154
+        },
+        {
+          "control": "alternate",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "f4a3925b-cefa-4451-89dc-d6acd4af0da4",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:a977d3c11d77e0099e1a90490408d58eae28bb75e4640e4621d4aade30717a7d",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:c68be3ea5f895d27fec1a50af23478fe86227f06ff00a1dc3e4059aa238e9713",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.75099955099995
+        },
+        {
+          "control": "negative_mutation_1",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "a61cfb22-dee0-44ec-8412-722f65f65504",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:26e9578bce458ff28cb6f833423b8a20ef86e444248237fd193516c050d1a202",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:4e63c0f8acac4b8a4627c4a14a69c2465eec12e5001f66f538e73c04c9578555",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 15.466480764000153
+        }
+      ],
+      "eligible_for_model_evaluation": true,
+      "family": "repository-debug",
+      "original_report_sha256": "5618f37b5ede4710f94d17391d599605b72f295a9933d729ab6c2d9f93aece8f",
+      "review_status": "pending",
+      "runtime": "docker",
+      "task_sha256": "7a1ad4df94e686ea92dbad9ca55d422e4c9b20307302713f7ce7c0655259927e",
+      "valid": true
+    },
+    {
+      "controls": [
+        {
+          "control": "oracle_1",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "01a9ed4c-b124-4023-ba67-f3a2acc63b55",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:64bb9e34bc080b12f905933272fde996537a4377cc29d3a5609eb1c8e263c965",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:b9a73d8ba87ad371260ee33dbff0e9a169753d5a7e8910075cd1f71a04bfa6c1",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 15.593073870999888
+        },
+        {
+          "control": "oracle_2",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "a0507e10-71e5-499f-a629-572b81485154",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:dc431f5a73f0ab81c2ea3569867e62ba07431a1f49da2836d1549e7622c4ea18",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:03c16cf458453f2d4fe1bc83f93cecc6c15e803252cb9dbb81da8de51561f2e1",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.833349132999956
+        },
+        {
+          "control": "nop",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "409d0f12-3410-4c3f-a148-34c6b5b4d421",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:044ab8f3f8d9e29677f27693871a92762726ed9921b1b12fd93839c8cd305fe5",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:21b1ba3567b6b30ec494dc1a1a0b29004eeda65759b3d2082ab386d0df8dbfba",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.430053068999996
+        },
+        {
+          "control": "known_bad",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "78307ab1-9fc5-4c31-9028-41d9e9836207",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:68ff42adc69452518a43e75b9512b1c897c96219f83217e671ccceaca6fed304",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:c144f547c94ca9a069a74a16417d87a00742253dca0c4d3483e28c0262acf5fe",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 18.600694171000214
+        },
+        {
+          "control": "alternate",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "e89d35a3-c2ca-417e-bacf-28197a6600c8",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:7d38901ba74b22eb6030c296e362c07ddfaade9def9ca11d7a911b71e5526e3c",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:d88ef987e1d2dbc4bf1beb04a7804f9396022cc9caa539afca9b793599a287e8",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 18.57901982500016
+        },
+        {
+          "control": "negative_mutation_1",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "e33dda10-c171-421f-869d-4df8cb8b9547",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:b478f42e5b0833ee8839d1d12283668329d308322bb816088942be706da641c9",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:e23739f8acac3272958a30841a34dc6f9fb81b954711ba3db89ef2f80a63d1a2",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.905173874999946
+        }
+      ],
+      "eligible_for_model_evaluation": true,
+      "family": "scientific-etl",
+      "original_report_sha256": "dff9dd34f78c0fcae42c70cea0f0770db6c2875c97b8deb5d49442d1bb18c6ba",
+      "review_status": "pending",
+      "runtime": "docker",
+      "task_sha256": "cb9632f896e971baf6ddaf8b2d0d9e853161a985be9cc75891a5e10842253d10",
+      "valid": true
+    },
+    {
+      "controls": [
+        {
+          "control": "oracle_1",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "1391504e-827a-4564-bb54-b22b00938dbd",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:97cda36a3f43ba00cbf6d951cc2b10133f794f83db823cef839300685adddd5d",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:f46e5268841b6199f2c36986eac33db1396d75f4e25259f011190c0a54e5c1a3",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.040088919000027
+        },
+        {
+          "control": "oracle_2",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "ffd880d3-6711-4242-82d7-686164fe5c98",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:840adcbbb9bbdca41c7d8ecc396ad203aaee925b20642857eff3587be5b57ac2",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:7d510f8c93f98dd44102debb98d165b5363984495c0d976751f4a2f67adc799b",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 15.45060347499998
+        },
+        {
+          "control": "nop",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "d23a16c8-d934-4e79-88db-34538bae82cc",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:cb4390ccce5d6f51ff0034f1fd11cfb16d08f39e9d8c9ce586750d137ba6e55f",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:bd001296dbb57768fb2d99cfaca807de5fad746a466e718bc32dd8da23315ca8",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 15.111526680999987
+        },
+        {
+          "control": "known_bad",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "3b3951a2-0a0b-4c3f-b61c-eada5c1a2090",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:cd608168bc06b8c9f2abbb592c8707154e17f8742d0dc84d2da8d2b290e8c513",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:5265103d09727c2174ee48692f1985d18fa9a8ec67f3aee15822b7a1d116cbb2",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 16.58925334300011
+        },
+        {
+          "control": "alternate",
+          "error_code": null,
+          "expected_outcome": "PASS",
+          "harbor_trial_id": "954cab3a-5c74-434b-9164-2ab47307fd3b",
+          "outcome": "PASS",
+          "passed": true,
+          "reward": 1.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:e073c2378d04b96f39b1085fa652e086848ecb90ac91f786c5b7a65da7cbf028",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:b06500d553d077007bfe8780db3dfb0fd400f1e82cd9cf7ae13c5c35471893c5",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 18.675014473000147
+        },
+        {
+          "control": "negative_mutation_1",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "c940cd7d-89b5-41f8-8dc9-a3b9d29a2496",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:61783cbb8153d0efd8eb99dbc75cd415160de1ea2552f08966729cb3de7ac540",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:3d91c209cebc8d8a2421f1952841c3bd05f64495bf79de3d487e73aca06d40df",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 19.955047583999885
+        },
+        {
+          "control": "negative_mutation_2",
+          "error_code": null,
+          "expected_outcome": "MODEL_FAIL",
+          "harbor_trial_id": "2097552c-de20-427a-92a2-aa566e300ab3",
+          "outcome": "MODEL_FAIL",
+          "passed": true,
+          "reward": 0.0,
+          "runtime_isolation": {
+            "agent": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:da5e9008d360297e67855e0012ab8c814101d5634000da22c0847b396f425672",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "agent",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            },
+            "verifier": {
+              "cap_add": [
+                "CAP_CHOWN",
+                "CAP_DAC_OVERRIDE",
+                "CAP_FOWNER",
+                "CAP_KILL",
+                "CAP_SETGID",
+                "CAP_SETUID"
+              ],
+              "cap_drop": [
+                "ALL"
+              ],
+              "image_id": "sha256:1a529edd1592404e2c113ff240248c5f7d9d7c87fd4b5930c690568dd2b19750",
+              "init": true,
+              "memory_bytes": 2147483648,
+              "mounts": [],
+              "nano_cpus": 1000000000,
+              "network_mode": "none",
+              "passed": true,
+              "pid_mode": "",
+              "pids_limit": 64,
+              "policy_version": "hf-docker-v1",
+              "read_only_root": true,
+              "role": "verifier",
+              "security_options": [
+                "no-new-privileges:true"
+              ],
+              "tmpfs": {
+                "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+                "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+                "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+                "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+                "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+                "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+              }
+            }
+          },
+          "wall_time_s": 14.91044214700014
+        }
+      ],
+      "eligible_for_model_evaluation": true,
+      "family": "scientific-etl-child-nullable-revisions",
+      "original_report_sha256": "57eb9bcecff0a3b29333f3b9776c7fd17717ef6918833408dd9e34269f52aeda",
+      "review_status": "pending",
+      "runtime": "docker",
+      "task_sha256": "b9f8b070d604f59776453c3967568543b2a15dbc23d1320ad3ec9aecb3a4d95a",
+      "valid": true
+    }
+  ],
+  "scope": "Actual independent author controls, not model attempts"
+}

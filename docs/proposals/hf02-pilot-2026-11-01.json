@@ -1,0 +1,78 @@
+{
+  "proposal_id": "hf02-pilot-proposal-2026-11-01",
+  "approval_status": "proposed_not_authorized",
+  "task_families": [
+    "scientific-etl",
+    "geospatial-raster",
+    "repository-debug"
+  ],
+  "provider_retry_allowance": 2,
+  "billing_scope": "standard_global_text_only_uncached",
+  "campaign": {
+    "schema_version": "1",
+    "campaign_id": "hf02-pilot-not-authorized-2026-11-01",
+    "objective": "adversarial_discovery",
+    "cohort": "discovery",
+    "tasks": [],
+    "model_profiles": [
+      {
+        "profile_id": "hf02-mini",
+        "provider": "openai",
+        "model_id": "openai/gpt-5.4-mini-2026-03-17",
+        "family": "gpt-5.4",
+        "snapshot": "gpt-5.4-mini-2026-03-17",
+        "tier": 1,
+        "repeats": 2,
+        "supports_tools": true,
+        "max_cost_usd_per_attempt": 0.35,
+        "max_input_tokens": 256000,
+        "max_output_tokens": 32000,
+        "input_usd_per_million": 0.75,
+        "output_usd_per_million": 4.5,
+        "price_source": "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+        "price_checked_utc": "2026-11-01",
+        "agent_kwargs": {
+          "reasoning_effort": "low"
+        }
+      },
+      {
+        "profile_id": "hf02-standard",
+        "provider": "openai",
+        "model_id": "openai/gpt-5.4-2026-03-05",
+        "family": "gpt-5.4",
+        "snapshot": "gpt-5.4-2026-03-05",
+        "tier": 1,
+        "repeats": 2,
+        "supports_tools": true,
+        "max_cost_usd_per_attempt": 1.2,
+        "max_input_tokens": 256000,
+        "max_output_tokens": 32000,
+        "input_usd_per_million": 2.5,
+        "output_usd_per_million": 15.0,
+        "price_source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+        "price_checked_utc": "2026-11-01",
+        "agent_kwargs": {
+          "reasoning_effort": "low"
+        }
+      }
+    ],
+    "harness_profile": {
+      "max_input_tokens": 256000,
+      "max_output_tokens": 32000,
+      "timeout_seconds": 600,
+      "verifier_timeout_seconds": 180,
+      "trial_time_limit_sec": 1200
+    },
+    "budgets": {
+      "campaign_usd_max": 15,
+      "total_input_tokens_max": 3584000,
+      "total_output_tokens_max": 448000,
+      "wall_time_seconds_max": 21600,
+      "max_concurrency": 1,
+      "max_model_attempts": 14,
+      "retry_provider_errors": 1,
+      "max_task_revisions": 0,
+      "max_provider_retries_total": 2
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "checked_utc": "2026-11-01T16:19:51.661904+00:00",
+  "checks": {
+    "all_pass_child_state_machine": "passed_injected_contract_adapter",
+    "all_six_catalog_oracle_alternate_negative_controls": "passed_local_only",
+    "generated_raster_os_dependency": "libexpat1 declared in both new image contexts; native runtime worker verifies actual build",
+    "global_retry_quota": "bothschemas retain4primaries withonly2extra retries",
+    "later_tier_immutable_child_reuse": "passed_injected_contract_adapter",
+    "owned_scope_git_diff_whitespace": "passed",
+    "owned_scope_ruff": "passed",
+    "public_contract_fairness": "both agent-visible instructions disclose actual file types/sizes, protected execution and container/tmpfs/transfer limits; fourth requirement binds enforcement",
+    "review_append_authority": "equal timestamps and rollback clocks retain latest appended revocation/reconfirmation",
+    "reviewed_failure_operator_selection": "passed_injected_contract_adapter",
+    "schema1_legacy_semantics": "preserved",
+    "schema2_explicit_migration": "passed",
+    "semantic_noop_guard": "both raster operators reject third unchanged child; alternate operator still allowed; no unchanged model retest",
+    "twelve_public_packages": "all12immutable manifests verified; no tracked package change",
+    "zero_spend_schema2_example": "no models and zero dollar/token/attempt budgets"
+  },
+  "container_evidence": "HF01 real-runtime gate is owned and recorded separately; local controls do not certify isolation.",
+  "model_provider_requests": 0,
+  "paid_cost_usd": 0,
+  "pre_public_contract_source_sha256": {
+    "configs/campaigns/offline-discovery-policy.example.yaml": "2f3dc0b2e3633e6d1bf9ca2f5eb1187c49a7cac4de705db64e991cdc9f7cd5d6",
+    "src/harborforge/authoring/mutations.py": "9a12113dc78fc305b8c9ba0acb8faedcdca199d33b89f7c37ca7e3f588212847",
+    "src/harborforge/authoring/proposals.py": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589",
+    "src/harborforge/config.py": "2e60909cac9eb76538d08023b16e7278f75388aedffdb65c82551b5c7b97e18f",
+    "src/harborforge/execution/campaign.py": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5",
+    "src/harborforge/execution/policy.py": "5a2d546811e432435ea080c24576be132cf0fcc893624881b370239c8a597b27",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "3f96fa405a2f9571536a332c6d33dc6b4811e8f7001ba5b7625259a11f97d5b8",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "tests/test_discovery_policy.py": "f0814dde399c71dbc80d36d8bd788d10398946a49eca26612049b3b593b693d0",
+    "tests/test_mutation_catalog.py": "39e1958ed3639c934a417ffa2594101ba623a8834bea6e7845098ffc91dcb8e1"
+  },
+  "pre_readonly_wording_source_sha256": {
+    "configs/campaigns/offline-discovery-policy.example.yaml": "2f3dc0b2e3633e6d1bf9ca2f5eb1187c49a7cac4de705db64e991cdc9f7cd5d6",
+    "src/harborforge/authoring/mutations.py": "9a12113dc78fc305b8c9ba0acb8faedcdca199d33b89f7c37ca7e3f588212847",
+    "src/harborforge/authoring/proposals.py": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589",
+    "src/harborforge/config.py": "2e60909cac9eb76538d08023b16e7278f75388aedffdb65c82551b5c7b97e18f",
+    "src/harborforge/execution/campaign.py": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5",
+    "src/harborforge/execution/policy.py": "5a2d546811e432435ea080c24576be132cf0fcc893624881b370239c8a597b27",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "11b3ad9fd518aa028d209c2b533b374fc28547d6936b8920ea614e7299ea4f6f",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "tests/test_discovery_policy.py": "f0814dde399c71dbc80d36d8bd788d10398946a49eca26612049b3b593b693d0",
+    "tests/test_mutation_catalog.py": "39e1958ed3639c934a417ffa2594101ba623a8834bea6e7845098ffc91dcb8e1",
+    "tests/test_task_public_contract.py": "dcdf0745f2c2f4072d0b04853022637d58e7048ebee6c5436b2c2e9f24a4b23c"
+  },
+  "prior_test_source_sha256": {
+    "configs/campaigns/offline-discovery-policy.example.yaml": "2f3dc0b2e3633e6d1bf9ca2f5eb1187c49a7cac4de705db64e991cdc9f7cd5d6",
+    "src/harborforge/authoring/mutations.py": "b2cfb3a1ade67b81581f79ebf4b241d5fc3bfcfbddad9e6c719a3f0e1127ab56",
+    "src/harborforge/authoring/proposals.py": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589",
+    "src/harborforge/config.py": "2e60909cac9eb76538d08023b16e7278f75388aedffdb65c82551b5c7b97e18f",
+    "src/harborforge/execution/campaign.py": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5",
+    "src/harborforge/execution/policy.py": "aaa9718cca1478ca0f555848cda68a1f3a819ebf3dab5dacc8310549772fd45e",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "36b8aadee645aa8a59d6eeb2e8b27bfe1e12dfac7ae73de0600a9511e434476e",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "tests/test_discovery_policy.py": "f208c20550d72e280b05df51d735d45978b4e7cf87bfbd421e921b6ac7a777b5",
+    "tests/test_mutation_catalog.py": "05c77c6140f38c6114ed3d66363bfe137e8d458a0f06d19269b7d242da3c12ba"
+  },
+  "public_contract_change_scope": "After previous full/control tests, registry-only disclosure and manifest metadata changed. Fixture inputs, private cases and scoring logic did not change. The final three focused tests validate disclosure; HF01 current-generation native retake and root integrated suite are separate authoritative results.",
+  "public_readonly_wording_scope": "Registry instruction-only appendix wording and focused assertion added after native25-control/3-layer pass. No runtime/scorer/fixture/private-case behavior changed; runtime agent binds this explicit instruction delta separately, never reuses an old task hash as current model eligibility.",
+  "review_corrections": [
+    "Use append order, never timestamps/UUIDs, for revocable human adjudication authority.",
+    "Input/case identity, not metadata/task digest alone, guards against saturated operator no-op children."
+  ],
+  "schema_version": 1,
+  "scope": "HF04/HF05 offline implementation and local author controls; not real model or container evidence.",
+  "source_base_commit": "125872830a9445b79d22124d45a066d84aa73139",
+  "source_hash_definition": "LF-canonicalized source per repository attributes; raw worktree hashes also retained. Authored task bytes remain raw.",
+  "source_sha256": {
+    "configs/campaigns/offline-discovery-policy.example.yaml": "2f3dc0b2e3633e6d1bf9ca2f5eb1187c49a7cac4de705db64e991cdc9f7cd5d6",
+    "src/harborforge/authoring/mutations.py": "9a12113dc78fc305b8c9ba0acb8faedcdca199d33b89f7c37ca7e3f588212847",
+    "src/harborforge/authoring/proposals.py": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589",
+    "src/harborforge/config.py": "2e60909cac9eb76538d08023b16e7278f75388aedffdb65c82551b5c7b97e18f",
+    "src/harborforge/execution/campaign.py": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5",
+    "src/harborforge/execution/policy.py": "5a2d546811e432435ea080c24576be132cf0fcc893624881b370239c8a597b27",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "eb5e552fcfa527c800c67b08f92fd88e4c2ac49da201f96cdca462425ce37320",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "tests/test_discovery_policy.py": "f0814dde399c71dbc80d36d8bd788d10398946a49eca26612049b3b593b693d0",
+    "tests/test_mutation_catalog.py": "39e1958ed3639c934a417ffa2594101ba623a8834bea6e7845098ffc91dcb8e1",
+    "tests/test_task_public_contract.py": "4d9bffe9b1b8cb55b2d7ef1cd655fd02244735191c75e978319a1ad3c96c8109"
+  },
+  "tests": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_discovery_policy.py tests/test_mutation_catalog.py tests/test_campaign.py tests/test_config_budget.py -q",
+      "failed": 0,
+      "log_sha256": "6fca55186d38dc97eaa7b9fcb5797bbc1c1f41010ab10185d0bf89c9fe91b45d",
+      "passed": 81,
+      "seconds": 72.59,
+      "source_identity": "prior_test_source_sha256",
+      "warning_scope": "Existing Affine pending-deprecation warnings",
+      "warnings": 411
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_discovery_policy.py tests/test_campaign.py tests/test_config_budget.py -q",
+      "failed": 0,
+      "log_sha256": "b7e6cb6df7603985dbe496191730d461f86eed8c4090cd9d4ffd03fb824243bf",
+      "passed": 71,
+      "scope": "Latest appended review authority under equal/rollback clocks, global retry and legacy behavior",
+      "seconds": 9.97
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_discovery_policy.py tests/test_mutation_catalog.py -q",
+      "failed": 0,
+      "log_sha256": "5fcbf9e99bb8d1f46771853f22549b883588bdae207144afef6e6d78cd6deb2e",
+      "passed": 46,
+      "scope": "All six local controls plus saturated raster no-op rejection and immutable parents; no real model or Docker claim",
+      "seconds": 94.52,
+      "warnings": 2835
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_task_public_contract.py -q",
+      "failed": 0,
+      "passed": 3,
+      "scope": "Final registry public/runtime artifact appendix and RID4 across all three task families; instruction/README parity and exact exclusive/inclusive metadata",
+      "seconds": 1.13,
+      "source_identity": "source_sha256",
+      "warnings": 60
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_task_public_contract.py -q",
+      "failed": 0,
+      "log_sha256": "34e5791e1a56805a3e9f74e9e791cdab202942d1f47f93a6884cdc2aa5220ac6",
+      "passed": 3,
+      "scope": "Final wording-only source/input/current-directory read-only disclosure and /tmp/--output scratch guidance across all three families",
+      "seconds": 0.94,
+      "source_identity": "source_sha256",
+      "warnings": 60
+    }
+  ],
+  "unrun": [
+    "HF02 real-agent pilot",
+    "HF06 empirical parent/child difficulty confirmation",
+    "HF07 frozen model comparison"
+  ],
+  "worktree_raw_sha256": {
+    "configs/campaigns/offline-discovery-policy.example.yaml": "bffbc93afb2e2bec91d7814d20294818b1c4f60c20fdf646ebd3a3ffdc4d2805",
+    "src/harborforge/authoring/mutations.py": "9a12113dc78fc305b8c9ba0acb8faedcdca199d33b89f7c37ca7e3f588212847",
+    "src/harborforge/authoring/proposals.py": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589",
+    "src/harborforge/config.py": "2e60909cac9eb76538d08023b16e7278f75388aedffdb65c82551b5c7b97e18f",
+    "src/harborforge/execution/campaign.py": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5",
+    "src/harborforge/execution/policy.py": "5a2d546811e432435ea080c24576be132cf0fcc893624881b370239c8a597b27",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "eb5e552fcfa527c800c67b08f92fd88e4c2ac49da201f96cdca462425ce37320",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "tests/test_discovery_policy.py": "ab110f8a7452b86ea0ff4b7a2670b488260d97261873c6da37b242efa58f3ab4",
+    "tests/test_mutation_catalog.py": "6a1747ba761b8caea274e410707e6f2a251c59b17e79224e53c1f3a136c979a9",
+    "tests/test_task_public_contract.py": "4d9bffe9b1b8cb55b2d7ef1cd655fd02244735191c75e978319a1ad3c96c8109"
+  }
+}

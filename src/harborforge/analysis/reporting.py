@@ -12,7 +12,7 @@ from pathlib import Path
 
 from harborforge.storage.registry import canonical_json, redact, utc_now
 
-from .statistics import paired_comparison, summarize_trials
+from .statistics import completion_summary, paired_comparison, paired_completion_comparison, summarize_trials
 
 
 def _escape(value) -> str:
@@ -31,29 +31,113 @@ def _rate(value: float | None) -> str:
 
 def _expected_repeats(campaign: dict, model: dict) -> int | None:
     repeats = model.get("repeats", campaign.get("repeats"))
-    return repeats if isinstance(repeats, int) and repeats > 0 else None
+    return repeats if type(repeats) is int and repeats > 0 else None
 
 
-def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
+def _planned_tasks(registry, campaign: dict) -> tuple[dict[str, dict], str, str | None]:
+    """Resolve the declared matrix even before the first task is registered."""
+    from harborforge.authoring.provenance import read_manifest
+
+    source = "configured_base_tasks"
+    try:
+        paths = campaign.get("tasks", [])
+        if campaign.get("objective") == "fixed_evaluation" and campaign.get("suite_manifest"):
+            from harborforge.evaluation import verify_suite
+
+            suite = verify_suite(campaign["suite_manifest"], json.loads(campaign["config_json"]))
+            paths = [entry["task_path"] for entry in suite["tasks"]]
+            source = "verified_frozen_suite"
+        registered = {row["task_path"]: dict(row) for row in registry.connection.execute("SELECT * FROM task_versions")}
+        tasks = {}
+        for value in paths:
+            path = str(Path(value).resolve())
+            if path in registered:
+                task = registered[path]
+            else:
+                manifest = read_manifest(path)
+                task = {**manifest, "task_path": path, "manifest": manifest,
+                        "parent_task_version_id": manifest.get("parent_task_version_id")}
+            task_id = task["task_version_id"]
+            if task_id in tasks:
+                raise ValueError("Duplicate configured task version")
+            if task["cohort"] != campaign.get("cohort", "discovery") or task["protocol"] != campaign.get(
+                "protocol", "terminal_agent"
+            ):
+                raise ValueError("Configured task cohort/protocol differs from campaign")
+            tasks[task_id] = task
+        return tasks, source, None
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        return {}, "unavailable_frozen_suite" if source == "verified_frozen_suite" or campaign.get(
+            "suite_manifest"
+        ) else "unavailable_configured_tasks", type(error).__name__ + ": " + str(error)
+
+
+def _execution_mode(trial: dict) -> str:
+    value = trial.get("execution_mode")
+    return value if isinstance(value, str) and value.strip() else "unrecorded"
+
+
+def _evidence_level(trials: list[dict], validations: list[dict]) -> str:
+    if trials:
+        modes = {_execution_mode(trial) for trial in trials}
+        if modes == {"offline_contract_test"}:
+            return "offline_contract_tests_no_model_measurement"
+        if "offline_contract_test" in modes:
+            return "mixed_execution_provenance_not_model_measurement"
+        if modes == {"harbor_terminal_runtime"}:
+            return "harbor_terminal_attempts_requires_provider_trace_review"
+        # A registry row or an injected adapter is not proof of a real provider
+        # attempt. A runtime receipt must explicitly attest independent execution.
+        if all(isinstance(trial.get("execution_evidence"), dict) and trial["execution_evidence"].get(
+            "kind"
+        ) == "real_model_trial" for trial in trials):
+            return "declared_real_model_trials_requires_trace_review"
+        return "recorded_attempts_execution_provenance_unverified"
+    if any(item["valid"] and item["evidence"].get("runtime") == "docker" and item["evidence"].get(
+        "eligible_for_model_evaluation"
+    ) is True for item in validations):
+        return "container_controls_no_model_attempts"
+    return "local_controls_or_empty_no_model_attempts"
+
+
+def build_report(registry, campaign_id: str, output_dir: Path | str, *, public: bool = False) -> Path:
     output = Path(output_dir).resolve()
-    output.mkdir(parents=True, exist_ok=True)
     campaign = registry.get_campaign(campaign_id)
+    if public and campaign.get("cohort", "discovery") != "discovery":
+        raise ValueError("Public exports cannot include calibration or private holdout task records")
     trials = registry.list_trials(campaign_id)
     findings = registry.list_findings(campaign_id)
+    planned_tasks, planning_source, planning_error = _planned_tasks(registry, campaign)
+    declared_task_ids = set(planned_tasks)
     groups: dict[tuple, list[dict]] = defaultdict(list)
     for trial in trials:
         groups[(trial["protocol"], trial["cohort"], trial["harness_profile_id"],
                 trial["family"], trial["model_profile_id"])].append(trial)
+    models = campaign.get("model_profiles", [])
+    configured_models = {model.get("profile_id", model.get("model_profile_id")): model for model in models}
+    for task in planned_tasks.values():
+        for model_id in configured_models:
+            harness_id = campaign.get("harness_profile", {}).get("profile_id")
+            if harness_id is None:
+                existing = {key[2] for key in groups if key[4] == model_id}
+                harness_id = next(iter(existing)) if len(existing) == 1 else "unregistered-harness"
+            groups.setdefault((task["protocol"], task["cohort"], harness_id, task["family"], model_id), [])
     include_timeouts = campaign.get("include_timeouts_in_denominator", campaign.get("include_timeouts", False))
     policy = campaign.get("measurement", {})
     if isinstance(policy, dict):
         include_timeouts = policy.get("include_timeouts", include_timeouts)
     summaries = []
     for (protocol, cohort, harness, family, model_id), group in sorted(groups.items()):
+        model = group[0]["model"] if group else configured_models[model_id]
+        expected_repeats = _expected_repeats(campaign, model)
         summaries.append({"protocol": protocol, "cohort": cohort, "harness_profile_id": harness,
                           "family": family, "model_profile_id": model_id,
                           **summarize_trials(group, include_timeouts=include_timeouts,
-                                             expected_repeats=_expected_repeats(campaign, group[0]["model"]))})
+                                             expected_repeats=expected_repeats),
+                          "primary_completion": completion_summary(
+                              group, expected_repeats=expected_repeats,
+                              planned_task_ids=[task_id for task_id, task in planned_tasks.items()
+                                                if task["family"] == family])})
     paired = []
     comparison_groups: dict[tuple, dict[str, list[dict]]] = defaultdict(dict)
     for (protocol, cohort, harness, family, model_id), group in groups.items():
@@ -62,9 +146,14 @@ def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
         for a, b in itertools.combinations(sorted(model_groups), 2):
             paired.append({"protocol": protocol, "cohort": cohort, "harness_profile_id": harness,
                            "family": family, "model_a": a, "model_b": b,
-                           **paired_comparison(model_groups[a], model_groups[b], include_timeouts=include_timeouts)})
+                           **paired_comparison(model_groups[a], model_groups[b], include_timeouts=include_timeouts),
+                           "primary_completion": paired_completion_comparison(
+                               model_groups[a], model_groups[b],
+                               a_repeats=_expected_repeats(campaign, configured_models.get(a, {})),
+                               b_repeats=_expected_repeats(campaign, configured_models.get(b, {})),
+                               planned_task_ids=[task_id for task_id, task in planned_tasks.items()
+                                                 if task["family"] == family])})
     lineage_comparisons = []
-    eligible_outcomes = {"PASS", "MODEL_FAIL"} | ({"AGENT_TIMEOUT"} if include_timeouts else set())
     for (protocol, cohort, harness, family, model_id), group in sorted(groups.items()):
         by_task: dict[str, list[dict]] = defaultdict(list)
         for trial in group:
@@ -75,36 +164,27 @@ def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
                 parent_rate = summarize_trials(by_task[parent_id], include_timeouts=include_timeouts)
                 child_rate = summarize_trials(child_trials, include_timeouts=include_timeouts)
                 a, b = parent_rate["task_mean_pass_rate"], child_rate["task_mean_pass_rate"]
+                primary_a = completion_summary(by_task[parent_id])["task_mean_completion_success"]
+                primary_b = completion_summary(child_trials)["task_mean_completion_success"]
                 lineage_comparisons.append({"model_profile_id": model_id, "harness_profile_id": harness,
                                             "parent": parent_id, "child": child_id,
                                             "parent_pass_rate": a, "child_pass_rate": b,
                                             "child_minus_parent": b - a if a is not None and b is not None else None,
                                             "parent_attempts": parent_rate["attempts"],
                                             "child_attempts": child_rate["attempts"],
+                                            "primary_parent_completion_rate": primary_a,
+                                            "primary_child_completion_rate": primary_b,
+                                            "primary_child_minus_parent": primary_b - primary_a
+                                            if primary_a is not None and primary_b is not None else None,
                                             "interval_95": None,
                                             "note": "One lineage pair; descriptive only, no independent-task interval"})
     task_id_set = {trial["task_version_id"] for trial in trials}
-    declared_paths = {str(Path(path).resolve()) for path in campaign.get("tasks", [])}
-    declared_task_ids = set()
-    planning_source = "configured_base_tasks"
-    planning_error = None
-    if not declared_paths and campaign.get("objective") == "fixed_evaluation" and campaign.get("suite_manifest"):
-        from harborforge.evaluation import verify_suite
-
-        try:
-            suite = verify_suite(campaign["suite_manifest"], json.loads(campaign["config_json"]))
-            declared_paths = {str(Path(entry["task_path"]).resolve()) for entry in suite["tasks"]}
-            declared_task_ids.update(entry["task_version_id"] for entry in suite["tasks"])
-            planning_source = "verified_frozen_suite"
-        except (OSError, ValueError, KeyError, TypeError) as error:
-            planning_source = "unavailable_frozen_suite"
-            planning_error = type(error).__name__ + ": " + str(error)
-    for registered in registry.connection.execute("SELECT task_version_id, task_path FROM task_versions"):
-        if registered["task_path"] in declared_paths:
-            task_id_set.add(registered["task_version_id"])
-            declared_task_ids.add(registered["task_version_id"])
+    task_id_set.update(declared_task_ids)
     task_ids = sorted(task_id_set)
-    tasks = [registry.get_task(task_id) for task_id in task_ids]
+    registered_ids = {row["task_version_id"] for row in registry.connection.execute("SELECT task_version_id FROM task_versions")}
+    tasks = [registry.get_task(task_id) if task_id in registered_ids else planned_tasks[task_id] for task_id in task_ids]
+    if public and any(task["cohort"] != "discovery" for task in tasks):
+        raise ValueError("Public exports cannot include calibration or private holdout task records")
     validations = []
     for task_id in task_ids:
         validations.extend([{**dict(row), "evidence": json.loads(row["validation_json"])}
@@ -119,18 +199,24 @@ def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
             counts["executed"] += 1
             counts["passed"] += gate.get("passed") is True
     known_cost = [trial["cost_usd"] for trial in trials if trial.get("cost_usd") is not None]
-    models = campaign.get("model_profiles", [])
     planned_slots = {(task_id, model.get("profile_id", model.get("model_profile_id")), repeat)
-                     for task_id in declared_task_ids for model in models for repeat in range(model.get("repeats", 1))}
+                     for task_id in declared_task_ids for model in models
+                     for repeat in range(_expected_repeats(campaign, model) or 1)}
     observed_slots = {(trial["task_version_id"], trial["model_profile_id"], trial.get("repeat_index", 0))
                       for trial in trials}
+    evidence_level = _evidence_level(trials, validations)
     bundle = redact({"schema_version": 1, "generated_utc": utc_now(), "campaign": campaign,
+                     "evidence_level": evidence_level, "export_visibility": "public_discovery" if public else "private_review_required",
                      "trial_count": len(trials), "task_count": len(tasks),
+                     "execution_mode_counts": dict(sorted(Counter(
+                         _execution_mode(trial) for trial in trials).items())),
                      "outcome_counts": dict(sorted(Counter(trial["outcome"] for trial in trials).items())),
                      "summaries": summaries, "paired_comparisons": paired,
                      "lineage_comparisons": lineage_comparisons, "tasks": tasks,
                      "coverage": {"planned_slots": len(planned_slots) if planning_error is None else None,
                                   "observed_slots": len(observed_slots),
+                                  "observed_planned_slots": len(observed_slots & planned_slots),
+                                  "unexpected_slots": sorted(observed_slots - planned_slots),
                                   "planned_base_tasks": len(declared_task_ids),
                                   "observed_revision_tasks": len(task_id_set - declared_task_ids),
                                   "planning_note": "Base-task matrix; adaptive child trials are observed separately. "
@@ -153,14 +239,19 @@ def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
                          "Model identity aliases may drift; inspect exact requested and returned metadata.",
                          "Repeated attempts are clustered by task. Small-sample intervals are exploratory.",
                          "Error outcomes remain visible and are excluded from correctness denominators.",
+                         "Primary completion always includes timeouts as unsuccessful and collapses retries to final repeat outcomes.",
+                         "Legacy conditional rates and raw retry counts are retained separately from the primary metric.",
+                         "Empirical repeated success fields are descriptive, not an unbiased pass@k estimator.",
+                         "A registry attempt without trusted runtime provenance is not a measured real-model result.",
                          "Trace exports may contain private task or user data; review before publishing.",
                      ]})
+    output.mkdir(parents=True, exist_ok=True)
     (output / "summary.json").write_text(json.dumps(bundle, indent=2, ensure_ascii=False, allow_nan=False) + "\n",
                                          encoding="utf-8")
     (output / "trials.jsonl").write_text("".join(canonical_json(redact(trial)) + "\n" for trial in trials),
                                          encoding="utf-8")
     (output / "tasks.jsonl").write_text("".join(canonical_json(task) + "\n" for task in tasks), encoding="utf-8")
-    columns = ["trial_id", "task_version_id", "family", "protocol", "cohort", "model_profile_id",
+    columns = ["trial_id", "task_version_id", "family", "protocol", "cohort", "model_profile_id", "execution_mode",
                "harness_profile_id", "repeat_index", "attempt_number", "outcome", "reward", "validation_id",
                "tokens_input", "tokens_output", "cost_usd", "wall_time_s", "error_code", "artifact_sha256"]
     with (output / "trials.csv").open("w", newline="", encoding="utf-8") as stream:
@@ -174,8 +265,15 @@ def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
         filename = f"events/{safe_name}.jsonl"
         registry.export_events(trial["trial_id"], output / filename)
         evidence_links[trial["trial_id"]] = filename
-    rows = []
+    rows, completion_rows = [], []
     for item in summaries:
+        primary = item["primary_completion"]
+        completion_rows.append("<tr>" + "".join(f"<td>{_escape(value)}</td>" for value in [
+            item["model_profile_id"], item["family"], _rate(primary["task_mean_completion_success"]),
+            f'{primary["passes"]}/{primary["eligible_final_slots"]}', primary["excluded_final_slots"],
+            primary["missing_slots"], primary["complete_tasks"],
+            _rate(primary["conditional_scored"]["pass_rate"]),
+        ]) + "</tr>")
         interval = item["interval_95"]
         interval_text = "Unavailable" if interval is None else f"{_rate(interval[0])} – {_rate(interval[1])}"
         rows.append("<tr>" + "".join(f"<td>{_escape(value)}</td>" for value in [
@@ -195,16 +293,20 @@ def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
     matrices = []
     for (protocol, cohort, harness, family), model_groups in sorted(comparison_groups.items()):
         model_names = sorted(model_groups)
-        matrix_tasks = sorted({trial["task_version_id"] for group in model_groups.values() for trial in group})
+        matrix_tasks = sorted({trial["task_version_id"] for group in model_groups.values() for trial in group}
+                              | {task_id for task_id, task in planned_tasks.items()
+                                 if task["family"] == family and task["protocol"] == protocol})
         cells = []
         for task_id in matrix_tasks:
             row = f"<tr><th>{_escape(task_id)}</th>"
             for model_name in model_names:
                 observed = [trial for trial in model_groups[model_name] if trial["task_version_id"] == task_id]
-                eligible = [trial for trial in observed if trial["outcome"] in eligible_outcomes]
-                passed = sum(trial["outcome"] == "PASS" for trial in eligible)
-                label = f"{passed}/{len(eligible)}; {len(observed) - len(eligible)} excluded" if observed else "Missing"
-                color = "#edf0f3" if not eligible else ("#d9f0e3" if passed == len(eligible) else "#ffe5dc")
+                cell = completion_summary(observed, expected_repeats=_expected_repeats(
+                    campaign, configured_models.get(model_name, {})), planned_task_ids=[task_id])
+                passed, eligible = cell["passes"], cell["eligible_final_slots"]
+                label = (f"{passed}/{eligible}; {cell['excluded_final_slots']} excluded; {cell['missing_slots']} missing" if observed
+                         else "Missing" if task_id in declared_task_ids else "Not scheduled (adaptive)")
+                color = "#edf0f3" if not eligible else ("#d9f0e3" if passed == eligible else "#ffe5dc")
                 row += f'<td style="background:{color}">{_escape(label)}</td>'
             cells.append(row + "</tr>")
         matrices.append(f"<h3>{_escape(family)} · {_escape(protocol)} · {_escape(cohort)} · {_escape(harness)}</h3>"
@@ -233,7 +335,9 @@ def build_report(registry, campaign_id: str, output_dir: Path | str) -> Path:
         name, item["passed"], item["executed"],
     ]) + "</tr>" for name, item in sorted(quality_gate_counts.items()))
     statuses = "".join(f"<li>{_escape(status)}: {count}</li>" for status, count in bundle["outcome_counts"].items())
-    empty = "<p>No model attempts have been recorded. No performance scores are available.</p>" if not trials else ""
+    empty = ("<p>No model attempts have been recorded. No performance scores are available.</p>" if not trials else
+             "<p>Offline contract-test attempts only; no real model attempts have been recorded.</p>"
+             if evidence_level == "offline_contract_tests_no_model_measurement" else "")
     document = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
@@ -243,7 +347,9 @@ table{{border-collapse:collapse;width:100%;font-size:.9rem;background:white}}td,
 th{{background:#e9eff5}}code{{overflow-wrap:anywhere}}section{{margin:2rem 0;overflow-x:auto}}.note{{padding:1rem;border-left:4px solid #ad7412;background:#fff6e1}}
 a{{color:#1258a0}}h1{{letter-spacing:-.03em}}pre{{white-space:pre-wrap;overflow-wrap:anywhere}}</style></head>
 <body><h1>HarborForge evaluation evidence</h1><p>Campaign: <strong>{_escape(campaign_id)}</strong> ·
-{len(tasks)} observed tasks · {len(trials)} attempts · {_escape(campaign['protocol'])} · {_escape(campaign['cohort'])}</p>
+{len(tasks)} declared/observed task versions · {len(trials)} attempts · {_escape(campaign['protocol'])} · {_escape(campaign['cohort'])}</p>
+<p class="note">Evidence level: <strong>{_escape(evidence_level)}</strong>.
+Export visibility: {_escape(bundle['export_visibility'])}. Registry rows alone do not establish real-model execution.</p>
 <p class="note">Exploratory evidence. Discovery results reflect adaptive selection. These results describe the configured model,
 agent, tools, task collection and budgets. Review private traces before publishing.</p>{empty}
 <section><h2>Complete outcome counts</h2><ul>{statuses or '<li>No attempts</li>'}</ul></section>
@@ -256,7 +362,15 @@ Human review status is recorded separately from automated controls.</p>
 <th>Eligible for model evaluation</th><th>Review</th></tr></thead><tbody>{''.join(quality_rows)}</tbody></table>
 <h3>Control execution counts</h3><table><thead><tr><th>Gate</th><th>Passed</th><th>Executed</th></tr></thead>
 <tbody>{gate_rows}</tbody></table></section>
-<section><h2>Model results by family and harness</h2><p>Intervals use task clusters for repeated attempts.
+<section><h2>Primary completion within budget</h2><p>Task-weighted success uses the final attempt in each task/repeat slot.
+Agent timeouts count as unsuccessful. Provider, infrastructure and unscorable slots remain explicit coverage gaps;
+tasks without scorable results are not silently counted as capability failures. No population interval is claimed.
+Conditional correctness (final PASS / final PASS plus MODEL_FAIL) is shown separately.</p>
+<table><thead><tr><th>Model</th><th>Family</th><th>Task-weighted completion</th><th>Pass / eligible final slots</th>
+<th>Excluded final slots</th><th>Missing slots</th><th>Complete task blocks</th><th>Conditional correctness</th>
+</tr></thead><tbody>{''.join(completion_rows)}</tbody></table></section>
+<section><h2>Recorded profile outcomes by family and harness</h2><p>Intervals use task clusters for repeated attempts.
+This legacy configured-score table retains raw attempts and its historical timeout policy; it is not the primary completion metric.
 The pass rate shown is the mean task success fraction. Raw eligible-trial numerator/denominator and all excluded attempts are retained.
 Timeouts count as {'failures' if include_timeouts else 'separate excluded outcomes'}.</p>
 <table><thead><tr><th>Model</th><th>Family</th><th>Protocol</th><th>Split</th><th>Harness</th><th>Pass / eligible</th>

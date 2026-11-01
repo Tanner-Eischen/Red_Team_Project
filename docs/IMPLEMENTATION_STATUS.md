@@ -1,4 +1,18 @@
-# Implementation scope and verification
+# Current Wave 3 container/offline status
+
+The new [Wave 3 handoff](WAVE3_EXECUTION_2026-11-01.md) and
+[native container receipt](evidence/hf01-container-2026-11-01/summary.json)
+record actual Harbor 0.13.2/Docker controls, protected candidate execution,
+offline discovery hardening, complete report matrices and budget guards.
+There are still zero real model attempts. HF-02, empirical HF-06 and frozen
+HF-07 measurement await a separately approved pilot/study budget.
+
+The sections below preserve the predecessor implementation's historical evidence
+and limitations. Statements about unavailable Docker or local-only checks refer
+to that earlier revision, not to the new source-bound Wave 3 receipts.
+
+## Historical predecessor implementation
+
 
 The source proposal is preserved in [redesign/red_team_evaluation_redesign](redesign/red_team_evaluation_redesign/README.md).
 The separately supplied Downloads/IMPLEMENTATION_PLAN.md contains the same recommendations.

@@ -10,9 +10,24 @@ import math
 import os
 from pathlib import Path
 import shutil
+import signal
+import stat
 import subprocess
 import sys
 import tempfile
+import time
+
+PROTECTED_POLICY = Path("/tests/.harborforge-isolated-verifier")
+
+
+def _protected_namespace():
+    try:
+        info = PROTECTED_POLICY.stat()
+        policy = json.loads(PROTECTED_POLICY.read_text())
+        return (info.st_uid == 0 and info.st_mode & 0o077 == 0
+                and policy == {"policy_version": "hf-docker-v1", "private_pid_namespace": True})
+    except (OSError, ValueError):
+        return False
 
 
 def _drop_privileges():
@@ -22,25 +37,70 @@ def _drop_privileges():
     import resource
     resource.setrlimit(resource.RLIMIT_FSIZE, (8 * 1024 * 1024, 8 * 1024 * 1024))
     resource.setrlimit(resource.RLIMIT_CPU, (15, 15))
+    resource.setrlimit(resource.RLIMIT_AS, (1024 * 1024 * 1024, 1024 * 1024 * 1024))
+    resource.setrlimit(resource.RLIMIT_NPROC, (16, 16))
+    resource.setrlimit(resource.RLIMIT_NOFILE, (64, 64))
+    import ctypes
+    if ctypes.CDLL(None, use_errno=True).prctl(38, 1, 0, 0, 0):
+        raise RuntimeError("Cannot enforce no-new-privileges")
+
+
+def _stop_descendants(process):
+    """Quiesce even setsid/double-fork workers before the judge reads outputs."""
+    if os.name != "posix":
+        return
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+    # Only scan the reserved candidate UID inside an actual container PID
+    # namespace. Local author controls must never kill unrelated host processes.
+    if os.geteuid() != 0 or not _protected_namespace():
+        return
+    deadline = time.monotonic() + 2
+    while True:
+        alive = []
+        for status in Path("/proc").glob("[0-9]*/status"):
+            try:
+                fields = dict(line.split(":", 1) for line in status.read_text().splitlines() if ":" in line)
+                if 65534 in map(int, fields["Uid"].split()) and not fields["State"].strip().startswith("Z"):
+                    pid = int(status.parent.name)
+                    alive.append(pid)
+                    os.kill(pid, signal.SIGKILL)
+            except (ProcessLookupError, FileNotFoundError):
+                continue
+        if not alive:
+            return
+        assert time.monotonic() < deadline, "Submitted descendants did not stop"
+        time.sleep(0.02)
 
 
 def _run(command, sandbox):
     environment = {"PATH": os.defpath, "HOME": str(sandbox), "PYTHONDONTWRITEBYTECODE": "1"}
+    environment.update(OPENBLAS_NUM_THREADS="1", OMP_NUM_THREADS="1", MKL_NUM_THREADS="1")
     if os.name == "nt" and "SYSTEMROOT" in os.environ:
         environment["SYSTEMROOT"] = os.environ["SYSTEMROOT"]
     options = {}
     if os.name == "posix" and os.geteuid() == 0:
         options["preexec_fn"] = _drop_privileges
+    process = subprocess.Popen(command, cwd=sandbox, env=environment, stdin=subprocess.DEVNULL,
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                               start_new_session=os.name == "posix", **options)
     try:
-        result = subprocess.run(command, cwd=sandbox, env=environment, stdin=subprocess.DEVNULL,
-                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=20, **options)
-    except subprocess.TimeoutExpired:
-        raise AssertionError("Submitted program exceeded per-case time limit") from None
-    assert result.returncode == 0, "Submitted program failed during behavioral test"
+        try:
+            code = process.wait(timeout=20)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            raise AssertionError("Submitted program exceeded per-case time limit") from None
+    finally:
+        _stop_descendants(process)
+        process.wait(timeout=5)
+    assert code == 0, "Submitted program failed during behavioral test"
 
 
 def _read_json(path):
     assert path.is_file() and not path.is_symlink(), "Missing or symlinked output"
+    assert path.stat().st_nlink == 1 and stat.S_ISREG(path.stat().st_mode), "Linked or special output"
     assert path.stat().st_size <= 1024 * 1024, "Output too large"
     try:
         return json.loads(path.read_text(encoding="utf-8"),
@@ -72,6 +132,7 @@ def _check_raster(output, expected):
     import rasterio
     path = output / "mosaic.tif"
     assert path.is_file() and not path.is_symlink(), "Missing raster"
+    assert path.stat().st_nlink == 1 and stat.S_ISREG(path.stat().st_mode), "Linked or special raster"
     assert path.stat().st_size < 1024 * 1024, "Raster too large"
     try:
         with rasterio.open(path) as raster:
@@ -96,6 +157,7 @@ def verify(workspace):
     cases = json.loads((tests / "cases.json").read_text(encoding="utf-8"))
     candidate = workspace / "pipeline.py"
     assert candidate.is_file() and not candidate.is_symlink(), "Missing submitted pipeline.py"
+    assert candidate.stat().st_nlink == 1, "Hardlinked submitted pipeline.py"
     assert candidate.stat().st_size < 1024 * 1024, "Submitted source too large"
     public_output = workspace / "output"
     assert public_output.is_dir() and not public_output.is_symlink(), "Missing submitted output directory"

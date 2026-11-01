@@ -8,9 +8,9 @@ The evaluator grades the agent's exported source and output artifacts in a **sep
 
 The implementation includes three deterministic scientific software families, immutable lineage, controlled tiered campaigns, conservative pre-call budgets, a trial registry, frozen-suite evaluation, trace-backed failure suggestions and static HTML/JSON/CSV reports. The [12 public examples](tasks/public_examples) are synthetic discovery fixtures, never a private holdout.
 
-[Implementation and verification status](docs/IMPLEMENTATION_STATUS.md) distinguishes tested code, local controls and external execution gaps. [Public control report](reports/public-pilot/index.html) contains actual local validation evidence and **zero model attempts**. No model capability scores are claimed. Harbor-specific Docker isolation controls and live model trials remain pending. A native Linux Docker engine is available through Ubuntu under WSL; application container checks in other projects do not certify Harbor isolation. Local functional controls cannot certify isolation.
+Wave 3 container/offline validation now uses the actual pinned Harbor 0.13.2 runtime and native Linux Docker. Three fresh f2 tasks passed all 18 reference/negative controls; a semantic ETL child passed seven more controls. Eight malicious boundary probes passed, including protected worker/reward access, detached-process cleanup, artifact attacks and grader failures. The agent has no host bind mounts; the separate trusted verifier runs candidate code under a restricted UID. [Native evidence](docs/evidence/hf01-container-2026-11-01/summary.json) and the [final public-contract addendum](docs/evidence/hf01-contract-addendum-2026-11-01.json) record the exact tested hashes and disclosure-only delta. These are container/control results, **zero real model attempts**, not capability scores. The historical [12-task local report](reports/public-pilot/index.html) is preserved unchanged.
 
-The November 1 accounting hardening passed 124 offline tests; see [the source-bound budget evidence](docs/HF03_BUDGET_HARDENING_2026-11-01.md). These are offline/control results, not model-capability measurements.
+[Wave 3 execution and handoff](docs/WAVE3_EXECUTION_2026-11-01.md) separates implemented code, native controls, offline tests and unrun paid gates. Earlier [124-test accounting evidence](docs/HF03_BUDGET_HARDENING_2026-11-01.md) remains a historical snapshot. The [proposed HF-02 pilot budget](docs/HF02_PILOT_BUDGET_PROPOSAL_2026-11-01.md) is $15 and has not been authorized or spent.
 
 ## Install and verify
 
@@ -31,9 +31,9 @@ After activating `.venv`:
 
 ```powershell
 redforge task generate --family scientific-etl --seed 123 --output-dir tasks/generated
-redforge task validate --task tasks/generated/scientific-etl-123-v1 --runtime local --evidence-dir artifacts/validation-local
+redforge task validate --task tasks/generated/scientific-etl-f2-123-v1 --runtime local --evidence-dir artifacts/validation-local
 # With a running Linux Docker engine:
-redforge task validate --task tasks/generated/scientific-etl-123-v1 --runtime docker --evidence-dir artifacts/validation-docker
+redforge task validate --task tasks/generated/scientific-etl-f2-123-v1 --runtime docker --evidence-dir artifacts/validation-docker
 ```
 
 Implemented families are `scientific-etl` (null quality flags, unit conversion, duplicate resolution), `geospatial-raster` (actual GeoTIFF CRS/grid alignment and NoData), and `repository-debug` (repair an interval-merging API and CLI). Unknown families reject rather than produce placeholder tasks. See [task authoring](docs/TASK_AUTHORING.md).
@@ -48,9 +48,9 @@ redforge campaign analyze --campaign public-container-controls-v1
 redforge report build --campaign public-container-controls-v1 --out artifacts/control-report
 ```
 
-The serial controller respects the concurrency ceiling, preserves retries as distinct attempts, retries provider errors only, and stops on uncertain usage. A campaign ID can be claimed only once, including after a crash before its first final result. Reconciliation requires a new explicitly configured campaign; rerunning cannot silently reset spending limits.
+The serial controller respects the concurrency ceiling, preserves retries as distinct attempts, retries provider errors only, and stops on uncertain usage. A separate `max_provider_retries_total` bounds retries across the whole campaign; a total-attempt ceiling alone is not a retry allowance. A campaign ID can be claimed only once, including after a crash before its first final result. Reconciliation requires a new explicitly configured campaign; rerunning cannot silently reset spending limits.
 
-Discovery promotes informative valid failures and can create bounded immutable child tasks, each revalidated and rerun. Manual `task revise` requires a recorded parent failure via `--from-trial`. Tier 3 requires declared human review. A frozen evaluation bypasses adaptive selection and runs its preregistered matrix:
+Historical schema-1 discovery retains its failure-only behavior. Explicit [schema-2 discovery](docs/HF04_HF05_OFFLINE_2026-11-01.md) adds bounded all-pass escalation, six evidence-linked semantic operators, confirmed-review authority, matched immutable child reuse and rejection of unchanged cases. These behaviors are tested with explicitly labeled offline adapters; empirical difficulty change remains unmeasured. Manual `task revise` still requires a recorded parent failure via `--from-trial`. Tier 3 requires declared human review. A frozen evaluation bypasses adaptive selection and runs its preregistered matrix:
 
 ```powershell
 # The config must declare objective=fixed_evaluation, a private cohort,
@@ -63,7 +63,7 @@ The mutation controller rejects calibration/holdout tasks. Frozen manifests bind
 
 ## What is measured
 
-`PASS` and `MODEL_FAIL` require completed independent verifier evidence and Docker-eligible quality controls. Agent timeout, provider failure, infrastructure failure, invalid task and unscorable attempt are retained separately. Reports preserve all outcomes, exclusions, missing planned attempts, repeated reliability, task-cluster uncertainty and matched parent/child comparisons. Failure categories remain unreviewed hypotheses until a human adjudication is appended.
+`PASS` and `MODEL_FAIL` require completed independent verifier evidence and Docker-eligible quality controls. Agent timeout, provider failure, infrastructure failure, invalid task and unscorable attempt are retained separately. Reports preserve all outcomes, exclusions, missing planned attempts, repeated reliability, task-cluster uncertainty and matched parent/child comparisons. The primary completion metric counts timeouts as unsuccessful and uses final-per-repeat outcomes; conditional correctness and missing/error coverage remain separate. `report build --public` rejects private calibration/holdout cohorts before writing. Failure categories remain unreviewed hypotheses until a human adjudication is appended.
 
 Configured-price budgets use conservative input byte/output reservations at each LLM request, including full conversation history and summaries. These can stop an agent earlier than ordinary token accounting. They depend on accurate declared provider prices; they are not a guarantee about provider billing changes. See [methods and limitations](docs/METHODS.md).
 

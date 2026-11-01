@@ -23,17 +23,35 @@ def _check_preregistration(preregistration: dict) -> None:
             raise ValueError(f"Preregistration must declare {name}")
     if preregistration["protocol"] not in {"terminal_agent", "qa_completion"}:
         raise ValueError("Unsupported protocol")
+    if preregistration.get("objective") != "fixed_evaluation":
+        raise ValueError("Frozen evaluation requires an explicit fixed_evaluation objective")
+    if preregistration.get("discovery_policy") is not None:
+        raise ValueError("Frozen evaluation cannot enable an adaptive discovery policy")
+    if preregistration.get("cohort") not in {"discovery", "calibration", "holdout"}:
+        raise ValueError("Frozen evaluation requires an explicit cohort")
     models = preregistration["model_profiles"]
     if not isinstance(models, list) or not all(isinstance(item, dict) for item in models):
         raise ValueError("Preregistered models must be profile mappings")
+    identifiers = set()
     for model in models:
+        identifier = model.get("profile_id")
+        if not isinstance(identifier, str) or not identifier.strip() or identifier in identifiers:
+            raise ValueError("Preregistered model profile IDs must be nonempty and unique")
+        identifiers.add(identifier)
+        if any(not isinstance(model.get(key), str) or not model[key].strip() for key in ("provider", "model_id")):
+            raise ValueError("Preregistered models must bind provider and model identity, not a profile name alone")
         repeats = model.get("repeats", preregistration.get("repeats"))
         if isinstance(repeats, bool) or not isinstance(repeats, int) or repeats < 1:
             raise ValueError("Each model must preregister positive repeats")
     timeout_policy = preregistration.get("include_timeouts_in_denominator", preregistration.get("include_timeouts"))
     if not isinstance(timeout_policy, bool):
         raise ValueError("Timeout denominator policy must be explicit")
-    if not preregistration["model_profiles"] or not preregistration["harness_profile"]:
+    harness = preregistration["harness_profile"]
+    if not isinstance(harness, dict) or not isinstance(harness.get("profile_id"), str) or not harness["profile_id"].strip():
+        raise ValueError("Harness must be a profile mapping with a nonempty profile ID")
+    if preregistration["protocol"] == "terminal_agent" and harness.get("harbor_version") != "0.13.2":
+        raise ValueError("Terminal evaluation must freeze the supported Harbor version 0.13.2")
+    if not preregistration["model_profiles"] or not harness:
         raise ValueError("Model and harness configurations must be frozen before evaluation")
     if preregistration.get("objective") == "fixed_evaluation" and preregistration.get(
         "budgets", {}
@@ -101,11 +119,20 @@ def verify_suite(path: Path | str, preregistration: dict | None = None) -> dict:
         suite["preregistration"]
     ):
         raise ValueError("Evaluation configuration differs from frozen preregistration")
+    if not suite.get("tasks") or suite.get("cohort") != suite["preregistration"]["cohort"]:
+        raise ValueError("Frozen suite must retain its nonempty preregistered cohort")
+    ids = set()
     for entry in suite["tasks"]:
+        if entry["task_version_id"] in ids:
+            raise ValueError("Frozen suite contains duplicate task versions")
+        ids.add(entry["task_version_id"])
         task_path = Path(entry["task_path"])
         manifest = json.loads((task_path / "manifest.json").read_text(encoding="utf-8"))
-        if task_digest(task_path) != entry["artifact_sha256"]:
+        if task_digest(task_path) != entry["artifact_sha256"] or manifest.get("artifact_sha256") != entry["artifact_sha256"]:
             raise ValueError(f"Frozen task drift: {entry['task_version_id']}")
         if manifest["task_version_id"] != entry["task_version_id"] or manifest["cohort"] != suite["cohort"]:
             raise ValueError("Frozen task identity/cohort mismatch")
+        if (entry.get("cohort") != suite["cohort"] or manifest["protocol"] != suite["preregistration"]["protocol"]
+                or manifest["family"] != entry.get("family")):
+            raise ValueError("Frozen task family/protocol/cohort metadata mismatch")
     return suite

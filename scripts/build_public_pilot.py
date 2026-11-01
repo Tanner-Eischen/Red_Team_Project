@@ -53,7 +53,7 @@ def main() -> int:
                 "runtime": "local", "valid": evidence["valid"], "eligible_for_model_evaluation": False,
                 "gates": [{"name": gate["name"], "passed": gate["passed"]} for gate in evidence["gates"]]})
             print(f"{path.name}: {'PASS' if evidence['valid'] else 'FAIL'} local controls", flush=True)
-        report = build_report(registry, config["campaign_id"], args.report_dir)
+        report = build_report(registry, config["campaign_id"], args.report_dir, public=True)
     summary = {"checked_utc": utc_now(), "model_attempts": 0,
                "container_isolation_verified": False, "local_controls_only": True,
                "task_count": len(validations), "valid_tasks": sum(v["valid"] for v in validations),

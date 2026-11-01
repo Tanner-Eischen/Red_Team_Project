@@ -45,6 +45,8 @@ def parser() -> argparse.ArgumentParser:
     analyze = campaign.add_parser("analyze")
     analyze.add_argument("--campaign", required=True)
     _registry_option(analyze)
+    budget = campaign.add_parser("budget", help="Calculate an unapproved pilot proposal without running models")
+    budget.add_argument("--proposal", type=Path, required=True)
 
     evaluation = sub.add_parser("eval", help="Frozen independent evaluation").add_subparsers(dest="action", required=True)
     freeze = evaluation.add_parser("freeze")
@@ -60,6 +62,7 @@ def parser() -> argparse.ArgumentParser:
     build = report.add_parser("build")
     build.add_argument("--campaign", required=True)
     build.add_argument("--out", type=Path, required=True)
+    build.add_argument("--public", action="store_true", help="Reject private evaluation cohorts before export")
     _registry_option(build)
     review = sub.add_parser("review", help="Append a human adjudication; never overwrites findings")
     review.add_argument("--finding", required=True)
@@ -71,6 +74,10 @@ def parser() -> argparse.ArgumentParser:
 
 
 def dispatch(args: argparse.Namespace) -> tuple[object, int]:
+    if args.group == "campaign" and args.action == "budget":
+        from harborforge.analysis.budget_proposal import estimate_proposal
+
+        return estimate_proposal(json.loads(args.proposal.read_text(encoding="utf-8"))), 0
     if args.group == "task":
         if args.action == "generate":
             from harborforge.task_families.registry import generate_task
@@ -132,7 +139,7 @@ def dispatch(args: argparse.Namespace) -> tuple[object, int]:
         if args.group == "report":
             from harborforge.analysis.reporting import build_report
 
-            return {"report": str(build_report(registry, args.campaign, args.out))}, 0
+            return {"report": str(build_report(registry, args.campaign, args.out, public=args.public))}, 0
         if args.group == "review":
             return {"review_id": registry.review_finding(args.finding, args.reviewer, args.decision, args.notes)}, 0
     raise ValueError("unsupported command")

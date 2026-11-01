@@ -111,7 +111,9 @@ if __name__ == '__main__':
 BUGGY = SOURCE.replace("valid_b = b != -9999", "valid_b = np.ones(b.shape, dtype=bool)")
 
 
-def fixture(directory: Path, seed: int, level: int = 0) -> dict:
+def fixture(directory: Path, seed: int, level: int = 0, *, variant: str | None = None) -> dict:
+    if variant not in {None, "raster-grid-shift-nodata", "raster-non-square-spacing"}:
+        raise ValueError("Unsupported raster fixture variant")
     try:
         import numpy as np
         import rasterio
@@ -123,11 +125,14 @@ def fixture(directory: Path, seed: int, level: int = 0) -> dict:
     directory.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(seed)
     size = 3 + min(level, 2)
-    affine_a = from_origin(-97.0, 32.0, .01, .01)
+    affine_a = from_origin(-97.0, 32.0, .01, .02 if variant == "raster-non-square-spacing" else .01)
     origin_x, origin_y = transform("EPSG:4326", "EPSG:3857", [-97.0], [32.0])
     affine_b = from_origin(origin_x[0] - 300, origin_y[0] + 450, 950, 1250)
-    a = rng.integers(2, 60, size=(size, size)).astype("float32")
-    b = rng.integers(-10, 40, size=(size + 1, size + 1)).astype("float32")
+    if variant == "raster-grid-shift-nodata":
+        affine_b = from_origin(origin_x[0] - 850, origin_y[0] + 850, 1100, 1300)
+    shape = (size + 1, size + 2) if variant == "raster-non-square-spacing" else (size, size)
+    a = rng.integers(2, 60, size=shape).astype("float32")
+    b = rng.integers(-10, 40, size=(shape[0] + 1, shape[1] + 1)).astype("float32")
     a[0, 0] = -9999
     a[-1, -1] = -9999
     b[0, 0] = -9999
@@ -145,9 +150,9 @@ def fixture(directory: Path, seed: int, level: int = 0) -> dict:
     # Independent expected values: analytic Web Mercator target centers and
     # affine inversion, not rasterio.warp.reproject from the reference solution.
     expected = []
-    for row in range(size):
+    for row in range(a.shape[0]):
         line = []
-        for col in range(size):
+        for col in range(a.shape[1]):
             lon, lat = affine_a * (col + .5, row + .5)
             x = 6378137.0 * math.radians(lon)
             y = 6378137.0 * math.log(math.tan(math.pi / 4 + math.radians(lat) / 2))

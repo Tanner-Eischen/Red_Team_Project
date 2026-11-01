@@ -94,3 +94,100 @@ def paired_comparison(a_trials: list[dict], b_trials: list[dict], *, include_tim
             "mean_paired_difference": mean(differences) if differences else None,
             "interval_95": _bootstrap_means(differences, seed),
             "interval_method": "paired_task_cluster_percentile_bootstrap_2000", "task_ids": shared}
+
+
+def completion_summary(trials: list[dict], *, expected_repeats: int | None = None,
+                       planned_task_ids: list[str] | None = None) -> dict:
+    """Primary completion metric, distinct from historical conditional scores.
+
+    Retries remain in raw attempt accounting; only the final attempt of a
+    task/repeat occupies its planned slot. Provider/infra/unscorable outcomes
+    remain excluded with explicit coverage, while agent timeouts are failures.
+    """
+    if expected_repeats is not None and (type(expected_repeats) is not int or expected_repeats < 1):
+        raise ValueError("Expected repeats must be a positive integer")
+    final: dict[tuple[str, int], dict] = {}
+    for trial in trials:
+        repeat, attempt = trial.get("repeat_index", 0), trial.get("attempt_number", 0)
+        if type(repeat) is not int or repeat < 0 or type(attempt) is not int or attempt < 0:
+            raise ValueError("Repeat and attempt indices must be nonnegative integers")
+        slot = (trial["task_version_id"], repeat)
+        prior = final.get(slot)
+        if prior is not None and attempt == prior.get("attempt_number", 0):
+            raise ValueError("Duplicate task/repeat/attempt in metric input")
+        if prior is None or attempt > prior.get("attempt_number", 0):
+            final[slot] = trial
+    eligible = {"PASS", "MODEL_FAIL", "AGENT_TIMEOUT"}
+    task_ids = sorted(set(planned_task_ids or []) | {task for task, _ in final})
+    rates, complete_rates, details = {}, {}, {}
+    for task_id in task_ids:
+        observed = {repeat: trial for (task, repeat), trial in final.items() if task == task_id}
+        scored = [int(trial["outcome"] == "PASS") for repeat, trial in observed.items()
+                  if trial["outcome"] in eligible and (expected_repeats is None or repeat < expected_repeats)]
+        if scored:
+            rates[task_id] = mean(scored)
+        expected = set(range(expected_repeats)) if expected_repeats is not None else None
+        complete = expected is not None and set(observed) == expected and all(
+            trial["outcome"] in eligible for trial in observed.values()
+        )
+        if complete:
+            complete_rates[task_id] = mean(scored)
+        details[task_id] = {
+            "final_outcomes": {str(repeat): trial["outcome"] for repeat, trial in sorted(observed.items())},
+            "completion_success_fraction": mean(scored) if scored else None,
+            "eligible_slots": len(scored), "observed_slots": len(observed),
+            "excluded_slots": len(observed) - len(scored),
+            "missing_repeats": sorted(expected - set(observed)) if expected is not None else None,
+            "unexpected_repeats": sorted(set(observed) - expected) if expected is not None else None,
+            "complete_for_planned_repeats": complete,
+        }
+    planned = {(task, repeat) for task in task_ids for repeat in range(expected_repeats or 0)}
+    in_plan = {slot: trial for slot, trial in final.items() if expected_repeats is None or slot[1] < expected_repeats}
+    counted = [trial for trial in in_plan.values() if trial["outcome"] in eligible]
+    final_counts = Counter(trial["outcome"] for trial in in_plan.values())
+    conditional_total = final_counts["PASS"] + final_counts["MODEL_FAIL"]
+    return {
+        "metric": "task_weighted_completion_success_within_budget",
+        "task_mean_completion_success": mean(rates.values()) if rates else None,
+        "task_rates": rates, "complete_task_rates": complete_rates,
+        "passes": sum(trial["outcome"] == "PASS" for trial in counted),
+        "final_outcome_counts": dict(sorted(final_counts.items())),
+        "conditional_scored": {"passes": final_counts["PASS"], "eligible_slots": conditional_total,
+                               "pass_rate": final_counts["PASS"] / conditional_total if conditional_total else None,
+                               "denominator": "Final PASS plus MODEL_FAIL only; no timeouts or infrastructure outcomes."},
+        "eligible_final_slots": len(counted), "observed_final_slots": len(final),
+        "excluded_final_slots": len(final) - len(counted),
+        "out_of_plan_final_slots": len(final) - len(in_plan),
+        "retained_raw_attempts": len(trials), "superseded_retry_attempts": len(trials) - len(final),
+        "planned_slots": len(planned) if expected_repeats is not None else None,
+        "missing_slots": len(planned - set(final)) if expected_repeats is not None else None,
+        "eligible_tasks": len(rates), "complete_tasks": len(complete_rates),
+        "tasks_without_scorable_results": sorted(set(task_ids) - set(rates)),
+        "task_details": details, "agent_timeouts_count_as_unsuccessful": True,
+        "excluded_outcomes": "Provider, infrastructure, invalid and unscorable outcomes are coverage gaps, not capability failures.",
+        "interval_95": None,
+        "uncertainty_note": "Raw task outcomes/ranges only; independent task/lineage sampling is not certified by this summary.",
+        "observed_task_rate_range": [min(rates.values()), max(rates.values())] if rates else None,
+    }
+
+
+def paired_completion_comparison(a_trials: list[dict], b_trials: list[dict], *,
+                                 a_repeats: int | None, b_repeats: int | None,
+                                 planned_task_ids: list[str] | None = None) -> dict:
+    """Compare only task blocks with all preregistered repeats scorable on both sides."""
+    for key in ("protocol", "cohort", "harness_profile_id", "family"):
+        if len({trial.get(key) for trial in a_trials + b_trials}) > 1:
+            raise ValueError(f"Paired comparisons require matching {key}")
+    tasks = planned_task_ids if planned_task_ids is not None else sorted(
+        {trial["task_version_id"] for trial in a_trials + b_trials}
+    )
+    a = completion_summary(a_trials, expected_repeats=a_repeats, planned_task_ids=tasks)
+    b = completion_summary(b_trials, expected_repeats=b_repeats, planned_task_ids=tasks)
+    a_rates, b_rates = a["complete_task_rates"], b["complete_task_rates"]
+    shared = sorted(set(a_rates) & set(b_rates))
+    differences = {task: a_rates[task] - b_rates[task] for task in shared}
+    return {"paired_complete_tasks": len(shared), "task_differences": differences,
+            "mean_paired_completion_difference": mean(differences.values()) if differences else None,
+            "a_unpaired_or_incomplete_tasks": sorted(set(a["task_details"]) - set(shared)),
+            "b_unpaired_or_incomplete_tasks": sorted(set(b["task_details"]) - set(shared)),
+            "interval_95": None, "note": "Complete task-block comparison; missing/error blocks remain visible."}

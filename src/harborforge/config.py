@@ -80,6 +80,7 @@ class Budgets(Contract):
     max_concurrency: int = Field(default=1, ge=1, le=8)
     max_model_attempts: int = Field(default=0, ge=0)
     retry_provider_errors: int = Field(default=0, ge=0, le=3)
+    max_provider_retries_total: int | None = Field(default=None, ge=0, le=10000)
     max_task_revisions: int = Field(default=0, ge=0, le=10)
 
 
@@ -89,8 +90,34 @@ class Promotion(Contract):
     human_reviewed_task_ids: tuple[str, ...] = ()
 
 
+class DiscoveryPolicy(Contract):
+    """Schema-2-only opt-in; schema-1 revision semantics remain unchanged."""
+
+    policy_version: Literal["bounded-discovery-v1"] = "bounded-discovery-v1"
+    max_revisions_per_lineage: int = Field(default=0, ge=0, le=10)
+    max_revisions_total: int = Field(default=0, ge=0, le=100)
+    max_generation_attempts: int = Field(default=0, ge=0, le=100)
+    max_no_progress: int = Field(default=1, ge=1, le=10)
+    max_attempts_per_tier: int = Field(default=12, ge=1, le=10000)
+    exploration_quota: int = Field(default=0, ge=0, le=100)
+    all_pass_operator_ids: tuple[str, ...] = ()
+    reviewed_finding_ids: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def supported_operators(self) -> DiscoveryPolicy:
+        from harborforge.authoring.mutations import CATALOG
+
+        if set(self.all_pass_operator_ids) - set(CATALOG):
+            raise ValueError("all-pass escalation requires supported predeclared operator IDs")
+        if len(set(self.all_pass_operator_ids)) != len(self.all_pass_operator_ids):
+            raise ValueError("duplicate all-pass operator IDs")
+        if len(set(self.reviewed_finding_ids)) != len(self.reviewed_finding_ids):
+            raise ValueError("duplicate reviewed finding IDs")
+        return self
+
+
 class CampaignConfig(Contract):
-    schema_version: Literal["1"] = "1"
+    schema_version: Literal["1", "2"] = "1"
     campaign_id: str = Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9._-]{0,79}$")
     objective: Literal["adversarial_discovery", "fixed_evaluation"] = "adversarial_discovery"
     cohort: Literal["discovery", "calibration", "holdout"] = "discovery"
@@ -101,10 +128,20 @@ class CampaignConfig(Contract):
     model_profiles: tuple[ModelProfile, ...] = ()
     budgets: Budgets = Field(default_factory=Budgets)
     promotion: Promotion = Field(default_factory=Promotion)
+    discovery_policy: DiscoveryPolicy | None = None
     include_timeouts_in_denominator: bool = False
 
     @model_validator(mode="after")
     def experimental_boundaries(self) -> CampaignConfig:
+        if self.schema_version == "1" and self.discovery_policy is not None:
+            raise ValueError("discovery_policy requires explicit schema_version=2 migration")
+        if self.schema_version == "2" and self.objective == "adversarial_discovery":
+            if self.discovery_policy is None:
+                raise ValueError("schema 2 discovery requires an explicit discovery_policy")
+            if self.budgets.max_task_revisions:
+                raise ValueError("schema 2 uses separate revision limits; legacy max_task_revisions must be zero")
+        if self.objective == "fixed_evaluation" and self.discovery_policy is not None:
+            raise ValueError("fixed evaluation cannot install an adaptive discovery policy")
         if self.objective == "adversarial_discovery" and self.cohort != "discovery":
             raise ValueError("adaptive discovery can only read discovery tasks")
         if self.objective == "fixed_evaluation" and not self.suite_manifest:

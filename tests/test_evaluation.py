@@ -9,8 +9,8 @@ from test_registry import make_task
 
 def preregistration():
     return {"campaign_id": "fixed-evaluation", "protocol": "terminal_agent", "objective": "fixed_evaluation",
-            "cohort": "holdout", "model_profiles": [{"profile_id": "a", "model_id": "known", "repeats": 3}],
-            "harness_profile": {"profile_id": "harbor-fixed", "timeout_seconds": 600},
+            "cohort": "holdout", "model_profiles": [{"profile_id": "a", "provider": "recording", "model_id": "known", "repeats": 3}],
+            "harness_profile": {"profile_id": "harbor-fixed", "harbor_version": "0.13.2", "timeout_seconds": 600},
             "include_timeouts_in_denominator": True, "budgets": {"max_task_revisions": 0},
             "suite_manifest": "ignored.json", "tasks": ["also-bound-by-suite"]}
 
@@ -61,3 +61,31 @@ def test_freeze_requires_complete_experiment_and_single_cohort(tmp_path):
         freeze_suite([path], tmp_path / "bad.json", config)
     with pytest.raises(ValueError, match="outside"):
         freeze_suite([path], path / "suite.json", preregistration())
+
+
+@pytest.mark.parametrize("change,message", [
+    (lambda config: config["model_profiles"].append(dict(config["model_profiles"][0])), "unique"),
+    (lambda config: config.update(objective="adversarial_discovery"), "fixed_evaluation"),
+    (lambda config: config.update(harness_profile="mutable-name-only"), "profile mapping"),
+    (lambda config: config.update(discovery_policy={"max_revisions_total": 1}), "adaptive"),
+    (lambda config: config["model_profiles"][0].pop("model_id"), "model identity"),
+    (lambda config: config["harness_profile"].update(harbor_version="mutable"), "Harbor version"),
+])
+def test_freeze_rejects_ambiguous_or_adaptive_preregistration(tmp_path, change, message):
+    path, _ = make_task(tmp_path, cohort="holdout")
+    config = preregistration()
+    change(config)
+    with pytest.raises(ValueError, match=message):
+        freeze_suite([path], tmp_path / "bad.json", config)
+
+
+def test_verify_rejects_manifest_self_hash_drift(tmp_path):
+    path, _ = make_task(tmp_path, cohort="holdout")
+    output = tmp_path / "suite.json"
+    freeze_suite([path], output, preregistration())
+    manifest_path = path / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["artifact_sha256"] = "0" * 64
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(ValueError, match="drift"):
+        verify_suite(output)

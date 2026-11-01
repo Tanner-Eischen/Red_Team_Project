@@ -1,0 +1,217 @@
+{
+  "images": [
+    {
+      "already_public_duplicate_fixture_hashes_excluded": 1,
+      "family": "geospatial-raster",
+      "image_environment_names": [
+        "PATH",
+        "LANG",
+        "GPG_KEY",
+        "PYTHON_VERSION",
+        "PYTHON_SHA256"
+      ],
+      "image_id": "sha256:0b6fd9926566836045b854ddfe75c6905e09248048cf24af7c81b96b1ecdd28d",
+      "image_rootfs_layers": [
+        "sha256:9eb9a78eeb101ab215acf43ffb2a709d5fca9ca2a22178564c7ee5cc30774c60",
+        "sha256:9a0912b10e7336b5032c96abfaaad92f0fba6c03cbb315ea5f9ff37442520911",
+        "sha256:78a4eeeff9630145665d0439c75b49eb0fb4ae92de07a5fa541365d8587ac5aa",
+        "sha256:1f6b48d1b8f31d448ca0c4f981b51eaec48e38809d015e7d941534aa12c452b6",
+        "sha256:ad058c892d69f8763f092409ff0578d7e5fcc5fe45c09f7af3e391c041fc25bd",
+        "sha256:5f43e81db1a86702e14d42f68aa17ed4cef668f9065b5ff5ef8f5323030680ae",
+        "sha256:d457cbd83cce30681faed776357a40b12be9ff246c7a8d4d6e8ea60eb38992db",
+        "sha256:e148ac30c8f0b3ea11234a1ce7d3c851ae159e66fbb629eb09201f7806b5cfe2",
+        "sha256:0217d06c750b45b7567f9a3f8bd3882b6c0ab86cff742b2bc39d45f540daa92b",
+        "sha256:8eb969960fb3e66261f8901f7a833628f2abbb631a6b2899c1985ba2eab14fef",
+        "sha256:d0e2d7b1128197d5bd3bf6a698c4143b76e76eb4ffd30666d368b4cb32b38aa6"
+      ],
+      "image_user": "agent",
+      "layers_inspected": [
+        {
+          "entries": 4226,
+          "layer": "blobs/sha256/84a2afebaf4de2e8eb885634a69abd0087b79c947c53fa4f0481235d6dfadc6c"
+        },
+        {
+          "entries": 541,
+          "layer": "blobs/sha256/2e8ff2a71e9573673dd17ca594722bd27eed7eb917debc0fb74ff9eb5d522ad1"
+        },
+        {
+          "entries": 1878,
+          "layer": "blobs/sha256/f9f25941dc135427be9d16894ce71a921adff16e2d43060139ed05c33fcd668e"
+        },
+        {
+          "entries": 8,
+          "layer": "blobs/sha256/dbeb2af0e7bd53c2dff6896f9bde583874dc48fbb85d8cda0e9040dec5424ca8"
+        },
+        {
+          "entries": 76,
+          "layer": "blobs/sha256/f1f82ddab6c1465438317cd6297a58e0c50808224562e4d52e09d9205593cb89"
+        },
+        {
+          "entries": 38,
+          "layer": "blobs/sha256/06af7ea232e5e2c01be73217d436ebbcbf61a3e7a8ba87ccdf4d6a241543f6dc"
+        },
+        {
+          "entries": 2539,
+          "layer": "blobs/sha256/295e043ab6c0832b2369ea8d5ff87b1c0d4afbf28ec38fdfb6620d168b40b70a"
+        },
+        {
+          "entries": 18,
+          "layer": "blobs/sha256/6a115d25310bd57fcb4c63b2f42b4b28d3516d8c7dabe12137637fedbdb2de48"
+        },
+        {
+          "entries": 1,
+          "layer": "blobs/sha256/98b97cdde2da05614deeaecb8bf574f74169f3f021d3bda57eeef55784d62588"
+        },
+        {
+          "entries": 6,
+          "layer": "blobs/sha256/915b7a84f6ce325960450b05a31dfa4dcf56d2fa1c3e19044e7dfeb66f013e2b"
+        },
+        {
+          "entries": 6,
+          "layer": "blobs/sha256/e4d0aeabdf65308c2328c98920057e255e91e11b69027c64bfa229cfc0b3be22"
+        }
+      ],
+      "passed": true,
+      "private_content_matches": [],
+      "private_large_content_hashes_checked": 4,
+      "scope": "Standalone quality-gate image built from the same immutable public agent context; actual Harbor role IDs are recorded separately. No image files extracted onto host.",
+      "task_sha256": "c7ebb12c477decf73d26e41e9d0f20c40fffeaf909ac7fb3fff363bcc6930602"
+    },
+    {
+      "already_public_duplicate_fixture_hashes_excluded": 0,
+      "family": "repository-debug",
+      "image_environment_names": [
+        "PATH",
+        "LANG",
+        "GPG_KEY",
+        "PYTHON_VERSION",
+        "PYTHON_SHA256"
+      ],
+      "image_id": "sha256:ce096ab2a892d2f01d4a952bf8e3ea68c07dec0a5cfe32c68e8888b3dfb8dfcd",
+      "image_rootfs_layers": [
+        "sha256:9eb9a78eeb101ab215acf43ffb2a709d5fca9ca2a22178564c7ee5cc30774c60",
+        "sha256:9a0912b10e7336b5032c96abfaaad92f0fba6c03cbb315ea5f9ff37442520911",
+        "sha256:78a4eeeff9630145665d0439c75b49eb0fb4ae92de07a5fa541365d8587ac5aa",
+        "sha256:1f6b48d1b8f31d448ca0c4f981b51eaec48e38809d015e7d941534aa12c452b6",
+        "sha256:ad058c892d69f8763f092409ff0578d7e5fcc5fe45c09f7af3e391c041fc25bd",
+        "sha256:ea43f90410d18747d52945f9c5b98fce54ff8fd8f65173b8e8c849ef6dfc94bc",
+        "sha256:de20f0b91d3c8fdf8ec58625d5e501f3b696535e7c7e14882f47bc6521052e3b",
+        "sha256:fb18e502a1962717955bc649f46c8bbb1287d2cc372a4c546e042fe4bf9fd148",
+        "sha256:a831e06cbd0fe2503406a43acb8c0669be10b51ea8cfc2468eb75c30373c9b98"
+      ],
+      "image_user": "agent",
+      "layers_inspected": [
+        {
+          "entries": 4226,
+          "layer": "blobs/sha256/84a2afebaf4de2e8eb885634a69abd0087b79c947c53fa4f0481235d6dfadc6c"
+        },
+        {
+          "entries": 541,
+          "layer": "blobs/sha256/2e8ff2a71e9573673dd17ca594722bd27eed7eb917debc0fb74ff9eb5d522ad1"
+        },
+        {
+          "entries": 1878,
+          "layer": "blobs/sha256/f9f25941dc135427be9d16894ce71a921adff16e2d43060139ed05c33fcd668e"
+        },
+        {
+          "entries": 8,
+          "layer": "blobs/sha256/dbeb2af0e7bd53c2dff6896f9bde583874dc48fbb85d8cda0e9040dec5424ca8"
+        },
+        {
+          "entries": 76,
+          "layer": "blobs/sha256/f1f82ddab6c1465438317cd6297a58e0c50808224562e4d52e09d9205593cb89"
+        },
+        {
+          "entries": 18,
+          "layer": "blobs/sha256/378505546554e4122acbce847def6c8917b02628a8d9ab3c5ef350a63bb8afc5"
+        },
+        {
+          "entries": 1,
+          "layer": "blobs/sha256/016004535ac854ec411678d5876962420fb6e4341b5002d74899226176fc6a07"
+        },
+        {
+          "entries": 5,
+          "layer": "blobs/sha256/6438aced0b96d9ac93d0dc690fcdfa4299739cdfe03efb0dbd8769b31bb298b7"
+        },
+        {
+          "entries": 5,
+          "layer": "blobs/sha256/e8c10e9b03c245de477c04c4a34c9483528767618e5fbab3e9815983d86c7db3"
+        }
+      ],
+      "passed": true,
+      "private_content_matches": [],
+      "private_large_content_hashes_checked": 4,
+      "scope": "Standalone quality-gate image built from the same immutable public agent context; actual Harbor role IDs are recorded separately. No image files extracted onto host.",
+      "task_sha256": "7a1ad4df94e686ea92dbad9ca55d422e4c9b20307302713f7ce7c0655259927e"
+    },
+    {
+      "already_public_duplicate_fixture_hashes_excluded": 0,
+      "family": "scientific-etl",
+      "image_environment_names": [
+        "PATH",
+        "LANG",
+        "GPG_KEY",
+        "PYTHON_VERSION",
+        "PYTHON_SHA256"
+      ],
+      "image_id": "sha256:024705594569e427a932baa4c215c95814e3f88044878e2e06787b3af0ce2659",
+      "image_rootfs_layers": [
+        "sha256:9eb9a78eeb101ab215acf43ffb2a709d5fca9ca2a22178564c7ee5cc30774c60",
+        "sha256:9a0912b10e7336b5032c96abfaaad92f0fba6c03cbb315ea5f9ff37442520911",
+        "sha256:78a4eeeff9630145665d0439c75b49eb0fb4ae92de07a5fa541365d8587ac5aa",
+        "sha256:1f6b48d1b8f31d448ca0c4f981b51eaec48e38809d015e7d941534aa12c452b6",
+        "sha256:ad058c892d69f8763f092409ff0578d7e5fcc5fe45c09f7af3e391c041fc25bd",
+        "sha256:ea43f90410d18747d52945f9c5b98fce54ff8fd8f65173b8e8c849ef6dfc94bc",
+        "sha256:de20f0b91d3c8fdf8ec58625d5e501f3b696535e7c7e14882f47bc6521052e3b",
+        "sha256:d4c087f028af381fb4262a61362501e56a446407378863980205199f9c1b0e2d",
+        "sha256:9c6a2646b2499361715d5b6081fca056954988d3ed6d1651d42d9f85757f9dc5"
+      ],
+      "image_user": "agent",
+      "layers_inspected": [
+        {
+          "entries": 4226,
+          "layer": "blobs/sha256/84a2afebaf4de2e8eb885634a69abd0087b79c947c53fa4f0481235d6dfadc6c"
+        },
+        {
+          "entries": 541,
+          "layer": "blobs/sha256/2e8ff2a71e9573673dd17ca594722bd27eed7eb917debc0fb74ff9eb5d522ad1"
+        },
+        {
+          "entries": 1878,
+          "layer": "blobs/sha256/f9f25941dc135427be9d16894ce71a921adff16e2d43060139ed05c33fcd668e"
+        },
+        {
+          "entries": 8,
+          "layer": "blobs/sha256/dbeb2af0e7bd53c2dff6896f9bde583874dc48fbb85d8cda0e9040dec5424ca8"
+        },
+        {
+          "entries": 76,
+          "layer": "blobs/sha256/f1f82ddab6c1465438317cd6297a58e0c50808224562e4d52e09d9205593cb89"
+        },
+        {
+          "entries": 18,
+          "layer": "blobs/sha256/378505546554e4122acbce847def6c8917b02628a8d9ab3c5ef350a63bb8afc5"
+        },
+        {
+          "entries": 1,
+          "layer": "blobs/sha256/016004535ac854ec411678d5876962420fb6e4341b5002d74899226176fc6a07"
+        },
+        {
+          "entries": 5,
+          "layer": "blobs/sha256/256ce937da405801f7e919d4e449f389b506f12066d4f81cf57dea2aa070f001"
+        },
+        {
+          "entries": 5,
+          "layer": "blobs/sha256/bbb0478597652b20acb2d1ab54ef7b164659d9ee891d3aae5b566c70b674aaa0"
+        }
+      ],
+      "passed": true,
+      "private_content_matches": [],
+      "private_large_content_hashes_checked": 3,
+      "scope": "Standalone quality-gate image built from the same immutable public agent context; actual Harbor role IDs are recorded separately. No image files extracted onto host.",
+      "task_sha256": "cb9632f896e971baf6ddaf8b2d0d9e853161a985be9cc75891a5e10842253d10"
+    }
+  ],
+  "passed": true,
+  "schema_version": 1
+}
