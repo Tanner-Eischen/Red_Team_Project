@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import hashlib
-import math
+import sys
 import time
 import uuid
 from pathlib import Path
@@ -42,7 +42,9 @@ def _normalize_result(result: Any) -> dict:
         result["reward"] = None
     for key in ("cost_usd", "tokens_input", "tokens_output", "wall_time_s"):
         value = result.get(key)
-        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+        if (isinstance(value, bool) or not isinstance(value, (int, float)) or
+                not 0 <= value <= sys.float_info.max or
+                (key in {"tokens_input", "tokens_output"} and type(value) is not int)):
             result[key] = None
     return result
 

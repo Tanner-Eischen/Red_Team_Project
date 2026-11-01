@@ -189,3 +189,40 @@ def test_provider_overrun_stops_further_calls():
     with pytest.raises(AgentBudgetExceededError):
         asyncio.run(proxy.call("second"))
     assert calls == ["first"]
+
+
+@pytest.mark.parametrize("field,value", [
+    ("prompt_tokens", -1), ("prompt_tokens", 1.5), ("prompt_tokens", True),
+    ("completion_tokens", None), ("completion_tokens", -1),
+    ("cost_usd", float("nan")), ("cost_usd", float("inf")),
+    ("cost_usd", -0.1), ("cost_usd", True),
+    pytest.param("cost_usd", 10 ** 1000, id="unrepresentable-integer-cost"),
+])
+def test_malformed_provider_usage_blocks_followup_without_refund(field, value):
+    from harborforge.adapters.call_budget import ProviderUsageError
+    calls = []
+
+    class LLM:
+        async def call(self, prompt, **kwargs):
+            calls.append(prompt)
+            usage = {"prompt_tokens": 10, "completion_tokens": 1, "cost_usd": 0.001, field: value}
+            return SimpleNamespace(usage=SimpleNamespace(**usage))
+
+    budget = CallBudget(20000, 8000, 1, 1, 2)
+    proxy = BudgetedLLM(LLM(), budget, 1000)
+    with pytest.raises(ProviderUsageError, match="invalid"):
+        asyncio.run(proxy.call("first"))
+    before = (budget.input_reserved, budget.output_reserved, budget.cost_reserved)
+    with pytest.raises(ProviderUsageError, match="reconciliation"):
+        asyncio.run(proxy.call("second"))
+    assert calls == ["first"]
+    assert budget.usage_uncertain and before[0] > 0 and before[2] > 0
+    assert (budget.input_reserved, budget.output_reserved, budget.cost_reserved) == before
+
+
+def test_unresolved_provider_usage_is_not_a_capability_timeout():
+    result = parse_trial_result(result_data(0, exception_info={
+        "exception_type": "ProviderUsageError", "exception_message": "usage unavailable"}))
+    assert result["outcome"] == "PROVIDER_ERROR"
+    assert result["error_code"] == "provider_usage_unresolved"
+    assert result["reward"] is None

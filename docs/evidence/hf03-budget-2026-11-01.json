@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "work_package": "HF-03 local accounting subset",
+  "verified_at_utc": "2026-11-01T06:13:48.293382+00:00",
+  "source_base_commit": "f6e9cddbb2220f2fcf3e05b938b6013cc65a7eeb",
+  "dirty_source_snapshot": true,
+  "source_sha256": {
+    "src/harborforge/execution/budget.py": "fb1391be3b2b20f70548f1f7b3818aa35d2920d621b7c4a8aa52a230072497a4",
+    "src/harborforge/execution/campaign.py": "3fc78161ee0f664b8674f17de7b35bff7860f209b2513031fafe58c1bb58a49a",
+    "src/harborforge/adapters/call_budget.py": "1bd755fde027386eeeb831dcbb1092525dd163833fda4cc520eb0055c9a5d722",
+    "src/harborforge/adapters/harbor_adapter.py": "def65cc0c66ebd1fc521f2b2a1ac177ccaae0e3459ee28b5de07d579fcce0daa",
+    "tests/test_config_budget.py": "5e2ed4a0373b054abc5fc372ff1a3922cdd40882f1c405d10da7019ed054681c",
+    "tests/test_harness_adapter.py": "acb0df9951e1708cf4ed4661056816f20dc0b8e358111fff8fd17413816f0623",
+    "tests/test_campaign.py": "29c8b678cd5027e32f82b41e751653a4aad28756c8b3ac5fdb752e343849d28f"
+  },
+  "runtime_python": "3.12.11",
+  "full_offline_suite": {
+    "passed": 124,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 402,
+    "seconds": 115.76
+  },
+  "focused_suite_passed": 75,
+  "ruff": "passed",
+  "immutable_public_task_packages_checked": 12,
+  "witnesses": {
+    "duplicate_settlement_rejected": true,
+    "after_duplicate_attempt": {
+      "reserved_or_measured_cost_usd": 0.19999999999999996,
+      "input_tokens": 20,
+      "output_tokens": 10,
+      "attempts": 1,
+      "usage_uncertain": false
+    },
+    "unrepresentable_provider_cost_followup_calls": 1,
+    "provider_usage_unresolved": true
+  },
+  "commands": [
+    ".venv/Scripts/ruff.exe check .",
+    ".venv/Scripts/python.exe -m pytest -q --junitxml=artifacts/hf03-budget-2026-11-01-final/pytest.xml",
+    ".venv/Scripts/python.exe scripts/check_public_tasks.py"
+  ],
+  "local_logs": "artifacts/hf03-budget-2026-11-01-final/",
+  "container_controls": "not_run",
+  "real_model_attempts": 0,
+  "paid_requests": 0,
+  "limitations": [
+    "In-process accounting and offline fixtures only; no Docker isolation or model-performance claim.",
+    "Durable cross-campaign cost reconciliation and additional provider billing dimensions are not implemented.",
+    "Existing one-time campaign claims still prohibit silent restart; unknown usage keeps reservations consumed."
+  ]
+}

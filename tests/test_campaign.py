@@ -86,6 +86,31 @@ def test_unknown_usage_blocks_retry(tmp_path):
     assert summary["status"] == "usage_reconciliation_required"
 
 
+@pytest.mark.parametrize("key,value", [
+    pytest.param("cost_usd", 10 ** 1000, id="unrepresentable-integer-cost"),
+    ("tokens_input", 1.5),
+])
+def test_malformed_usage_retains_trial_and_stops_campaign(tmp_path, key, value):
+    task = generate_task("repository-debug", 18, tmp_path / "tasks")
+
+    class Malformed(FakeAdapter):
+        def run(self, *args):
+            return {**super().run(*args), key: value}
+
+    adapter = Malformed(["PROVIDER_ERROR", "PASS"])
+    config = configuration(task, budgets=dict(campaign_usd_max=5, total_input_tokens_max=500,
+        total_output_tokens_max=250, max_model_attempts=5, wall_time_seconds_max=120, retry_provider_errors=1))
+    summary = run_campaign(config, tmp_path / "registry.sqlite", tmp_path / "run",
+                           adapter=adapter, validator=validation)
+    assert len(adapter.calls) == 1
+    assert summary["status"] == "usage_reconciliation_required"
+    assert summary["budget"]["reserved_or_measured_cost_usd"] == 1
+    with Registry(tmp_path / "registry.sqlite") as registry:
+        trials = registry.list_trials(config.campaign_id)
+        assert len(trials) == 1 and trials[0][key] is None
+        assert trials[0]["outcome"] == "PROVIDER_ERROR"
+
+
 def test_failure_driven_child_is_bounded_and_revalidated(tmp_path):
     task = generate_task("scientific-etl", 17, tmp_path / "tasks")
     config = configuration(task, budgets=dict(campaign_usd_max=5, total_input_tokens_max=500,

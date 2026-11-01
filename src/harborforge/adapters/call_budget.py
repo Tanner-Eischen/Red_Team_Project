@@ -4,12 +4,17 @@ from __future__ import annotations
 
 import json
 import math
+import sys
 from dataclasses import dataclass
 from typing import Any
 
 
 class AgentBudgetExceededError(Exception):
     """The agent has exhausted a declared token or configured-price envelope."""
+
+
+class ProviderUsageError(AgentBudgetExceededError):
+    """Provider accounting is unresolved, rather than a task-capability failure."""
 
 
 @dataclass
@@ -33,7 +38,7 @@ class CallBudget:
 
     def reserve(self, prompt: str, kwargs: dict[str, Any]) -> int:
         if self.usage_uncertain:
-            raise AgentBudgetExceededError("Previous provider usage requires reconciliation before another model call")
+            raise ProviderUsageError("Previous provider usage requires reconciliation before another model call")
         # A byte-per-token upper envelope deliberately overestimates normal
         # byte-level model tokenizers. Additional headroom covers message framing.
         # Tool schemas and full history must be included, not just the last turn.
@@ -91,9 +96,18 @@ class BudgetedLLM:
         if usage is None:
             self.budget.usage_uncertain = True
         else:
-            if (usage.prompt_tokens > self.budget.input_reserved - input_before
-                    or usage.completion_tokens > kwargs["max_tokens"]
-                    or usage.cost_usd > self.budget.cost_reserved - cost_before + 1e-12):
+            tokens_in = getattr(usage, "prompt_tokens", None)
+            tokens_out = getattr(usage, "completion_tokens", None)
+            cost = getattr(usage, "cost_usd", None)
+            if (type(tokens_in) is not int or tokens_in < 0 or
+                    type(tokens_out) is not int or tokens_out < 0 or
+                    isinstance(cost, bool) or not isinstance(cost, (int, float)) or
+                    not 0 <= cost <= sys.float_info.max):
                 self.budget.usage_uncertain = True
-                raise AgentBudgetExceededError("Provider-reported usage exceeded the configured reservation")
+                raise ProviderUsageError("Provider usage is missing or invalid; reconciliation required")
+            if (tokens_in > self.budget.input_reserved - input_before
+                    or tokens_out > kwargs["max_tokens"]
+                    or cost > self.budget.cost_reserved - cost_before + 1e-12):
+                self.budget.usage_uncertain = True
+                raise ProviderUsageError("Provider-reported usage exceeded the configured reservation")
         return response

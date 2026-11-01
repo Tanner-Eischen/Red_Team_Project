@@ -31,6 +31,8 @@ def classify_exception(exception: dict[str, Any]) -> tuple[str, str]:
     """Classify stage-specific errors without blaming a model for its tools."""
     kind = str(exception.get("exception_type", "UnknownError"))
     message = str(exception.get("exception_message", ""))
+    if kind == "ProviderUsageError":
+        return "PROVIDER_ERROR", "provider_usage_unresolved"
     if kind == "AgentBudgetExceededError":
         return "AGENT_TIMEOUT", "budget_exhausted"
     if kind == "AgentTimeoutError":
