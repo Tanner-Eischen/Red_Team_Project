@@ -8,7 +8,9 @@ The evaluator grades the agent's exported source and output artifacts in a **sep
 
 The implementation includes three deterministic scientific software families, immutable lineage, controlled tiered campaigns, conservative pre-call budgets, a trial registry, frozen-suite evaluation, trace-backed failure suggestions and static HTML/JSON/CSV reports. The [12 public examples](tasks/public_examples) are synthetic discovery fixtures, never a private holdout.
 
-[Implementation and verification status](docs/IMPLEMENTATION_STATUS.md) distinguishes tested code, local controls and external execution gaps. [Public control report](reports/public-pilot/index.html) contains actual local validation evidence and **zero model attempts**. No model capability scores are claimed. Docker container controls and live model trials remain pending on this workstation because its Docker daemon is unavailable. Local functional controls cannot certify isolation.
+[Implementation and verification status](docs/IMPLEMENTATION_STATUS.md) distinguishes tested code, local controls and external execution gaps. [Public control report](reports/public-pilot/index.html) contains actual local validation evidence and **zero model attempts**. No model capability scores are claimed. Harbor-specific Docker isolation controls and live model trials remain pending. A native Linux Docker engine is available through Ubuntu under WSL; application container checks in other projects do not certify Harbor isolation. Local functional controls cannot certify isolation.
+
+The November 1 accounting hardening passed 124 offline tests; see [the source-bound budget evidence](docs/HF03_BUDGET_HARDENING_2026-11-01.md). These are offline/control results, not model-capability measurements.
 
 ## Install and verify
 
