@@ -1,0 +1,20 @@
+* text=auto
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.csv text eol=lf
+*.sql text eol=lf
+uv.lock text eol=lf
+tasks/** -text diff
+# Preserve CSV record terminators and intentional Markdown hard breaks.
+tasks/**/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+*.md whitespace=-blank-at-eol
+# The archived legacy source retains its original whitespace.
+legacy/langgraph_red_team.py whitespace=-blank-at-eol
+*.tif binary
+*.zip binary

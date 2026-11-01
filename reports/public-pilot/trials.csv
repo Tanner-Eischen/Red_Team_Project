@@ -1,0 +1,1 @@
+trial_id,task_version_id,family,protocol,cohort,model_profile_id,harness_profile_id,repeat_index,attempt_number,outcome,reward,validation_id,tokens_input,tokens_output,cost_usd,wall_time_s,error_code,artifact_sha256

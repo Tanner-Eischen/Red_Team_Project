@@ -1,0 +1,46 @@
+{
+  "artifact_sha256": "1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f",
+  "cohort": "discovery",
+  "controls": {
+    "alternate": "controls/alternate.py",
+    "bad": "controls/bad.py",
+    "mutations": [
+      "controls/hardcoded.py"
+    ],
+    "oracle": "solution/solve.py"
+  },
+  "family": "scientific-etl",
+  "mutation": null,
+  "parent_task_version_id": null,
+  "protocol": "terminal_agent",
+  "public_artifacts": [
+    "/app/pipeline.py",
+    "/app/output"
+  ],
+  "requirements": [
+    "Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,",
+    "read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row",
+    "has exactly station_id (string), count (integer), mean_c (number). The input has",
+    "station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.",
+    "Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),",
+    "select the row with largest integer revision BEFORE checking status/value. If that",
+    "selected row is invalid, discard that timestamp; do not resurrect an older value.",
+    "Revisions per duplicate key are unique. A row is valid only when status is exactly",
+    "'ok' and value is a finite number. Blank status is unknown and must be discarded.",
+    "Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).",
+    "Aggregate valid readings by station after conversion; omit stations with none.",
+    "Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.",
+    "Overwrite output deterministically on repeated calls; input order must not matter.",
+    "Use Python standard library only. Input is /app/input/observations.csv. Run the",
+    "program on it and leave repaired source /app/pipeline.py. Hidden tests use other",
+    "CSVs under exactly this contract. Synthetic fixtures, no real sensor observations."
+  ],
+  "review_status": "pending",
+  "schema_version": "1.0",
+  "seed": 102,
+  "source": "synthetic-generated-fixture",
+  "task_id": "scientific-etl-102",
+  "task_version_id": "scientific-etl-102:v1",
+  "verifier": "tests/verify.py",
+  "version": 1
+}

@@ -1,0 +1,44 @@
+{
+  "artifact_sha256": "8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d",
+  "cohort": "discovery",
+  "controls": {
+    "alternate": "controls/alternate.py",
+    "bad": "controls/bad.py",
+    "mutations": [
+      "controls/hardcoded.py"
+    ],
+    "oracle": "solution/solve.py"
+  },
+  "family": "repository-debug",
+  "mutation": null,
+  "parent_task_version_id": null,
+  "protocol": "terminal_agent",
+  "public_artifacts": [
+    "/app/pipeline.py",
+    "/app/output"
+  ],
+  "requirements": [
+    "Repair /app/pipeline.py, a broken interval normalization utility.",
+    "Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]",
+    "integer pairs, each describing a half-open interval [start,end). Discard empty",
+    "intervals (start == end). If ANY pair is reversed (start > end), emit exactly",
+    "{\"error\":\"reversed_interval\"}; do not silently swap its endpoints.",
+    "Otherwise emit {\"intervals\":[[start,end],...],\"covered\":N} in output/result.json,",
+    "where intervals are the sorted disjoint union; touching intervals MUST merge,",
+    "duplicates collapse, negative coordinates are allowed, and covered is total",
+    "integer length (sum of end-start). Empty input yields intervals=[] and covered=0.",
+    "The importable function merge_intervals(intervals) must return that same object",
+    "without modifying the input. CLI must overwrite outputs idempotently.",
+    "Use Python standard library. Input fixture: /app/input/intervals.json. Run the",
+    "program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs",
+    "under this contract. All fixture data is synthetic."
+  ],
+  "review_status": "pending",
+  "schema_version": "1.0",
+  "seed": 100,
+  "source": "synthetic-generated-fixture",
+  "task_id": "repository-debug-100",
+  "task_version_id": "repository-debug-100:v1",
+  "verifier": "tests/verify.py",
+  "version": 1
+}

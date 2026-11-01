@@ -1,0 +1,567 @@
+{
+  "checked_utc": "2026-10-31T10:12:01.727006+00:00",
+  "model_attempts": 0,
+  "container_isolation_verified": false,
+  "local_controls_only": true,
+  "task_count": 12,
+  "valid_tasks": 12,
+  "family_counts": {
+    "scientific-etl": 4,
+    "geospatial-raster": 4,
+    "repository-debug": 4
+  },
+  "tasks": [
+    {
+      "task_version_id": "scientific-etl-100:v1",
+      "family": "scientific-etl",
+      "artifact_sha256": "13a3413b5b90407c53b7c6c298282f6ad4441f1e1501df9430d2f43deac656de",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "scientific-etl-101:v1",
+      "family": "scientific-etl",
+      "artifact_sha256": "37f462522526e9a63016b1558fc6eab64fbef095733cfa588650a37c2350245d",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "scientific-etl-102:v1",
+      "family": "scientific-etl",
+      "artifact_sha256": "1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "scientific-etl-103:v1",
+      "family": "scientific-etl",
+      "artifact_sha256": "8fbe64b10596c259ff6916317bd7c3bf2db605aa030903d7ccd3e529c8e9eb26",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "geospatial-raster-100:v1",
+      "family": "geospatial-raster",
+      "artifact_sha256": "373acc1581996237882e5706c8ee0b59049533ebf61c8e87107060b3f48f6e56",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "geospatial-raster-101:v1",
+      "family": "geospatial-raster",
+      "artifact_sha256": "804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "geospatial-raster-102:v1",
+      "family": "geospatial-raster",
+      "artifact_sha256": "b929407ac296123b0b784b25dd59aefcaa9b0fc98825a30281d1723d47664a0b",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "geospatial-raster-103:v1",
+      "family": "geospatial-raster",
+      "artifact_sha256": "cb6afd6bfa0d51c7e37ab2b08c9cad4adf48185f095e15a521a364fefa3fce1a",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "repository-debug-100:v1",
+      "family": "repository-debug",
+      "artifact_sha256": "8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "repository-debug-101:v1",
+      "family": "repository-debug",
+      "artifact_sha256": "37eabe08b156e1eca54ca43467f54b0072459780465248c442d2c8ff72009429",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "repository-debug-102:v1",
+      "family": "repository-debug",
+      "artifact_sha256": "5caefd8216dbbc1db426577fa2be67bac379e581890625e1e6e48eb69894dc06",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "task_version_id": "repository-debug-103:v1",
+      "family": "repository-debug",
+      "artifact_sha256": "31b8f3a534c65e53e6e844fb2d10c7d56c81699c9a4136205d020de5222a9b33",
+      "runtime": "local",
+      "valid": true,
+      "eligible_for_model_evaluation": false,
+      "gates": [
+        {
+          "name": "structure",
+          "passed": true
+        },
+        {
+          "name": "harbor_contract",
+          "passed": true
+        },
+        {
+          "name": "leakage_static",
+          "passed": true
+        },
+        {
+          "name": "oracle_1",
+          "passed": true
+        },
+        {
+          "name": "oracle_2",
+          "passed": true
+        },
+        {
+          "name": "nop",
+          "passed": true
+        },
+        {
+          "name": "known_bad",
+          "passed": true
+        },
+        {
+          "name": "alternate",
+          "passed": true
+        },
+        {
+          "name": "negative_mutation_1",
+          "passed": true
+        }
+      ]
+    }
+  ]
+}

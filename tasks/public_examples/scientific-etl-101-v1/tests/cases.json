@@ -1,0 +1,53 @@
+[
+  {
+    "expected": [
+      {
+        "count": 2,
+        "mean_c": 21.2,
+        "station_id": "alpha"
+      },
+      {
+        "count": 2,
+        "mean_c": 26.5,
+        "station_id": "beta"
+      }
+    ],
+    "filename": "observations.csv",
+    "kind": "etl",
+    "output": "summary.json"
+  },
+  {
+    "expected": [
+      {
+        "count": 2,
+        "mean_c": 30.0,
+        "station_id": "alpha"
+      },
+      {
+        "count": 2,
+        "mean_c": 29.9,
+        "station_id": "beta"
+      }
+    ],
+    "filename": "observations.csv",
+    "kind": "etl",
+    "output": "summary.json"
+  },
+  {
+    "expected": [
+      {
+        "count": 2,
+        "mean_c": 17.25,
+        "station_id": "alpha"
+      },
+      {
+        "count": 2,
+        "mean_c": 30.2,
+        "station_id": "beta"
+      }
+    ],
+    "filename": "observations.csv",
+    "kind": "etl",
+    "output": "summary.json"
+  }
+]

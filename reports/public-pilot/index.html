@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<title>public-local-controls-v1 — HarborForge evidence</title>
+<style>body{font:16px system-ui,sans-serif;margin:2rem auto;max-width:1400px;padding:0 1rem;color:#17202a;background:#f7f9fb}
+table{border-collapse:collapse;width:100%;font-size:.9rem;background:white}td,th{padding:.65rem;text-align:left;border-bottom:1px solid #dae1e8}
+th{background:#e9eff5}code{overflow-wrap:anywhere}section{margin:2rem 0;overflow-x:auto}.note{padding:1rem;border-left:4px solid #ad7412;background:#fff6e1}
+a{color:#1258a0}h1{letter-spacing:-.03em}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style></head>
+<body><h1>HarborForge evaluation evidence</h1><p>Campaign: <strong>public-local-controls-v1</strong> ·
+12 observed tasks · 0 attempts · terminal_agent · discovery</p>
+<p class="note">Exploratory evidence. Discovery results reflect adaptive selection. These results describe the configured model,
+agent, tools, task collection and budgets. Review private traces before publishing.</p><p>No model attempts have been recorded. No performance scores are available.</p>
+<section><h2>Complete outcome counts</h2><ul><li>No attempts</li></ul></section>
+<section><h2>Task quality gates</h2><p class="note">Local controls prove functional behavior in fresh local workspaces.
+They do not certify Docker, privilege, network or hidden-verifier isolation and cannot authorize model scoring.
+Human review status is recorded separately from automated controls.</p>
+<p>12 local validation runs;
+0 eligible Docker validation runs.</p>
+<table><thead><tr><th>Task</th><th>Runtime</th><th>Scope</th><th>Controls valid</th><th>Gates passed / run</th>
+<th>Eligible for model evaluation</th><th>Review</th></tr></thead><tbody><tr><td>geospatial-raster-100:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>geospatial-raster-101:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>geospatial-raster-102:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>geospatial-raster-103:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>repository-debug-100:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>repository-debug-101:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>repository-debug-102:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>repository-debug-103:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>scientific-etl-100:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>scientific-etl-101:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>scientific-etl-102:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr><tr><td>scientific-etl-103:v1</td><td>local</td><td>Local functional controls only</td><td>yes</td><td>9/9</td><td>no</td><td>pending</td></tr></tbody></table>
+<h3>Control execution counts</h3><table><thead><tr><th>Gate</th><th>Passed</th><th>Executed</th></tr></thead>
+<tbody><tr><td>alternate</td><td>12</td><td>12</td></tr><tr><td>harbor_contract</td><td>12</td><td>12</td></tr><tr><td>known_bad</td><td>12</td><td>12</td></tr><tr><td>leakage_static</td><td>12</td><td>12</td></tr><tr><td>negative_mutation_1</td><td>12</td><td>12</td></tr><tr><td>nop</td><td>12</td><td>12</td></tr><tr><td>oracle_1</td><td>12</td><td>12</td></tr><tr><td>oracle_2</td><td>12</td><td>12</td></tr><tr><td>structure</td><td>12</td><td>12</td></tr></tbody></table></section>
+<section><h2>Model results by family and harness</h2><p>Intervals use task clusters for repeated attempts.
+The pass rate shown is the mean task success fraction. Raw eligible-trial numerator/denominator and all excluded attempts are retained.
+Timeouts count as separate excluded outcomes.</p>
+<table><thead><tr><th>Model</th><th>Family</th><th>Protocol</th><th>Split</th><th>Harness</th><th>Pass / eligible</th>
+<th>Excluded</th><th>Independent tasks</th><th>Task mean</th><th>95% interval</th></tr></thead><tbody></tbody></table></section>
+<section><h2>All attempts and trace events</h2><table><thead><tr><th>Task</th><th>Model</th><th>Repeat</th><th>Retry</th>
+<th>Outcome</th><th>Reward</th><th>Error</th><th>Evidence</th></tr></thead><tbody></tbody></table></section>
+<section><h2>Task × model outcomes</h2><p>0 configured base task/model/repeat slots have no recorded attempt.
+Adaptive child outcomes appear separately; discovery tier selection can intentionally leave base slots unattempted.</p>
+<p>Planning source: configured_base_tasks.</p>
+</section>
+<section><h2>Immutable task lineage</h2><ul><li>geospatial-raster-100:v1 &larr; original <code>373acc1581996237882e5706c8ee0b59049533ebf61c8e87107060b3f48f6e56</code></li><li>geospatial-raster-101:v1 &larr; original <code>804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926</code></li><li>geospatial-raster-102:v1 &larr; original <code>b929407ac296123b0b784b25dd59aefcaa9b0fc98825a30281d1723d47664a0b</code></li><li>geospatial-raster-103:v1 &larr; original <code>cb6afd6bfa0d51c7e37ab2b08c9cad4adf48185f095e15a521a364fefa3fce1a</code></li><li>repository-debug-100:v1 &larr; original <code>8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d</code></li><li>repository-debug-101:v1 &larr; original <code>37eabe08b156e1eca54ca43467f54b0072459780465248c442d2c8ff72009429</code></li><li>repository-debug-102:v1 &larr; original <code>5caefd8216dbbc1db426577fa2be67bac379e581890625e1e6e48eb69894dc06</code></li><li>repository-debug-103:v1 &larr; original <code>31b8f3a534c65e53e6e844fb2d10c7d56c81699c9a4136205d020de5222a9b33</code></li><li>scientific-etl-100:v1 &larr; original <code>13a3413b5b90407c53b7c6c298282f6ad4441f1e1501df9430d2f43deac656de</code></li><li>scientific-etl-101:v1 &larr; original <code>37f462522526e9a63016b1558fc6eab64fbef095733cfa588650a37c2350245d</code></li><li>scientific-etl-102:v1 &larr; original <code>1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f</code></li><li>scientific-etl-103:v1 &larr; original <code>8fbe64b10596c259ff6916317bd7c3bf2db605aa030903d7ccd3e529c8e9eb26</code></li></ul></section>
+<section><h2>Failure hypotheses and adjudication</h2><table><thead><tr><th>Trial</th><th>Category</th><th>Evidence</th><th>Reviews</th>
+</tr></thead><tbody></tbody></table></section>
+<section><h2>Reproducibility bundle</h2><p><a href="summary.json">Campaign, quality controls, model/harness snapshots,
+paired comparisons and uncertainty</a> · <a href="trials.csv">All attempts CSV</a> · <a href="trials.jsonl">All attempts JSONL</a>
+· <a href="tasks.jsonl">Task manifests</a></p><p>Known cost: None USD;
+0 attempts have unknown cost. Unknown usage is not interpreted as zero.</p>
+<p>Configuration SHA-256: <code>50e87a1329171e6882b5e684a29deafc0ec48363de5ff159915509d5ec43cb73</code></p></section>
+<section><h2>Limitations</h2><ul><li>Discovery outcomes are conditional on adaptive selection and are not general capability estimates.</li><li>Public task publication prevents future claims of an untouched holdout.</li><li>Model identity aliases may drift; inspect exact requested and returned metadata.</li><li>Repeated attempts are clustered by task. Small-sample intervals are exploratory.</li><li>Error outcomes remain visible and are excluded from correctness denominators.</li><li>Trace exports may contain private task or user data; review before publishing.</li></ul></section>
+</body></html>

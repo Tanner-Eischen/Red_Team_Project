@@ -1,0 +1,62 @@
+# Example configuration for future runner. IDs and budgets are illustrative.
+# Actual provider identifiers/costs/availability must be verified before running.
+schema_version: "0.1-proposal"
+campaign_id: scientific-pilot-2026
+objective: adversarial_discovery
+suite_manifest: configs/suites/scientific-pilot.yaml
+cohort: discovery
+protocol: terminal_agent
+harness_profile:
+  name: harbor-terminus-fixed
+  harbor_version: PIN_EXACT_VERSION
+  agent_id: terminus-2
+  docker_image_digest: PIN_SHA256
+  system_prompt_sha256: PIN_SHA256
+  tool_schema_sha256: PIN_SHA256
+  network_mode: none
+  agent_time_limit_sec: 600
+  verifier_time_limit_sec: 120
+  max_output_tokens: 8000
+  retry_provider_errors: 2
+  retry_task_failures: 0
+budgets:
+  campaign_usd_max: 30.0
+  total_input_tokens_max: 2000000
+  total_output_tokens_max: 500000
+  wall_time_minutes_max: 240
+  max_concurrency: 2
+  max_task_revisions: 3
+model_profiles:
+  - profile_id: tier1-local
+    tier: 1
+    provider: ollama
+    model_id: REPLACE_WITH_LOCAL_MODEL
+    family: REPLACE_WITH_PROVIDER_FAMILY
+    repeats: 2
+    supports_tools: true # verify actual backend and agent compatibility
+  - profile_id: tier2-provider-a
+    tier: 2
+    provider: REPLACE_WITH_PROVIDER
+    model_id: REPLACE_WITH_MID_MODEL
+    family: provider-a
+    repeats: 3
+    supports_tools: true
+  - profile_id: tier3-provider-b
+    tier: 3
+    provider: REPLACE_WITH_PROVIDER
+    model_id: REPLACE_WITH_FRONTIER_MODEL
+    family: provider-b
+    repeats: 5
+    supports_tools: true
+promotion:
+  require_validity_gates: true
+  require_human_review_for_tier3: true
+  max_invalid_stage_failures: 0
+  use_failure_novelty: true
+  allow_holdout_feedback: false
+reporting:
+  include_all_attempts: true
+  include_infra_error_counts: true
+  include_task_lineage: true
+  include_model_harness_snapshot: true
+  uncertainty: task_cluster_bootstrap

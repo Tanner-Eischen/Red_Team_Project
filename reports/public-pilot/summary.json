@@ -1,0 +1,1871 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-31T10:13:27.717763+00:00",
+  "campaign": {
+    "campaign_id": "public-local-controls-v1",
+    "cohort": "discovery",
+    "include_timeouts_in_denominator": false,
+    "model_profiles": [],
+    "objective": "adversarial_discovery",
+    "protocol": "terminal_agent",
+    "purpose": "Local author control validation only; zero model attempts",
+    "tasks": [
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-100-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-101-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-102-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-103-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-100-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-101-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-102-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-103-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-100-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-101-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-102-v1",
+      "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-103-v1"
+    ],
+    "config_sha256": "50e87a1329171e6882b5e684a29deafc0ec48363de5ff159915509d5ec43cb73",
+    "config_json": "{\"campaign_id\":\"public-local-controls-v1\",\"cohort\":\"discovery\",\"include_timeouts_in_denominator\":false,\"model_profiles\":[],\"objective\":\"adversarial_discovery\",\"protocol\":\"terminal_agent\",\"purpose\":\"Local author control validation only; zero model attempts\",\"tasks\":[\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\scientific-etl-100-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\scientific-etl-101-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\scientific-etl-102-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\scientific-etl-103-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\geospatial-raster-100-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\geospatial-raster-101-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\geospatial-raster-102-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\geospatial-raster-103-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\repository-debug-100-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\repository-debug-101-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\repository-debug-102-v1\",\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\tasks\\\\public_examples\\\\repository-debug-103-v1\"]}",
+    "created_utc": "2026-10-31T10:07:21.183727+00:00"
+  },
+  "trial_count": 0,
+  "task_count": 12,
+  "outcome_counts": {},
+  "summaries": [],
+  "paired_comparisons": [],
+  "lineage_comparisons": [],
+  "tasks": [
+    {
+      "task_version_id": "geospatial-raster-100:v1",
+      "task_id": "geospatial-raster-100",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "geospatial-raster",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "373acc1581996237882e5706c8ee0b59049533ebf61c8e87107060b3f48f6e56",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-100-v1",
+      "manifest_json": "{\"artifact_sha256\":\"373acc1581996237882e5706c8ee0b59049533ebf61c8e87107060b3f48f6e56\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"geospatial-raster\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept\",\"--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,\",\"EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32\",\"band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,\",\"width and height using nearest-neighbor sampling at target pixel centers. A\",\"target center outside the source extent is missing. Never treat NoData as zero.\",\"For each pixel, average the two valid values when both exist, retain a sole valid\",\"value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact\",\"target georeferencing and NoData metadata. Also write output/summary.json with\",\"exactly valid_count (integer) and mean (number or null for no valid cells).\",\"Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.\",\"Use NumPy/rasterio already installed. Public input directory: /app/input.\",\"Run the program there and leave repaired /app/pipeline.py. Hidden tests use\",\"different raster values/NoData under the same contract. These are generated\",\"synthetic fixtures, not satellite observations or a real geospatial dataset.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":100,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"geospatial-raster-100\",\"task_version_id\":\"geospatial-raster-100:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:07:52.234301+00:00",
+      "manifest": {
+        "artifact_sha256": "373acc1581996237882e5706c8ee0b59049533ebf61c8e87107060b3f48f6e56",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "geospatial-raster",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept",
+          "--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,",
+          "EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32",
+          "band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,",
+          "width and height using nearest-neighbor sampling at target pixel centers. A",
+          "target center outside the source extent is missing. Never treat NoData as zero.",
+          "For each pixel, average the two valid values when both exist, retain a sole valid",
+          "value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact",
+          "target georeferencing and NoData metadata. Also write output/summary.json with",
+          "exactly valid_count (integer) and mean (number or null for no valid cells).",
+          "Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.",
+          "Use NumPy/rasterio already installed. Public input directory: /app/input.",
+          "Run the program there and leave repaired /app/pipeline.py. Hidden tests use",
+          "different raster values/NoData under the same contract. These are generated",
+          "synthetic fixtures, not satellite observations or a real geospatial dataset."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 100,
+        "source": "synthetic-generated-fixture",
+        "task_id": "geospatial-raster-100",
+        "task_version_id": "geospatial-raster-100:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "geospatial-raster-101:v1",
+      "task_id": "geospatial-raster-101",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "geospatial-raster",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-101-v1",
+      "manifest_json": "{\"artifact_sha256\":\"804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"geospatial-raster\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept\",\"--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,\",\"EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32\",\"band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,\",\"width and height using nearest-neighbor sampling at target pixel centers. A\",\"target center outside the source extent is missing. Never treat NoData as zero.\",\"For each pixel, average the two valid values when both exist, retain a sole valid\",\"value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact\",\"target georeferencing and NoData metadata. Also write output/summary.json with\",\"exactly valid_count (integer) and mean (number or null for no valid cells).\",\"Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.\",\"Use NumPy/rasterio already installed. Public input directory: /app/input.\",\"Run the program there and leave repaired /app/pipeline.py. Hidden tests use\",\"different raster values/NoData under the same contract. These are generated\",\"synthetic fixtures, not satellite observations or a real geospatial dataset.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":101,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"geospatial-raster-101\",\"task_version_id\":\"geospatial-raster-101:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:08:53.176388+00:00",
+      "manifest": {
+        "artifact_sha256": "804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "geospatial-raster",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept",
+          "--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,",
+          "EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32",
+          "band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,",
+          "width and height using nearest-neighbor sampling at target pixel centers. A",
+          "target center outside the source extent is missing. Never treat NoData as zero.",
+          "For each pixel, average the two valid values when both exist, retain a sole valid",
+          "value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact",
+          "target georeferencing and NoData metadata. Also write output/summary.json with",
+          "exactly valid_count (integer) and mean (number or null for no valid cells).",
+          "Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.",
+          "Use NumPy/rasterio already installed. Public input directory: /app/input.",
+          "Run the program there and leave repaired /app/pipeline.py. Hidden tests use",
+          "different raster values/NoData under the same contract. These are generated",
+          "synthetic fixtures, not satellite observations or a real geospatial dataset."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 101,
+        "source": "synthetic-generated-fixture",
+        "task_id": "geospatial-raster-101",
+        "task_version_id": "geospatial-raster-101:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "geospatial-raster-102:v1",
+      "task_id": "geospatial-raster-102",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "geospatial-raster",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "b929407ac296123b0b784b25dd59aefcaa9b0fc98825a30281d1723d47664a0b",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-102-v1",
+      "manifest_json": "{\"artifact_sha256\":\"b929407ac296123b0b784b25dd59aefcaa9b0fc98825a30281d1723d47664a0b\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"geospatial-raster\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept\",\"--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,\",\"EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32\",\"band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,\",\"width and height using nearest-neighbor sampling at target pixel centers. A\",\"target center outside the source extent is missing. Never treat NoData as zero.\",\"For each pixel, average the two valid values when both exist, retain a sole valid\",\"value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact\",\"target georeferencing and NoData metadata. Also write output/summary.json with\",\"exactly valid_count (integer) and mean (number or null for no valid cells).\",\"Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.\",\"Use NumPy/rasterio already installed. Public input directory: /app/input.\",\"Run the program there and leave repaired /app/pipeline.py. Hidden tests use\",\"different raster values/NoData under the same contract. These are generated\",\"synthetic fixtures, not satellite observations or a real geospatial dataset.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":102,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"geospatial-raster-102\",\"task_version_id\":\"geospatial-raster-102:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:09:42.968954+00:00",
+      "manifest": {
+        "artifact_sha256": "b929407ac296123b0b784b25dd59aefcaa9b0fc98825a30281d1723d47664a0b",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "geospatial-raster",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept",
+          "--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,",
+          "EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32",
+          "band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,",
+          "width and height using nearest-neighbor sampling at target pixel centers. A",
+          "target center outside the source extent is missing. Never treat NoData as zero.",
+          "For each pixel, average the two valid values when both exist, retain a sole valid",
+          "value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact",
+          "target georeferencing and NoData metadata. Also write output/summary.json with",
+          "exactly valid_count (integer) and mean (number or null for no valid cells).",
+          "Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.",
+          "Use NumPy/rasterio already installed. Public input directory: /app/input.",
+          "Run the program there and leave repaired /app/pipeline.py. Hidden tests use",
+          "different raster values/NoData under the same contract. These are generated",
+          "synthetic fixtures, not satellite observations or a real geospatial dataset."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 102,
+        "source": "synthetic-generated-fixture",
+        "task_id": "geospatial-raster-102",
+        "task_version_id": "geospatial-raster-102:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "geospatial-raster-103:v1",
+      "task_id": "geospatial-raster-103",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "geospatial-raster",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "cb6afd6bfa0d51c7e37ab2b08c9cad4adf48185f095e15a521a364fefa3fce1a",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\geospatial-raster-103-v1",
+      "manifest_json": "{\"artifact_sha256\":\"cb6afd6bfa0d51c7e37ab2b08c9cad4adf48185f095e15a521a364fefa3fce1a\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"geospatial-raster\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept\",\"--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,\",\"EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32\",\"band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,\",\"width and height using nearest-neighbor sampling at target pixel centers. A\",\"target center outside the source extent is missing. Never treat NoData as zero.\",\"For each pixel, average the two valid values when both exist, retain a sole valid\",\"value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact\",\"target georeferencing and NoData metadata. Also write output/summary.json with\",\"exactly valid_count (integer) and mean (number or null for no valid cells).\",\"Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.\",\"Use NumPy/rasterio already installed. Public input directory: /app/input.\",\"Run the program there and leave repaired /app/pipeline.py. Hidden tests use\",\"different raster values/NoData under the same contract. These are generated\",\"synthetic fixtures, not satellite observations or a real geospatial dataset.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":103,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"geospatial-raster-103\",\"task_version_id\":\"geospatial-raster-103:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:10:33.527520+00:00",
+      "manifest": {
+        "artifact_sha256": "cb6afd6bfa0d51c7e37ab2b08c9cad4adf48185f095e15a521a364fefa3fce1a",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "geospatial-raster",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept",
+          "--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,",
+          "EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32",
+          "band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,",
+          "width and height using nearest-neighbor sampling at target pixel centers. A",
+          "target center outside the source extent is missing. Never treat NoData as zero.",
+          "For each pixel, average the two valid values when both exist, retain a sole valid",
+          "value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact",
+          "target georeferencing and NoData metadata. Also write output/summary.json with",
+          "exactly valid_count (integer) and mean (number or null for no valid cells).",
+          "Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.",
+          "Use NumPy/rasterio already installed. Public input directory: /app/input.",
+          "Run the program there and leave repaired /app/pipeline.py. Hidden tests use",
+          "different raster values/NoData under the same contract. These are generated",
+          "synthetic fixtures, not satellite observations or a real geospatial dataset."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 103,
+        "source": "synthetic-generated-fixture",
+        "task_id": "geospatial-raster-103",
+        "task_version_id": "geospatial-raster-103:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "repository-debug-100:v1",
+      "task_id": "repository-debug-100",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "repository-debug",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-100-v1",
+      "manifest_json": "{\"artifact_sha256\":\"8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"repository-debug\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py, a broken interval normalization utility.\",\"Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]\",\"integer pairs, each describing a half-open interval [start,end). Discard empty\",\"intervals (start == end). If ANY pair is reversed (start > end), emit exactly\",\"{\\\"error\\\":\\\"reversed_interval\\\"}; do not silently swap its endpoints.\",\"Otherwise emit {\\\"intervals\\\":[[start,end],...],\\\"covered\\\":N} in output/result.json,\",\"where intervals are the sorted disjoint union; touching intervals MUST merge,\",\"duplicates collapse, negative coordinates are allowed, and covered is total\",\"integer length (sum of end-start). Empty input yields intervals=[] and covered=0.\",\"The importable function merge_intervals(intervals) must return that same object\",\"without modifying the input. CLI must overwrite outputs idempotently.\",\"Use Python standard library. Input fixture: /app/input/intervals.json. Run the\",\"program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs\",\"under this contract. All fixture data is synthetic.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":100,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"repository-debug-100\",\"task_version_id\":\"repository-debug-100:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:11:11.943867+00:00",
+      "manifest": {
+        "artifact_sha256": "8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "repository-debug",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py, a broken interval normalization utility.",
+          "Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]",
+          "integer pairs, each describing a half-open interval [start,end). Discard empty",
+          "intervals (start == end). If ANY pair is reversed (start > end), emit exactly",
+          "{\"error\":\"reversed_interval\"}; do not silently swap its endpoints.",
+          "Otherwise emit {\"intervals\":[[start,end],...],\"covered\":N} in output/result.json,",
+          "where intervals are the sorted disjoint union; touching intervals MUST merge,",
+          "duplicates collapse, negative coordinates are allowed, and covered is total",
+          "integer length (sum of end-start). Empty input yields intervals=[] and covered=0.",
+          "The importable function merge_intervals(intervals) must return that same object",
+          "without modifying the input. CLI must overwrite outputs idempotently.",
+          "Use Python standard library. Input fixture: /app/input/intervals.json. Run the",
+          "program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs",
+          "under this contract. All fixture data is synthetic."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 100,
+        "source": "synthetic-generated-fixture",
+        "task_id": "repository-debug-100",
+        "task_version_id": "repository-debug-100:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "repository-debug-101:v1",
+      "task_id": "repository-debug-101",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "repository-debug",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "37eabe08b156e1eca54ca43467f54b0072459780465248c442d2c8ff72009429",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-101-v1",
+      "manifest_json": "{\"artifact_sha256\":\"37eabe08b156e1eca54ca43467f54b0072459780465248c442d2c8ff72009429\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"repository-debug\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py, a broken interval normalization utility.\",\"Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]\",\"integer pairs, each describing a half-open interval [start,end). Discard empty\",\"intervals (start == end). If ANY pair is reversed (start > end), emit exactly\",\"{\\\"error\\\":\\\"reversed_interval\\\"}; do not silently swap its endpoints.\",\"Otherwise emit {\\\"intervals\\\":[[start,end],...],\\\"covered\\\":N} in output/result.json,\",\"where intervals are the sorted disjoint union; touching intervals MUST merge,\",\"duplicates collapse, negative coordinates are allowed, and covered is total\",\"integer length (sum of end-start). Empty input yields intervals=[] and covered=0.\",\"The importable function merge_intervals(intervals) must return that same object\",\"without modifying the input. CLI must overwrite outputs idempotently.\",\"Use Python standard library. Input fixture: /app/input/intervals.json. Run the\",\"program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs\",\"under this contract. All fixture data is synthetic.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":101,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"repository-debug-101\",\"task_version_id\":\"repository-debug-101:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:11:24.863571+00:00",
+      "manifest": {
+        "artifact_sha256": "37eabe08b156e1eca54ca43467f54b0072459780465248c442d2c8ff72009429",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "repository-debug",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py, a broken interval normalization utility.",
+          "Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]",
+          "integer pairs, each describing a half-open interval [start,end). Discard empty",
+          "intervals (start == end). If ANY pair is reversed (start > end), emit exactly",
+          "{\"error\":\"reversed_interval\"}; do not silently swap its endpoints.",
+          "Otherwise emit {\"intervals\":[[start,end],...],\"covered\":N} in output/result.json,",
+          "where intervals are the sorted disjoint union; touching intervals MUST merge,",
+          "duplicates collapse, negative coordinates are allowed, and covered is total",
+          "integer length (sum of end-start). Empty input yields intervals=[] and covered=0.",
+          "The importable function merge_intervals(intervals) must return that same object",
+          "without modifying the input. CLI must overwrite outputs idempotently.",
+          "Use Python standard library. Input fixture: /app/input/intervals.json. Run the",
+          "program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs",
+          "under this contract. All fixture data is synthetic."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 101,
+        "source": "synthetic-generated-fixture",
+        "task_id": "repository-debug-101",
+        "task_version_id": "repository-debug-101:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "repository-debug-102:v1",
+      "task_id": "repository-debug-102",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "repository-debug",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "5caefd8216dbbc1db426577fa2be67bac379e581890625e1e6e48eb69894dc06",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-102-v1",
+      "manifest_json": "{\"artifact_sha256\":\"5caefd8216dbbc1db426577fa2be67bac379e581890625e1e6e48eb69894dc06\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"repository-debug\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py, a broken interval normalization utility.\",\"Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]\",\"integer pairs, each describing a half-open interval [start,end). Discard empty\",\"intervals (start == end). If ANY pair is reversed (start > end), emit exactly\",\"{\\\"error\\\":\\\"reversed_interval\\\"}; do not silently swap its endpoints.\",\"Otherwise emit {\\\"intervals\\\":[[start,end],...],\\\"covered\\\":N} in output/result.json,\",\"where intervals are the sorted disjoint union; touching intervals MUST merge,\",\"duplicates collapse, negative coordinates are allowed, and covered is total\",\"integer length (sum of end-start). Empty input yields intervals=[] and covered=0.\",\"The importable function merge_intervals(intervals) must return that same object\",\"without modifying the input. CLI must overwrite outputs idempotently.\",\"Use Python standard library. Input fixture: /app/input/intervals.json. Run the\",\"program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs\",\"under this contract. All fixture data is synthetic.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":102,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"repository-debug-102\",\"task_version_id\":\"repository-debug-102:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:11:37.498234+00:00",
+      "manifest": {
+        "artifact_sha256": "5caefd8216dbbc1db426577fa2be67bac379e581890625e1e6e48eb69894dc06",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "repository-debug",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py, a broken interval normalization utility.",
+          "Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]",
+          "integer pairs, each describing a half-open interval [start,end). Discard empty",
+          "intervals (start == end). If ANY pair is reversed (start > end), emit exactly",
+          "{\"error\":\"reversed_interval\"}; do not silently swap its endpoints.",
+          "Otherwise emit {\"intervals\":[[start,end],...],\"covered\":N} in output/result.json,",
+          "where intervals are the sorted disjoint union; touching intervals MUST merge,",
+          "duplicates collapse, negative coordinates are allowed, and covered is total",
+          "integer length (sum of end-start). Empty input yields intervals=[] and covered=0.",
+          "The importable function merge_intervals(intervals) must return that same object",
+          "without modifying the input. CLI must overwrite outputs idempotently.",
+          "Use Python standard library. Input fixture: /app/input/intervals.json. Run the",
+          "program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs",
+          "under this contract. All fixture data is synthetic."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 102,
+        "source": "synthetic-generated-fixture",
+        "task_id": "repository-debug-102",
+        "task_version_id": "repository-debug-102:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "repository-debug-103:v1",
+      "task_id": "repository-debug-103",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "repository-debug",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "31b8f3a534c65e53e6e844fb2d10c7d56c81699c9a4136205d020de5222a9b33",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\repository-debug-103-v1",
+      "manifest_json": "{\"artifact_sha256\":\"31b8f3a534c65e53e6e844fb2d10c7d56c81699c9a4136205d020de5222a9b33\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"repository-debug\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py, a broken interval normalization utility.\",\"Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]\",\"integer pairs, each describing a half-open interval [start,end). Discard empty\",\"intervals (start == end). If ANY pair is reversed (start > end), emit exactly\",\"{\\\"error\\\":\\\"reversed_interval\\\"}; do not silently swap its endpoints.\",\"Otherwise emit {\\\"intervals\\\":[[start,end],...],\\\"covered\\\":N} in output/result.json,\",\"where intervals are the sorted disjoint union; touching intervals MUST merge,\",\"duplicates collapse, negative coordinates are allowed, and covered is total\",\"integer length (sum of end-start). Empty input yields intervals=[] and covered=0.\",\"The importable function merge_intervals(intervals) must return that same object\",\"without modifying the input. CLI must overwrite outputs idempotently.\",\"Use Python standard library. Input fixture: /app/input/intervals.json. Run the\",\"program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs\",\"under this contract. All fixture data is synthetic.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":103,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"repository-debug-103\",\"task_version_id\":\"repository-debug-103:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:11:48.399637+00:00",
+      "manifest": {
+        "artifact_sha256": "31b8f3a534c65e53e6e844fb2d10c7d56c81699c9a4136205d020de5222a9b33",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "repository-debug",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py, a broken interval normalization utility.",
+          "Accept --input JSON --output DIRECTORY. JSON input is an array of [start,end]",
+          "integer pairs, each describing a half-open interval [start,end). Discard empty",
+          "intervals (start == end). If ANY pair is reversed (start > end), emit exactly",
+          "{\"error\":\"reversed_interval\"}; do not silently swap its endpoints.",
+          "Otherwise emit {\"intervals\":[[start,end],...],\"covered\":N} in output/result.json,",
+          "where intervals are the sorted disjoint union; touching intervals MUST merge,",
+          "duplicates collapse, negative coordinates are allowed, and covered is total",
+          "integer length (sum of end-start). Empty input yields intervals=[] and covered=0.",
+          "The importable function merge_intervals(intervals) must return that same object",
+          "without modifying the input. CLI must overwrite outputs idempotently.",
+          "Use Python standard library. Input fixture: /app/input/intervals.json. Run the",
+          "program and leave repaired /app/pipeline.py. Hidden tests use other valid JSONs",
+          "under this contract. All fixture data is synthetic."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 103,
+        "source": "synthetic-generated-fixture",
+        "task_id": "repository-debug-103",
+        "task_version_id": "repository-debug-103:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "scientific-etl-100:v1",
+      "task_id": "scientific-etl-100",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "scientific-etl",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "13a3413b5b90407c53b7c6c298282f6ad4441f1e1501df9430d2f43deac656de",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-100-v1",
+      "manifest_json": "{\"artifact_sha256\":\"13a3413b5b90407c53b7c6c298282f6ad4441f1e1501df9430d2f43deac656de\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"scientific-etl\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,\",\"read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row\",\"has exactly station_id (string), count (integer), mean_c (number). The input has\",\"station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.\",\"Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),\",\"select the row with largest integer revision BEFORE checking status/value. If that\",\"selected row is invalid, discard that timestamp; do not resurrect an older value.\",\"Revisions per duplicate key are unique. A row is valid only when status is exactly\",\"'ok' and value is a finite number. Blank status is unknown and must be discarded.\",\"Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).\",\"Aggregate valid readings by station after conversion; omit stations with none.\",\"Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.\",\"Overwrite output deterministically on repeated calls; input order must not matter.\",\"Use Python standard library only. Input is /app/input/observations.csv. Run the\",\"program on it and leave repaired source /app/pipeline.py. Hidden tests use other\",\"CSVs under exactly this contract. Synthetic fixtures, no real sensor observations.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":100,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"scientific-etl-100\",\"task_version_id\":\"scientific-etl-100:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:07:21.221879+00:00",
+      "manifest": {
+        "artifact_sha256": "13a3413b5b90407c53b7c6c298282f6ad4441f1e1501df9430d2f43deac656de",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "scientific-etl",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,",
+          "read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row",
+          "has exactly station_id (string), count (integer), mean_c (number). The input has",
+          "station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.",
+          "Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),",
+          "select the row with largest integer revision BEFORE checking status/value. If that",
+          "selected row is invalid, discard that timestamp; do not resurrect an older value.",
+          "Revisions per duplicate key are unique. A row is valid only when status is exactly",
+          "'ok' and value is a finite number. Blank status is unknown and must be discarded.",
+          "Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).",
+          "Aggregate valid readings by station after conversion; omit stations with none.",
+          "Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.",
+          "Overwrite output deterministically on repeated calls; input order must not matter.",
+          "Use Python standard library only. Input is /app/input/observations.csv. Run the",
+          "program on it and leave repaired source /app/pipeline.py. Hidden tests use other",
+          "CSVs under exactly this contract. Synthetic fixtures, no real sensor observations."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 100,
+        "source": "synthetic-generated-fixture",
+        "task_id": "scientific-etl-100",
+        "task_version_id": "scientific-etl-100:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "scientific-etl-101:v1",
+      "task_id": "scientific-etl-101",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "scientific-etl",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "37f462522526e9a63016b1558fc6eab64fbef095733cfa588650a37c2350245d",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-101-v1",
+      "manifest_json": "{\"artifact_sha256\":\"37f462522526e9a63016b1558fc6eab64fbef095733cfa588650a37c2350245d\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"scientific-etl\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,\",\"read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row\",\"has exactly station_id (string), count (integer), mean_c (number). The input has\",\"station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.\",\"Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),\",\"select the row with largest integer revision BEFORE checking status/value. If that\",\"selected row is invalid, discard that timestamp; do not resurrect an older value.\",\"Revisions per duplicate key are unique. A row is valid only when status is exactly\",\"'ok' and value is a finite number. Blank status is unknown and must be discarded.\",\"Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).\",\"Aggregate valid readings by station after conversion; omit stations with none.\",\"Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.\",\"Overwrite output deterministically on repeated calls; input order must not matter.\",\"Use Python standard library only. Input is /app/input/observations.csv. Run the\",\"program on it and leave repaired source /app/pipeline.py. Hidden tests use other\",\"CSVs under exactly this contract. Synthetic fixtures, no real sensor observations.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":101,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"scientific-etl-101\",\"task_version_id\":\"scientific-etl-101:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:07:29.018976+00:00",
+      "manifest": {
+        "artifact_sha256": "37f462522526e9a63016b1558fc6eab64fbef095733cfa588650a37c2350245d",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "scientific-etl",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,",
+          "read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row",
+          "has exactly station_id (string), count (integer), mean_c (number). The input has",
+          "station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.",
+          "Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),",
+          "select the row with largest integer revision BEFORE checking status/value. If that",
+          "selected row is invalid, discard that timestamp; do not resurrect an older value.",
+          "Revisions per duplicate key are unique. A row is valid only when status is exactly",
+          "'ok' and value is a finite number. Blank status is unknown and must be discarded.",
+          "Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).",
+          "Aggregate valid readings by station after conversion; omit stations with none.",
+          "Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.",
+          "Overwrite output deterministically on repeated calls; input order must not matter.",
+          "Use Python standard library only. Input is /app/input/observations.csv. Run the",
+          "program on it and leave repaired source /app/pipeline.py. Hidden tests use other",
+          "CSVs under exactly this contract. Synthetic fixtures, no real sensor observations."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 101,
+        "source": "synthetic-generated-fixture",
+        "task_id": "scientific-etl-101",
+        "task_version_id": "scientific-etl-101:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "scientific-etl-102:v1",
+      "task_id": "scientific-etl-102",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "scientific-etl",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-102-v1",
+      "manifest_json": "{\"artifact_sha256\":\"1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"scientific-etl\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,\",\"read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row\",\"has exactly station_id (string), count (integer), mean_c (number). The input has\",\"station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.\",\"Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),\",\"select the row with largest integer revision BEFORE checking status/value. If that\",\"selected row is invalid, discard that timestamp; do not resurrect an older value.\",\"Revisions per duplicate key are unique. A row is valid only when status is exactly\",\"'ok' and value is a finite number. Blank status is unknown and must be discarded.\",\"Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).\",\"Aggregate valid readings by station after conversion; omit stations with none.\",\"Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.\",\"Overwrite output deterministically on repeated calls; input order must not matter.\",\"Use Python standard library only. Input is /app/input/observations.csv. Run the\",\"program on it and leave repaired source /app/pipeline.py. Hidden tests use other\",\"CSVs under exactly this contract. Synthetic fixtures, no real sensor observations.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":102,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"scientific-etl-102\",\"task_version_id\":\"scientific-etl-102:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:07:36.764907+00:00",
+      "manifest": {
+        "artifact_sha256": "1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "scientific-etl",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,",
+          "read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row",
+          "has exactly station_id (string), count (integer), mean_c (number). The input has",
+          "station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.",
+          "Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),",
+          "select the row with largest integer revision BEFORE checking status/value. If that",
+          "selected row is invalid, discard that timestamp; do not resurrect an older value.",
+          "Revisions per duplicate key are unique. A row is valid only when status is exactly",
+          "'ok' and value is a finite number. Blank status is unknown and must be discarded.",
+          "Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).",
+          "Aggregate valid readings by station after conversion; omit stations with none.",
+          "Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.",
+          "Overwrite output deterministically on repeated calls; input order must not matter.",
+          "Use Python standard library only. Input is /app/input/observations.csv. Run the",
+          "program on it and leave repaired source /app/pipeline.py. Hidden tests use other",
+          "CSVs under exactly this contract. Synthetic fixtures, no real sensor observations."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 102,
+        "source": "synthetic-generated-fixture",
+        "task_id": "scientific-etl-102",
+        "task_version_id": "scientific-etl-102:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    },
+    {
+      "task_version_id": "scientific-etl-103:v1",
+      "task_id": "scientific-etl-103",
+      "version": 1,
+      "parent_task_version_id": null,
+      "family": "scientific-etl",
+      "protocol": "terminal_agent",
+      "cohort": "discovery",
+      "artifact_sha256": "8fbe64b10596c259ff6916317bd7c3bf2db605aa030903d7ccd3e529c8e9eb26",
+      "task_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\tasks\\public_examples\\scientific-etl-103-v1",
+      "manifest_json": "{\"artifact_sha256\":\"8fbe64b10596c259ff6916317bd7c3bf2db605aa030903d7ccd3e529c8e9eb26\",\"cohort\":\"discovery\",\"controls\":{\"alternate\":\"controls/alternate.py\",\"bad\":\"controls/bad.py\",\"mutations\":[\"controls/hardcoded.py\"],\"oracle\":\"solution/solve.py\"},\"family\":\"scientific-etl\",\"mutation\":null,\"parent_task_version_id\":null,\"protocol\":\"terminal_agent\",\"public_artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"requirements\":[\"Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,\",\"read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row\",\"has exactly station_id (string), count (integer), mean_c (number). The input has\",\"station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.\",\"Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),\",\"select the row with largest integer revision BEFORE checking status/value. If that\",\"selected row is invalid, discard that timestamp; do not resurrect an older value.\",\"Revisions per duplicate key are unique. A row is valid only when status is exactly\",\"'ok' and value is a finite number. Blank status is unknown and must be discarded.\",\"Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).\",\"Aggregate valid readings by station after conversion; omit stations with none.\",\"Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.\",\"Overwrite output deterministically on repeated calls; input order must not matter.\",\"Use Python standard library only. Input is /app/input/observations.csv. Run the\",\"program on it and leave repaired source /app/pipeline.py. Hidden tests use other\",\"CSVs under exactly this contract. Synthetic fixtures, no real sensor observations.\"],\"review_status\":\"pending\",\"schema_version\":\"1.0\",\"seed\":103,\"source\":\"synthetic-generated-fixture\",\"task_id\":\"scientific-etl-103\",\"task_version_id\":\"scientific-etl-103:v1\",\"verifier\":\"tests/verify.py\",\"version\":1}",
+      "created_utc": "2026-10-31T10:07:45.285430+00:00",
+      "manifest": {
+        "artifact_sha256": "8fbe64b10596c259ff6916317bd7c3bf2db605aa030903d7ccd3e529c8e9eb26",
+        "cohort": "discovery",
+        "controls": {
+          "alternate": "controls/alternate.py",
+          "bad": "controls/bad.py",
+          "mutations": [
+            "controls/hardcoded.py"
+          ],
+          "oracle": "solution/solve.py"
+        },
+        "family": "scientific-etl",
+        "mutation": null,
+        "parent_task_version_id": null,
+        "protocol": "terminal_agent",
+        "public_artifacts": [
+          "/app/pipeline.py",
+          "/app/output"
+        ],
+        "requirements": [
+          "Repair /app/pipeline.py. It must accept --input CSV --output DIRECTORY,",
+          "read the CSV, and emit summary.json as a JSON array sorted by station_id. Each row",
+          "has exactly station_id (string), count (integer), mean_c (number). The input has",
+          "station_id,timestamp,value,unit,status,revision; irrelevant columns may occur.",
+          "Timestamps are UTC ISO-8601 strings ending Z. For duplicate (station_id,timestamp),",
+          "select the row with largest integer revision BEFORE checking status/value. If that",
+          "selected row is invalid, discard that timestamp; do not resurrect an older value.",
+          "Revisions per duplicate key are unique. A row is valid only when status is exactly",
+          "'ok' and value is a finite number. Blank status is unknown and must be discarded.",
+          "Units are C (Celsius), F (convert (value-32)*5/9), and K (value-273.15).",
+          "Aggregate valid readings by station after conversion; omit stations with none.",
+          "Round mean_c to six decimals using round-to-even; numeric tolerance is 1e-6.",
+          "Overwrite output deterministically on repeated calls; input order must not matter.",
+          "Use Python standard library only. Input is /app/input/observations.csv. Run the",
+          "program on it and leave repaired source /app/pipeline.py. Hidden tests use other",
+          "CSVs under exactly this contract. Synthetic fixtures, no real sensor observations."
+        ],
+        "review_status": "pending",
+        "schema_version": "1.0",
+        "seed": 103,
+        "source": "synthetic-generated-fixture",
+        "task_id": "scientific-etl-103",
+        "task_version_id": "scientific-etl-103:v1",
+        "verifier": "tests/verify.py",
+        "version": 1
+      }
+    }
+  ],
+  "coverage": {
+    "planned_slots": 0,
+    "observed_slots": 0,
+    "planned_base_tasks": 12,
+    "observed_revision_tasks": 0,
+    "planning_note": "Base-task matrix; adaptive child trials are observed separately. Tiered discovery may intentionally stop before all base slots are attempted.",
+    "planning_source": "configured_base_tasks",
+    "planning_error": null,
+    "missing_slots": 0,
+    "missing": []
+  },
+  "validations": [
+    {
+      "validation_id": "validation-0fb9c8606f70488f8f016134e6b8d65f",
+      "task_version_id": "geospatial-raster-100:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\geospatial-raster-100-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Value mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Pixel mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"373acc1581996237882e5706c8ee0b59049533ebf61c8e87107060b3f48f6e56\",\"valid\":true,\"wall_time_s\":60.828000000008615}",
+      "created_utc": "2026-10-31T10:08:53.063951+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\geospatial-raster-100-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Value mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Pixel mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "373acc1581996237882e5706c8ee0b59049533ebf61c8e87107060b3f48f6e56",
+        "valid": true,
+        "wall_time_s": 60.828000000008615
+      }
+    },
+    {
+      "validation_id": "validation-aa576fdbe09b44bd9bfffd66f979747d",
+      "task_version_id": "geospatial-raster-101:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\geospatial-raster-101-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Numeric value mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Pixel mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926\",\"valid\":true,\"wall_time_s\":49.75}",
+      "created_utc": "2026-10-31T10:09:42.925958+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\geospatial-raster-101-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Numeric value mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Pixel mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926",
+        "valid": true,
+        "wall_time_s": 49.75
+      }
+    },
+    {
+      "validation_id": "validation-eb6253f265664017b751fd92dd071911",
+      "task_version_id": "geospatial-raster-102:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\geospatial-raster-102-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Pixel mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Pixel mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"b929407ac296123b0b784b25dd59aefcaa9b0fc98825a30281d1723d47664a0b\",\"valid\":true,\"wall_time_s\":50.39100000000326}",
+      "created_utc": "2026-10-31T10:10:33.372456+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\geospatial-raster-102-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Pixel mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Pixel mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "b929407ac296123b0b784b25dd59aefcaa9b0fc98825a30281d1723d47664a0b",
+        "valid": true,
+        "wall_time_s": 50.39100000000326
+      }
+    },
+    {
+      "validation_id": "validation-40e9328a03db475c935235c3eb017075",
+      "task_version_id": "geospatial-raster-103:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\geospatial-raster-103-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Numeric value mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Pixel mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"cb6afd6bfa0d51c7e37ab2b08c9cad4adf48185f095e15a521a364fefa3fce1a\",\"valid\":true,\"wall_time_s\":38.21899999999732}",
+      "created_utc": "2026-10-31T10:11:11.888246+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\geospatial-raster-103-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Numeric value mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Pixel mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "cb6afd6bfa0d51c7e37ab2b08c9cad4adf48185f095e15a521a364fefa3fce1a",
+        "valid": true,
+        "wall_time_s": 38.21899999999732
+      }
+    },
+    {
+      "validation_id": "validation-97749693b5f34d7d98263d9eb5531f63",
+      "task_version_id": "repository-debug-100:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\repository-debug-100-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Submitted program failed during behavioral test\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d\",\"valid\":true,\"wall_time_s\":12.875}",
+      "created_utc": "2026-10-31T10:11:24.819998+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\repository-debug-100-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Submitted program failed during behavioral test\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d",
+        "valid": true,
+        "wall_time_s": 12.875
+      }
+    },
+    {
+      "validation_id": "validation-565bd347c46244949c9d7d85282c0a79",
+      "task_version_id": "repository-debug-101:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\repository-debug-101-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Submitted program failed during behavioral test\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"37eabe08b156e1eca54ca43467f54b0072459780465248c442d2c8ff72009429\",\"valid\":true,\"wall_time_s\":12.59299999999348}",
+      "created_utc": "2026-10-31T10:11:37.464525+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\repository-debug-101-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Submitted program failed during behavioral test\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "37eabe08b156e1eca54ca43467f54b0072459780465248c442d2c8ff72009429",
+        "valid": true,
+        "wall_time_s": 12.59299999999348
+      }
+    },
+    {
+      "validation_id": "validation-fa9a9a58b62d43c780ff56a6b363c66e",
+      "task_version_id": "repository-debug-102:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\repository-debug-102-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Submitted program failed during behavioral test\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"5caefd8216dbbc1db426577fa2be67bac379e581890625e1e6e48eb69894dc06\",\"valid\":true,\"wall_time_s\":10.875}",
+      "created_utc": "2026-10-31T10:11:48.364200+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\repository-debug-102-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Submitted program failed during behavioral test\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "5caefd8216dbbc1db426577fa2be67bac379e581890625e1e6e48eb69894dc06",
+        "valid": true,
+        "wall_time_s": 10.875
+      }
+    },
+    {
+      "validation_id": "validation-6cc3c206462d42e592f2442e28ef802a",
+      "task_version_id": "repository-debug-103:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\repository-debug-103-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Submitted program failed during behavioral test\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"31b8f3a534c65e53e6e844fb2d10c7d56c81699c9a4136205d020de5222a9b33\",\"valid\":true,\"wall_time_s\":13.296999999991385}",
+      "created_utc": "2026-10-31T10:12:01.696794+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\repository-debug-103-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Submitted program failed during behavioral test\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "31b8f3a534c65e53e6e844fb2d10c7d56c81699c9a4136205d020de5222a9b33",
+        "valid": true,
+        "wall_time_s": 13.296999999991385
+      }
+    },
+    {
+      "validation_id": "validation-1b2837e1b0544b27848e37d927919dfa",
+      "task_version_id": "scientific-etl-100:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\scientific-etl-100-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"13a3413b5b90407c53b7c6c298282f6ad4441f1e1501df9430d2f43deac656de\",\"valid\":true,\"wall_time_s\":7.75}",
+      "created_utc": "2026-10-31T10:07:28.984043+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\scientific-etl-100-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "13a3413b5b90407c53b7c6c298282f6ad4441f1e1501df9430d2f43deac656de",
+        "valid": true,
+        "wall_time_s": 7.75
+      }
+    },
+    {
+      "validation_id": "validation-615a93106f854136b3297652f8025119",
+      "task_version_id": "scientific-etl-101:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\scientific-etl-101-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Numeric value mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"37f462522526e9a63016b1558fc6eab64fbef095733cfa588650a37c2350245d\",\"valid\":true,\"wall_time_s\":7.702999999994063}",
+      "created_utc": "2026-10-31T10:07:36.726949+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\scientific-etl-101-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Numeric value mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "37f462522526e9a63016b1558fc6eab64fbef095733cfa588650a37c2350245d",
+        "valid": true,
+        "wall_time_s": 7.702999999994063
+      }
+    },
+    {
+      "validation_id": "validation-5a03628574e746028fc948527ea58da1",
+      "task_version_id": "scientific-etl-102:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\scientific-etl-102-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Numeric value mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f\",\"valid\":true,\"wall_time_s\":8.485000000000582}",
+      "created_utc": "2026-10-31T10:07:45.248652+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\scientific-etl-102-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Numeric value mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "1bf1f4c0e45208d59a284fd0d245dfe27eee1b37fce9904e01abbf9dc4ae7b0f",
+        "valid": true,
+        "wall_time_s": 8.485000000000582
+      }
+    },
+    {
+      "validation_id": "validation-48bf3378c1be4a899a29446dbad2b21b",
+      "task_version_id": "scientific-etl-103:v1",
+      "valid": 1,
+      "validation_json": "{\"eligible_for_model_evaluation\":false,\"evidence_path\":\"C:\\\\Users\\\\tanne\\\\OneDrive\\\\Documents\\\\ChatGPT\\\\Red-team\\\\artifacts\\\\public-pilot\\\\scientific-etl-103-v1\\\\validation.json\",\"gates\":[{\"missing\":[],\"name\":\"structure\",\"passed\":true},{\"artifacts\":[\"/app/pipeline.py\",\"/app/output\"],\"name\":\"harbor_contract\",\"passed\":true,\"schema_version\":\"1.3\"},{\"leaked_paths\":[],\"limitation\":\"Static source check; Docker image inspection is required for production approval\",\"name\":\"leakage_static\",\"passed\":true,\"unsupported_copies\":[]},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_1\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":0,\"name\":\"oracle_2\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"nop\",\"output\":\"Missing submitted output directory\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":1,\"name\":\"known_bad\",\"output\":\"Wrong array schema\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1},{\"expected_verifier_exit_code\":0,\"name\":\"alternate\",\"output\":\"\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":0},{\"expected_verifier_exit_code\":1,\"name\":\"negative_mutation_1\",\"output\":\"Numeric value mismatch\\n\",\"passed\":true,\"solver_exit_code\":0,\"verifier_exit_code\":1}],\"limitation\":\"Local functional controls only; no container, privilege or network isolation was tested.\",\"review_status\":\"pending\",\"runtime\":\"local\",\"status\":\"VALIDATED\",\"task_sha256\":\"8fbe64b10596c259ff6916317bd7c3bf2db605aa030903d7ccd3e529c8e9eb26\",\"valid\":true,\"wall_time_s\":6.906999999991967}",
+      "created_utc": "2026-10-31T10:07:52.203175+00:00",
+      "evidence": {
+        "eligible_for_model_evaluation": false,
+        "evidence_path": "C:\\Users\\tanne\\OneDrive\\Documents\\ChatGPT\\Red-team\\artifacts\\public-pilot\\scientific-etl-103-v1\\validation.json",
+        "gates": [
+          {
+            "missing": [],
+            "name": "structure",
+            "passed": true
+          },
+          {
+            "artifacts": [
+              "/app/pipeline.py",
+              "/app/output"
+            ],
+            "name": "harbor_contract",
+            "passed": true,
+            "schema_version": "1.3"
+          },
+          {
+            "leaked_paths": [],
+            "limitation": "Static source check; Docker image inspection is required for production approval",
+            "name": "leakage_static",
+            "passed": true,
+            "unsupported_copies": []
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_1",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "oracle_2",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "nop",
+            "output": "Missing submitted output directory\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "known_bad",
+            "output": "Wrong array schema\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          },
+          {
+            "expected_verifier_exit_code": 0,
+            "name": "alternate",
+            "output": "",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 0
+          },
+          {
+            "expected_verifier_exit_code": 1,
+            "name": "negative_mutation_1",
+            "output": "Numeric value mismatch\n",
+            "passed": true,
+            "solver_exit_code": 0,
+            "verifier_exit_code": 1
+          }
+        ],
+        "limitation": "Local functional controls only; no container, privilege or network isolation was tested.",
+        "review_status": "pending",
+        "runtime": "local",
+        "status": "VALIDATED",
+        "task_sha256": "8fbe64b10596c259ff6916317bd7c3bf2db605aa030903d7ccd3e529c8e9eb26",
+        "valid": true,
+        "wall_time_s": 6.906999999991967
+      }
+    }
+  ],
+  "findings": [],
+  "quality": {
+    "local_validation_runs": 12,
+    "eligible_docker_validation_runs": 0,
+    "gate_execution_counts": {
+      "structure": {
+        "passed": 12,
+        "executed": 12
+      },
+      "harbor_contract": {
+        "passed": 12,
+        "executed": 12
+      },
+      "leakage_static": {
+        "passed": 12,
+        "executed": 12
+      },
+      "oracle_1": {
+        "passed": 12,
+        "executed": 12
+      },
+      "oracle_2": {
+        "passed": 12,
+        "executed": 12
+      },
+      "nop": {
+        "passed": 12,
+        "executed": 12
+      },
+      "known_bad": {
+        "passed": 12,
+        "executed": 12
+      },
+      "alternate": {
+        "passed": 12,
+        "executed": 12
+      },
+      "negative_mutation_1": {
+        "passed": 12,
+        "executed": 12
+      }
+    }
+  },
+  "cost": {
+    "known_total_usd": null,
+    "known_attempts": 0,
+    "unknown_attempts": 0
+  },
+  "limitations": [
+    "Discovery outcomes are conditional on adaptive selection and are not general capability estimates.",
+    "Public task publication prevents future claims of an untouched holdout.",
+    "Model identity aliases may drift; inspect exact requested and returned metadata.",
+    "Repeated attempts are clustered by task. Small-sample intervals are exploratory.",
+    "Error outcomes remain visible and are excluded from correctness denominators.",
+    "Trace exports may contain private task or user data; review before publishing."
+  ]
+}

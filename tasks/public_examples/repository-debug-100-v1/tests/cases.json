@@ -1,0 +1,250 @@
+[
+  {
+    "expected": {
+      "covered": 21,
+      "intervals": [
+        [
+          -11,
+          -6
+        ],
+        [
+          -4,
+          3
+        ],
+        [
+          5,
+          14
+        ]
+      ]
+    },
+    "filename": "intervals.json",
+    "input": [
+      [
+        9,
+        11
+      ],
+      [
+        10,
+        14
+      ],
+      [
+        -11,
+        -6
+      ],
+      [
+        7,
+        7
+      ],
+      [
+        9,
+        11
+      ],
+      [
+        9,
+        11
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        5,
+        9
+      ],
+      [
+        -9,
+        -6
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "kind": "repository",
+    "output": "result.json"
+  },
+  {
+    "expected": {
+      "covered": 21,
+      "intervals": [
+        [
+          -20,
+          -14
+        ],
+        [
+          -4,
+          3
+        ],
+        [
+          6,
+          14
+        ]
+      ]
+    },
+    "filename": "intervals.json",
+    "input": [
+      [
+        7,
+        7
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -16,
+        -14
+      ],
+      [
+        9,
+        11
+      ],
+      [
+        6,
+        11
+      ],
+      [
+        9,
+        11
+      ],
+      [
+        -20,
+        -15
+      ],
+      [
+        10,
+        14
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "kind": "repository",
+    "output": "result.json"
+  },
+  {
+    "expected": {
+      "covered": 16,
+      "intervals": [
+        [
+          -4,
+          3
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          15,
+          16
+        ]
+      ]
+    },
+    "filename": "intervals.json",
+    "input": [
+      [
+        0,
+        3
+      ],
+      [
+        10,
+        13
+      ],
+      [
+        14,
+        14
+      ],
+      [
+        10,
+        14
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        9,
+        11
+      ],
+      [
+        7,
+        7
+      ],
+      [
+        15,
+        16
+      ],
+      [
+        6,
+        9
+      ],
+      [
+        9,
+        11
+      ]
+    ],
+    "kind": "repository",
+    "output": "result.json"
+  },
+  {
+    "expected": {
+      "covered": 0,
+      "intervals": []
+    },
+    "filename": "intervals.json",
+    "input": [],
+    "kind": "repository",
+    "output": "result.json"
+  },
+  {
+    "expected": {
+      "error": "reversed_interval"
+    },
+    "filename": "intervals.json",
+    "input": [
+      [
+        5,
+        -2
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "kind": "repository",
+    "output": "result.json"
+  },
+  {
+    "expected": {
+      "covered": 4,
+      "intervals": [
+        [
+          0,
+          4
+        ]
+      ]
+    },
+    "filename": "intervals.json",
+    "input": [
+      [
+        0,
+        2
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "kind": "repository",
+    "output": "result.json"
+  }
+]

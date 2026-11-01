@@ -1,0 +1,52 @@
+# Proposed internal task provenance contract. This is NOT a replacement for Harbor task.toml.
+# All hashes, versions, identities, and examples are placeholders, not observed results.
+schema_version: "0.1-proposal"
+task_id: "scientific-etl-null-handling-001"
+task_version: 2
+family: scientific_etl
+capability_tags:
+  - python
+  - data-quality
+  - schema-validation
+  - missing-data
+  - unit-conversion
+protocol: terminal_agent
+source: original_generated_fixture
+seed: 123
+parent:
+  task_id: "scientific-etl-null-handling-001"
+  version: 1
+  mutation: "Introduce missing sensor flags and duplicate timestamps with documented aggregation rules"
+  hypothesis: "Tests whether a model preserves null semantics across multiple transformation stages"
+cohort: discovery # discovery | calibration | holdout
+artifact_sha256: "REPLACE_WITH_REAL_SHA256"
+requirements:
+  - id: req_01
+    description: "Filter invalid observations without replacing unknown flags with zero"
+  - id: req_02
+    description: "Convert valid readings to canonical units before aggregation"
+  - id: req_03
+    description: "Emit deterministic JSON with prescribed keys and data types"
+public_contract:
+  input: "/app/input/observations.csv"
+  output: "/app/output/summary.json"
+  runtime: "Python 3.11"
+  network: none
+  files_visible_to_agent:
+    - instruction.md
+    - "/app/input/observations.csv"
+private_contract:
+  oracle_path: "solution/solve.sh"
+  verifier_path: "tests/test.sh"
+  verifier_environment: separate
+  verifier_reward_path: "/logs/verifier/reward.json"
+controls:
+  oracle_clean_run_count: 2
+  must_reject_nop: true
+  must_reject_known_bad: true
+  alternate_solution_required: true
+  allow_ambiguous_requirements: false
+validation:
+  status: unverified # never mark passed without running gates
+  review_status: not_reviewed
+  last_checked_utc: null

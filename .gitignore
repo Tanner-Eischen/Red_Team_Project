@@ -6,3 +6,16 @@ logs/
 adversarial_tasks/
 .context/failure_patterns/
 .context/success_rates.json
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+artifacts/
+tasks/generated/
+evals/holdout_private/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.context/runs/

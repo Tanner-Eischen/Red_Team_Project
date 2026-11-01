@@ -1,0 +1,20 @@
+schema_version: '1'
+campaign_id: public-container-controls-v1
+objective: adversarial_discovery
+cohort: discovery
+protocol: terminal_agent
+tasks:
+  - ../../tasks/public_examples/scientific-etl-100-v1
+  - ../../tasks/public_examples/geospatial-raster-100-v1
+  - ../../tasks/public_examples/repository-debug-100-v1
+# Intentionally no model profiles: this configuration cannot spend API tokens.
+model_profiles: []
+budgets:
+  campaign_usd_max: 0
+  total_input_tokens_max: 0
+  total_output_tokens_max: 0
+  max_model_attempts: 0
+  wall_time_seconds_max: 7200
+  max_concurrency: 1
+  max_task_revisions: 0
+include_timeouts_in_denominator: false

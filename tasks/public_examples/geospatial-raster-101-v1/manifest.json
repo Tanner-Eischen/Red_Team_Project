@@ -1,0 +1,45 @@
+{
+  "artifact_sha256": "804ad8eb83d7fde6282fb7cfeca3be736ca7dd9eb228ab3445421f0402453926",
+  "cohort": "discovery",
+  "controls": {
+    "alternate": "controls/alternate.py",
+    "bad": "controls/bad.py",
+    "mutations": [
+      "controls/hardcoded.py"
+    ],
+    "oracle": "solution/solve.py"
+  },
+  "family": "geospatial-raster",
+  "mutation": null,
+  "parent_task_version_id": null,
+  "protocol": "terminal_agent",
+  "public_artifacts": [
+    "/app/pipeline.py",
+    "/app/output"
+  ],
+  "requirements": [
+    "Repair /app/pipeline.py to mosaic two synthetic GeoTIFFs. Accept",
+    "--input DIRECTORY --output DIRECTORY. Input contains reference.tif (target grid,",
+    "EPSG:4326) and secondary.tif (different grid, EPSG:3857). Each has a single float32",
+    "band and NoData=-9999. Reproject secondary onto the EXACT reference CRS, affine,",
+    "width and height using nearest-neighbor sampling at target pixel centers. A",
+    "target center outside the source extent is missing. Never treat NoData as zero.",
+    "For each pixel, average the two valid values when both exist, retain a sole valid",
+    "value, and emit -9999 if neither exists. Save float32 output/mosaic.tif with exact",
+    "target georeferencing and NoData metadata. Also write output/summary.json with",
+    "exactly valid_count (integer) and mean (number or null for no valid cells).",
+    "Pixel and mean tolerance: 1e-5 absolute. Repeat execution must be idempotent.",
+    "Use NumPy/rasterio already installed. Public input directory: /app/input.",
+    "Run the program there and leave repaired /app/pipeline.py. Hidden tests use",
+    "different raster values/NoData under the same contract. These are generated",
+    "synthetic fixtures, not satellite observations or a real geospatial dataset."
+  ],
+  "review_status": "pending",
+  "schema_version": "1.0",
+  "seed": 101,
+  "source": "synthetic-generated-fixture",
+  "task_id": "geospatial-raster-101",
+  "task_version_id": "geospatial-raster-101:v1",
+  "verifier": "tests/verify.py",
+  "version": 1
+}

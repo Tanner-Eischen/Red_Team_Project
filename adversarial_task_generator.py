@@ -362,7 +362,18 @@ class AdversarialTaskGenerator:
         description: str = "",
         use_starcoder: bool = False
     ) -> Dict:
-        """Generate a complete adversarial task"""
+        """Generate the retained legacy COBOL demonstration.
+
+        Other categories previously returned echo tasks, which could be mistaken
+        for implemented benchmarks. Scientific families live in ``redforge``.
+        """
+        if weakness_category != "COBOL_PACKED_DECIMAL":
+            raise ValueError(
+                f"Unimplemented legacy weakness category: {weakness_category}. "
+                "Use redforge task generate with an implemented scientific family."
+            )
+        if num_variants < 1:
+            raise ValueError("num_variants must be positive")
         self._use_starcoder_variants = bool(use_starcoder)
         task_path = self.output_dir / task_id
         task_path.mkdir(parents=True, exist_ok=True)
@@ -385,18 +396,19 @@ class AdversarialTaskGenerator:
             workdir="/app",
         )
 
-        reward_path = "/reward/output.txt"
+        reward_path = "/logs/verifier/reward.txt"
+        artifact_path = "/app/output/result.txt"
 
         inputs = [
             IOSpec(
-                path="/tests/variant_1.input",
+                path="/app/input/variant_1.input",
                 description=f"Primary adversarial input for {weakness_category}",
             )
         ]
         outputs = [
             IOSpec(
-                path=reward_path,
-                description="Reward file capturing solver output for oracle comparison",
+                path=artifact_path,
+                description="Agent-produced decoded integer; distinct from verifier reward",
             )
         ]
 
@@ -455,6 +467,11 @@ class AdversarialTaskGenerator:
         )
 
         instruction = self._create_instruction(weakness_category, description)
+        instruction += (
+            "\nLegacy migration demonstration: read /app/input/variant_1.input and write "
+            "the decoded value to /app/output/result.txt. This fixed public example "
+            "does not establish held-out benchmark validity.\n"
+        )
 
         spec = TaskSpec(
             task_id=task_id,
@@ -468,6 +485,10 @@ class AdversarialTaskGenerator:
             oracle=oracle,
             test_plan=test_plan,
             anti_cheating=anti_cheating,
+            public_files={"input/variant_1.input": "123C\n"},
+            # This fixture expectation is authored explicitly, not obtained by
+            # executing the reference implementation inside the verifier.
+            expected_outputs={artifact_path: "123"},
         )
 
         render_task(spec, task_path)
@@ -483,7 +504,7 @@ class AdversarialTaskGenerator:
             "weakness_category": weakness_category,
             "num_variants": num_variants,
             "created": datetime.now().isoformat(),
-            "status": "generated",
+            "status": "unverified_legacy",
             "target_models": list(target_models),
             "generator": "AdversarialTaskGenerator",
         }
@@ -626,152 +647,6 @@ Reference implementation must pass all tests:
             return "\n".join(lines)
         return f"{prefix}{self._yaml_scalar(value)}"
     
-    def _create_dockerfile(self, weakness: str) -> str:
-        """Create Dockerfile for isolated execution"""
-        if weakness == "COBOL_PACKED_DECIMAL":
-            return """FROM ubuntu:22.04
-
-RUN apt-get update && apt-get install -y bash curl git python3 && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /app
-
-COPY solution/ /app/solution/
-COPY tests/ /app/tests/
-
-RUN chmod +x /app/solution/*.sh /app/tests/*.sh
-
-CMD ["/bin/bash"]
-"""
-        return """FROM ubuntu:22.04
-
-RUN apt-get update && apt-get install -y bash curl git && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /app
-
-COPY solution/ /app/solution/
-COPY tests/ /app/tests/
-
-RUN chmod +x /app/solution/*.sh /app/tests/*.sh
-
-CMD ["/bin/bash"]
-"""
-    
-    def _create_solution(self, weakness: str) -> str:
-        """Create reference solution script"""
-        if weakness == "COBOL_PACKED_DECIMAL":
-            return """#!/bin/bash
-input_data="${1:-}"
-
-python3 - "$input_data" <<'PY'
-import sys
-
-value = sys.argv[1] if len(sys.argv) > 1 else ""
-cleaned = "".join(ch for ch in value.lower() if ch in "0123456789abcdef")
-if not cleaned or len(cleaned) % 2 != 0:
-    print("ERROR")
-    raise SystemExit(0)
-
-try:
-    data = bytes.fromhex(cleaned)
-except ValueError:
-    print("ERROR")
-    raise SystemExit(0)
-
-if not data:
-    print("ERROR")
-    raise SystemExit(0)
-
-digits = []
-for b in data[:-1]:
-    hi = (b >> 4) & 0xF
-    lo = b & 0xF
-    if hi > 9 or lo > 9:
-        print("ERROR")
-        raise SystemExit(0)
-    digits.append(hi)
-    digits.append(lo)
-
-last = data[-1]
-last_hi = (last >> 4) & 0xF
-last_sign = last & 0xF
-if last_hi > 9:
-    print("ERROR")
-    raise SystemExit(0)
-digits.append(last_hi)
-
-if last_sign in (0xC, 0xF):
-    sign = 1
-elif last_sign == 0xD:
-    sign = -1
-else:
-    print("ERROR")
-    raise SystemExit(0)
-
-number = "".join(str(d) for d in digits).lstrip("0") or "0"
-if number == "0":
-    sign = 1
-
-print(number if sign > 0 else f"-{number}")
-PY
-"""
-        return f"""#!/bin/bash
-# Reference implementation for {weakness}
-
-input_data="${{1:-}}"
-
-if [ -z "$input_data" ]; then
-    echo "Error: No input provided"
-    exit 1
-fi
-
-# Process and return input
-echo "$input_data"
-"""
-    
-    def _create_test_harness(self, num_variants: int) -> str:
-        """Create test.sh test harness"""
-        test_code = """#!/bin/bash
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOLUTION_DIR="$SCRIPT_DIR/../solution"
-PASSED=0
-FAILED=0
-
-echo "Running adversarial tests..."
-echo ""
-
-"""
-        for i in range(1, num_variants + 1):
-            test_code += f"""
-if [ -f "$SCRIPT_DIR/variant_{i}.input" ] && [ -f "$SCRIPT_DIR/variant_{i}.expected" ]; then
-    INPUT=$(cat "$SCRIPT_DIR/variant_{i}.input")
-    EXPECTED=$(cat "$SCRIPT_DIR/variant_{i}.expected")
-    ACTUAL=$(bash "$SOLUTION_DIR/solve.sh" "$INPUT" 2>/dev/null)
-    
-    echo "Testing variant_{i}..."
-    if [ "$ACTUAL" = "$EXPECTED" ]; then
-        echo "  ✅ PASS"
-        ((PASSED++))
-    else
-        echo "  ❌ FAIL"
-        ((FAILED++))
-    fi
-fi
-"""
-        
-        test_code += """
-echo ""
-echo "Results: $PASSED passed, $FAILED failed"
-
-if [ $FAILED -eq 0 ]; then
-    echo "✅ All tests passed!"
-    exit 0
-else
-    echo "❌ Some tests failed"
-    exit 1
-fi
-"""
-        return test_code
-    
     def _create_test_variant(self, task_path: Path, variant_num: int, weakness: str):
         """Create test variant files"""
         if weakness == "COBOL_PACKED_DECIMAL":
@@ -782,10 +657,7 @@ fi
             (task_path / "tests" / f"variant_{variant_num}.input").write_text(input_content, encoding="utf-8", newline="\n")
             (task_path / "tests" / f"variant_{variant_num}.expected").write_text(expected_content, encoding="utf-8", newline="\n")
             return
-        input_content = f"test_input_{variant_num}"
-        (task_path / "tests" / f"variant_{variant_num}.input").write_text(input_content, encoding="utf-8", newline="\n")
-        expected_content = f"test_input_{variant_num}"
-        (task_path / "tests" / f"variant_{variant_num}.expected").write_text(expected_content, encoding="utf-8", newline="\n")
+        raise ValueError(f"No implemented test family for legacy weakness {weakness!r}")
     
     def _create_report_template(self, task_id: str, weakness: str, models: List[str]) -> str:
         """Create validation report template"""

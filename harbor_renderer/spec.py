@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from pathlib import PurePosixPath
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator
@@ -96,6 +97,9 @@ class TaskSpec(BaseModel):
     oracle: OracleStrategy
     test_plan: TestPlanSpec
     anti_cheating: AntiCheatingSpec
+    # Older specs omit independent fixtures and must not be scored as valid.
+    public_files: dict[str, str] = Field(default_factory=dict)
+    expected_outputs: dict[str, str] = Field(default_factory=dict)
 
     model_config = {"extra": "forbid"}
 
@@ -124,4 +128,13 @@ class TaskSpec(BaseModel):
             "test_requirements": list(self.test_plan.requirements),
             "test_cases": [c.model_dump(mode="json") for c in self.test_plan.cases],
         }
+
+    @field_validator("public_files")
+    @classmethod
+    def validate_public_files(cls, files: dict[str, str]) -> dict[str, str]:
+        for name in files:
+            path = PurePosixPath(name)
+            if path.is_absolute() or ".." in path.parts or "\\" in name or not path.parts:
+                raise ValueError("public file names must be safe relative POSIX paths under /app")
+        return files
 
