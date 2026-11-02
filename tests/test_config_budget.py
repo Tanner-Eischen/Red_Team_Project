@@ -170,3 +170,25 @@ def test_config_paths_are_relative_to_config(tmp_path):
     path.write_text("campaign_id: path-test\ntasks: [task]\n", encoding="utf-8")
     cfg = load_campaign(path)
     assert cfg.tasks == (str((tmp_path / "task").resolve()),)
+
+
+def test_harness_declares_legacy_per_call_output_default():
+    from harborforge.config import HarnessProfile
+    assert HarnessProfile().per_call_output_tokens == 2048
+    assert HarnessProfile(max_output_tokens=1024).per_call_output_tokens == 1024
+    assert HarnessProfile(max_output_tokens=50).per_call_output_tokens == 50
+    assert HarnessProfile.model_validate({"max_output_tokens": "50"}).per_call_output_tokens == 50
+
+
+def test_harness_accepts_matched_explicit_larger_free_per_call_envelope():
+    from harborforge.config import HarnessProfile
+    harness = HarnessProfile(max_input_tokens=128000, max_output_tokens=98304, per_call_output_tokens=8192)
+    assert harness.model_dump()["per_call_output_tokens"] == 8192
+    assert harness.per_call_output_tokens * 12 == harness.max_output_tokens
+
+
+@pytest.mark.parametrize("per_call", [0, -1, True, 1.5, 98305])
+def test_harness_rejects_invalid_or_over_cumulative_per_call_output(per_call):
+    from harborforge.config import HarnessProfile
+    with pytest.raises(ValidationError):
+        HarnessProfile(max_output_tokens=98304, per_call_output_tokens=per_call)

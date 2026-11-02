@@ -9,7 +9,10 @@ from __future__ import annotations
 import base64
 import asyncio
 import hashlib
+import hmac
+from importlib import metadata
 import json
+import os
 from pathlib import Path, PurePosixPath
 import shlex
 import stat
@@ -22,6 +25,8 @@ POLICY_VERSION = "hf-docker-v1"
 MAX_FILE_BYTES = 8 * 1024 * 1024
 MAX_TRANSFER_BYTES = 16 * 1024 * 1024
 MAX_FILES = 128
+TRUSTED_HARBOR_ASSET = "harbor/agents/terminus_2/get-asciinema-timestamp.sh"
+TRUSTED_HARBOR_TARGET = "/tmp/get-asciinema-timestamp.sh"
 
 # Isolated Python ignores the candidate's cwd, PYTHONPATH and user site packages.
 # File descriptors use NOFOLLOW and are fstat'ed after opening, closing the usual
@@ -103,6 +108,34 @@ def _host_tree(path: Path) -> None:
         total += info.st_size
         if info.st_size > MAX_FILE_BYTES or total > MAX_TRANSFER_BYTES:
             raise ValueError("Oversized host transfer")
+
+
+def _verified_harbor_tool(source: Path, target: str) -> bytes:
+    """Read one pinned distribution asset, not arbitrary linked submissions."""
+    if target != TRUSTED_HARBOR_TARGET or any(path.is_symlink() for path in (source, *source.parents)):
+        raise ValueError("Linked upload is not an approved trusted tool")
+    installed = metadata.distribution("harbor")
+    if installed.version != "0.13.2":
+        raise ValueError("Trusted tool requires pinned Harbor 0.13.2")
+    matches = [entry for entry in installed.files or [] if entry.as_posix() == TRUSTED_HARBOR_ASSET]
+    if len(matches) != 1 or matches[0].hash is None or matches[0].hash.mode != "sha256":
+        raise ValueError("Trusted tool has no distribution RECORD checksum")
+    entry = matches[0]
+    if source.absolute() != Path(installed.locate_file(entry)).absolute():
+        raise ValueError("Linked source is outside the pinned distribution asset")
+    descriptor = os.open(source, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        info = os.fstat(descriptor)
+        if not stat.S_ISREG(info.st_mode) or info.st_size > MAX_FILE_BYTES:
+            raise ValueError("Trusted tool is not a bounded regular file")
+        with os.fdopen(descriptor, "rb", closefd=False) as stream:
+            payload = stream.read(MAX_FILE_BYTES + 1)
+    finally:
+        os.close(descriptor)
+    actual = base64.urlsafe_b64encode(hashlib.sha256(payload).digest()).decode().rstrip("=")
+    if len(payload) != entry.size or not hmac.compare_digest(actual, entry.hash.value):
+        raise ValueError("Trusted tool differs from its pinned distribution RECORD")
+    return payload
 
 
 def materialize(records: list[dict], target: Path, *, directory: bool) -> dict[str, str]:
@@ -274,7 +307,25 @@ class IsolatedDockerEnvironment(DockerEnvironment):
         await self._upload(Path(source_dir), str(target_dir), True)
 
     async def _upload(self, source: Path, target: str, directory: bool):
-        _host_tree(source)
+        try:
+            _host_tree(source)
+        except ValueError:
+            if directory or not stat.S_ISREG(source.lstat().st_mode) or source.lstat().st_nlink <= 1:
+                raise
+            payload = _verified_harbor_tool(source, target)
+            # uv legitimately hardlinks installed wheel assets to its cache.
+            # Only a checksum-verified trusted helper gets a private fresh copy;
+            # ordinary candidate/artifact paths still use the strict link rule.
+            with tempfile.TemporaryDirectory(prefix="hf-trusted-tool-") as temporary:
+                staged = Path(temporary) / "tool.sh"
+                staged.write_bytes(payload)
+                _host_tree(staged)
+                with (self.trial_paths.trial_dir / "trusted-tooling.jsonl").open("a", encoding="utf-8") as log:
+                    log.write(json.dumps({"distribution": "harbor", "version": "0.13.2",
+                        "record_path": TRUSTED_HARBOR_ASSET, "target": target,
+                        "sha256": hashlib.sha256(payload).hexdigest(),
+                        "original_links": source.stat().st_nlink, "staged_links": staged.stat().st_nlink}) + "\n")
+                return await self._upload(staged, target, False)
         records = []
         paths = [source, *sorted(source.rglob("*"))] if directory else [source]
         for path in paths:

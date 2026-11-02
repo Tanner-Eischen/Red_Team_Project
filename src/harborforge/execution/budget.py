@@ -56,7 +56,9 @@ class BudgetLedger:
         reservation = Reservation(model.max_cost_usd_per_attempt, model.max_input_tokens, model.max_output_tokens)
         if reservation.reservation_id in self._pending or reservation.reservation_id in self._finalized:
             raise ReservationError("reservation identifier was already issued")
-        if self.cost + reservation.cost > self.limits.campaign_usd_max + 1e-12:
+        next_cost = self.cost + reservation.cost
+        if ((self.limits.campaign_usd_max == 0 and next_cost > 0)
+                or next_cost > self.limits.campaign_usd_max + 1e-12):
             raise BudgetExceeded("dollar budget cannot cover next reservation")
         if self.input_tokens + reservation.input_tokens > self.limits.total_input_tokens_max:
             raise BudgetExceeded("input-token budget cannot cover next reservation")
@@ -101,7 +103,8 @@ class BudgetLedger:
         if type(tokens_in) is not int or type(tokens_out) is not int:
             self.uncertain = True
             return
-        if cost > reserved.cost + 1e-12 or tokens_in > reserved.input_tokens or tokens_out > reserved.output_tokens:
+        if ((reserved.cost == 0 and cost > 0) or cost > reserved.cost + 1e-12
+                or tokens_in > reserved.input_tokens or tokens_out > reserved.output_tokens):
             self.uncertain = True
             # Actual usage remains visible even when it exceeds the configured estimate.
             self.cost += max(0, cost - reserved.cost)

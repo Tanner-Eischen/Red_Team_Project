@@ -240,7 +240,8 @@ fi
            + extra + "WORKDIR /app\nCOPY . /tests/\n"
            "RUN chmod -R go-rwx /tests && mkdir -p /logs/verifier && chmod 700 /logs/verifier\nUSER root\n")
     _write(task / "environment" / "Dockerfile", "FROM python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c\n"
-           "RUN apt-get update && apt-get install -y --no-install-recommends bash tmux && rm -rf /var/lib/apt/lists/*\n"
+           "RUN apt-get update && apt-get install -y --no-install-recommends bash tmux asciinema && rm -rf /var/lib/apt/lists/*\n"
+           "RUN asciinema --version\n"
            + extra + "RUN useradd --create-home --uid 1000 agent\nWORKDIR /app\nCOPY public/ /app/\n"
            "RUN chown -R agent:agent /app\nUSER agent\nCMD [\"/bin/bash\"]\n")
     _write(task / "task.toml", _task_toml(["/app/pipeline.py", "/app/output"]))

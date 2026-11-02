@@ -150,6 +150,25 @@ def test_output_limit_cannot_reduce_the_reserved_counter():
     assert budget.output_reserved == 0
 
 
+def test_adapter_uses_declared_matched_per_call_output_cap(monkeypatch, tmp_path):
+    configs = []
+    def fake_run(command, **kwargs):
+        if command[-1] == "--version":
+            return subprocess.CompletedProcess(command, 0, "0.13.2", "")
+        configs.append(json.loads(Path(command[-1]).read_text()))
+        return subprocess.CompletedProcess(command, 1, "", "recording-only")
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    model = {"model_id": "recording/model", "max_input_tokens": 32000, "max_output_tokens": 98304,
+             "max_cost_usd_per_attempt": 5, "input_usd_per_million": 1, "output_usd_per_million": 2}
+    HarborAdapter().run(tmp_path, model, {"per_call_output_tokens": 8192}, tmp_path / "run")
+    assert configs[0]["agents"][0]["kwargs"]["per_call_output_tokens"] == 8192
+
+
+def test_output_length_and_invalid_response_have_distinct_noncapability_outcomes():
+    assert classify_exception({"exception_type": "OutputLengthExceededError"}) == ("AGENT_TIMEOUT", "output_limit_exhausted")
+    assert classify_exception({"exception_type": "ProviderResponseError"}) == ("UNSCORABLE", "provider_response_invalid")
+
+
 def test_budget_counts_history_schema_and_forbids_multimodal():
     budget = CallBudget(8000, 2000, 1, 1, 2)
     with pytest.raises(AgentBudgetExceededError):

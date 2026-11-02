@@ -6,7 +6,10 @@ import json
 import math
 import sys
 from dataclasses import dataclass
+from contextvars import ContextVar
 from typing import Any
+
+ACTIVE_REQUEST_RESERVATION: ContextVar[dict | None] = ContextVar("harborforge_request_reservation", default=None)
 
 
 class AgentBudgetExceededError(Exception):
@@ -15,6 +18,15 @@ class AgentBudgetExceededError(Exception):
 
 class ProviderUsageError(AgentBudgetExceededError):
     """Provider accounting is unresolved, rather than a task-capability failure."""
+
+
+class ProviderResponseError(Exception):
+    """A completed, accounted response violated the text/protocol contract."""
+
+    def __init__(self, message: str, *, usage: Any = None, usage_verified: bool = False):
+        super().__init__(message)
+        self.usage = usage
+        self.usage_verified = usage_verified
 
 
 @dataclass
@@ -75,7 +87,25 @@ class BudgetedLLM:
     def __getattr__(self, name: str) -> Any:
         return getattr(self.inner, name)
 
+    def _validate_usage(self, usage: Any, input_allowance: int, output_allowance: int, cost_allowance: float) -> None:
+        tokens_in = getattr(usage, "prompt_tokens", None)
+        tokens_out = getattr(usage, "completion_tokens", None)
+        cost = getattr(usage, "cost_usd", None)
+        if (type(tokens_in) is not int or tokens_in < 0 or
+                type(tokens_out) is not int or tokens_out < 0 or
+                isinstance(cost, bool) or not isinstance(cost, (int, float)) or
+                not 0 <= cost <= sys.float_info.max):
+            self.budget.usage_uncertain = True
+            raise ProviderUsageError("Provider usage is missing or invalid; reconciliation required")
+        if (tokens_in > input_allowance or tokens_out > output_allowance
+                or cost > cost_allowance + (0 if self.budget.max_cost_usd == 0 else 1e-12)):
+            self.budget.usage_uncertain = True
+            raise ProviderUsageError("Provider-reported usage exceeded the configured reservation")
+
     async def call(self, prompt: str, **kwargs: Any) -> Any:
+        prepare = getattr(self.inner, "prepare_budgeted_call", None)
+        if prepare is not None:
+            prompt, kwargs = prepare(prompt, kwargs)
         kwargs["max_tokens"] = min(int(kwargs.get("max_tokens", self.per_call_output)), self.per_call_output)
         kwargs["num_retries"] = 0
         input_before, cost_before = self.budget.input_reserved, self.budget.cost_reserved
@@ -86,32 +116,33 @@ class BudgetedLLM:
         cost_allowance = self.budget.cost_reserved - cost_before
         # Harbor 0.13.2 adds tenacity retries around LiteLLM.call. Each retry
         # would need its own reservation; use its undecorated method instead.
+        reservation_token = ACTIVE_REQUEST_RESERVATION.set({"input": input_allowance,
+            "output": kwargs["max_tokens"], "cost": cost_allowance})
         try:
             unwrapped = getattr(self.inner.call, "__wrapped__", None)
             if unwrapped is not None:
                 response = await unwrapped(self.inner, prompt, **kwargs)
             else:
                 response = await self.inner.call(prompt, **kwargs)
-        except BaseException:
-            # A provider may bill a request even when its response is lost.
-            self.budget.usage_uncertain = True
+        except BaseException as error:
+            known_response_type = isinstance(error, ProviderResponseError) or (
+                type(error).__module__ == "harbor.llms.base" and type(error).__name__ == "OutputLengthExceededError"
+            )
+            if known_response_type and getattr(error, "usage_verified", None) is True:
+                # The host guard completed the response and checked its identity
+                # before this protocol/length error. Recheck its actual usage
+                # against this exact reservation, without refunding or clearing
+                # uncertainty left by any other request.
+                self._validate_usage(getattr(error, "usage", None), input_allowance, kwargs["max_tokens"], cost_allowance)
+            else:
+                # A provider may bill a request even when its response is lost.
+                self.budget.usage_uncertain = True
             raise
+        finally:
+            ACTIVE_REQUEST_RESERVATION.reset(reservation_token)
         usage = getattr(response, "usage", None)
         if usage is None:
             self.budget.usage_uncertain = True
         else:
-            tokens_in = getattr(usage, "prompt_tokens", None)
-            tokens_out = getattr(usage, "completion_tokens", None)
-            cost = getattr(usage, "cost_usd", None)
-            if (type(tokens_in) is not int or tokens_in < 0 or
-                    type(tokens_out) is not int or tokens_out < 0 or
-                    isinstance(cost, bool) or not isinstance(cost, (int, float)) or
-                    not 0 <= cost <= sys.float_info.max):
-                self.budget.usage_uncertain = True
-                raise ProviderUsageError("Provider usage is missing or invalid; reconciliation required")
-            if (tokens_in > input_allowance
-                    or tokens_out > kwargs["max_tokens"]
-                    or cost > cost_allowance + 1e-12):
-                self.budget.usage_uncertain = True
-                raise ProviderUsageError("Provider-reported usage exceeded the configured reservation")
+            self._validate_usage(usage, input_allowance, kwargs["max_tokens"], cost_allowance)
         return response

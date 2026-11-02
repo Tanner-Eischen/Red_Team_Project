@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Literal
 
@@ -19,6 +21,76 @@ class Contract(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, allow_inf_nan=False)
 
 
+def openrouter_free_slug(model_id: str) -> str:
+    """Only exact named free SKUs, never a generic or automatic router."""
+    if not re.fullmatch(r"openrouter/[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*:free", model_id):
+        raise ValueError("free_only requires a named canonical openrouter/<org>/<model>:free ID")
+    slug = model_id.removeprefix("openrouter/")
+    if slug.startswith("openrouter/"):
+        raise ValueError("automatic OpenRouter routers are not permitted for free_only")
+    return slug
+
+
+class OpenRouterZeroPrices(Contract):
+    prompt: float = Field(default=0.0, ge=0, le=0, strict=True)
+    completion: float = Field(default=0.0, ge=0, le=0, strict=True)
+    request: float = Field(default=0.0, ge=0, le=0, strict=True)
+    image: float = Field(default=0.0, ge=0, le=0, strict=True)
+
+
+class OpenRouterFreePolicy(Contract):
+    """Pinned evidence and non-overridable zero-price transport requirements.
+
+    This schema does no I/O and grants no execution authority. The host transport
+    must verify evidence hashes, content, freshness and account constraints at send.
+    """
+
+    policy_version: Literal["openrouter-free-only-v1"] = "openrouter-free-only-v1"
+    allowed_model_ids: tuple[str, ...] = Field(min_length=1, max_length=32)
+    response_model_ids: tuple[str, ...] = Field(min_length=1, max_length=32)
+    catalog_path: str = Field(min_length=1, max_length=4096)
+    catalog_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    endpoints_path: str = Field(min_length=1, max_length=4096)
+    endpoints_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    account_evidence_path: str = Field(min_length=1, max_length=4096)
+    account_evidence_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    verified_at_utc: str = Field(min_length=1)
+    max_age_seconds: int = Field(default=3600, ge=60, le=3600, strict=True)
+    max_requests_per_attempt: int = Field(default=12, ge=1, le=16, strict=True)
+    minimum_request_interval_seconds: float = Field(default=4.0, ge=4, le=60, strict=True)
+    provider_max_price: OpenRouterZeroPrices = Field(default_factory=OpenRouterZeroPrices)
+    allow_fallbacks: Literal[False] = False
+    allow_paid_fallback: Literal[False] = False
+    max_usd_per_request: float = Field(default=0.0, ge=0, le=0, strict=True)
+
+    @field_validator("catalog_path", "endpoints_path", "account_evidence_path")
+    @classmethod
+    def local_json_evidence(cls, value: str) -> str:
+        if "\x00" in value or "://" in value or Path(value).suffix.lower() != ".json":
+            raise ValueError("free routing evidence must be a local JSON path, never a URL or credential")
+        return value
+
+    @model_validator(mode="after")
+    def named_and_dated(self) -> OpenRouterFreePolicy:
+        for value in self.allowed_model_ids:
+            openrouter_free_slug(value)
+        if len(set(self.allowed_model_ids)) != len(self.allowed_model_ids):
+            raise ValueError("duplicate free model allowlist IDs")
+        for alias in self.response_model_ids:
+            if (not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*(?::free)?", alias)
+                    or alias.startswith("openrouter/")):
+                raise ValueError("response model aliases must be exact named raw OpenRouter model IDs")
+        if len(set(self.response_model_ids)) != len(self.response_model_ids):
+            raise ValueError("duplicate response model aliases")
+        try:
+            moment = datetime.fromisoformat(self.verified_at_utc.replace("Z", "+00:00"))
+        except ValueError as error:
+            raise ValueError("verified_at_utc must be an aware ISO UTC timestamp") from error
+        if moment.tzinfo is None or moment.utcoffset() != timedelta(0):
+            raise ValueError("verified_at_utc must be an aware ISO UTC timestamp")
+        return self
+
+
 class ModelProfile(Contract):
     profile_id: str = Field(min_length=1)
     provider: str = Field(min_length=1)
@@ -28,7 +100,9 @@ class ModelProfile(Contract):
     tier: int = Field(default=1, ge=1, le=3)
     repeats: int = Field(default=1, ge=1, le=20)
     supports_tools: bool = True
-    max_cost_usd_per_attempt: float = Field(gt=0)
+    max_cost_usd_per_attempt: float = Field(ge=0)
+    billing_mode: Literal["standard", "free_only"] = "standard"
+    free_routing: OpenRouterFreePolicy | None = None
     max_input_tokens: int = Field(default=32000, gt=0)
     max_output_tokens: int = Field(default=8000, gt=0)
     input_usd_per_million: float = Field(ge=0)
@@ -44,8 +118,28 @@ class ModelProfile(Contract):
             raise ValueError("replace placeholder identifiers before running")
         return value
 
+    @field_validator("max_cost_usd_per_attempt", "input_usd_per_million", "output_usd_per_million", mode="before")
+    @classmethod
+    def monetary_values_are_not_flags(cls, value):
+        if isinstance(value, bool):
+            raise ValueError("monetary amounts must be numbers, not boolean flags")
+        return value
+
     @model_validator(mode="after")
     def cost_envelope(self) -> ModelProfile:
+        if self.billing_mode == "free_only":
+            if self.provider != "openrouter" or self.free_routing is None:
+                raise ValueError("free_only requires OpenRouter and an explicit verified free routing policy")
+            requested = openrouter_free_slug(self.model_id)
+            if self.model_id not in self.free_routing.allowed_model_ids:
+                raise ValueError("free model must be in its exact allowed_model_ids")
+            if requested not in self.free_routing.response_model_ids:
+                raise ValueError("free response aliases must include the exact requested raw model ID")
+            if any(value != 0 for value in (self.max_cost_usd_per_attempt,
+                                          self.input_usd_per_million, self.output_usd_per_million)):
+                raise ValueError("free_only requires exactly zero attempt cap and all token prices")
+        elif self.max_cost_usd_per_attempt == 0 or self.free_routing is not None:
+            raise ValueError("standard billing requires a positive reservation and no free routing policy")
         ceiling = (self.max_input_tokens * self.input_usd_per_million
                    + self.max_output_tokens * self.output_usd_per_million) / 1_000_000
         if self.max_cost_usd_per_attempt + 1e-12 < ceiling:
@@ -67,9 +161,30 @@ class HarnessProfile(Contract):
     trial_time_limit_sec: int = Field(default=1200, gt=0)
     max_input_tokens: int = Field(default=32000, gt=0)
     max_output_tokens: int = Field(default=8000, gt=0)
+    per_call_output_tokens: int = Field(default=2048, gt=0, strict=True)
     network_mode: Literal["no-network"] = "no-network"
     system_prompt_sha256: str | None = None
     tool_schema_sha256: str | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def preserve_legacy_output_cap(cls, value):
+        # The former adapter used min(2048, cumulative output). Preserve that
+        # behavior when an old configuration omits this newly declared field.
+        if isinstance(value, dict) and "per_call_output_tokens" not in value:
+            try:
+                total = int(value.get("max_output_tokens", 8000))
+            except (TypeError, ValueError, OverflowError):
+                return value  # Normal field validation reports invalid totals.
+            if total > 0:
+                value = {**value, "per_call_output_tokens": min(2048, total)}
+        return value
+
+    @model_validator(mode="after")
+    def per_call_within_cumulative_output(self) -> HarnessProfile:
+        if self.per_call_output_tokens > self.max_output_tokens:
+            raise ValueError("per_call_output_tokens cannot exceed the cumulative max_output_tokens")
+        return self
 
 
 class Budgets(Contract):
@@ -152,6 +267,13 @@ class CampaignConfig(Contract):
             raise ValueError("duplicate model profile IDs")
         if len(set(self.tasks)) != len(self.tasks):
             raise ValueError("duplicate task paths")
+        if any(model.billing_mode == "free_only" for model in self.model_profiles):
+            if any(model.billing_mode != "free_only" for model in self.model_profiles):
+                raise ValueError("free_only campaigns cannot mix standard or paid model profiles")
+            if self.budgets.campaign_usd_max != 0:
+                raise ValueError("free_only campaign dollar ceiling must be exactly zero")
+            if self.budgets.retry_provider_errors != 0 or self.budgets.max_provider_retries_total != 0:
+                raise ValueError("free_only campaigns require explicit zero automatic provider retries")
         for model in self.model_profiles:
             if not model.supports_tools:
                 raise ValueError("terminal_agent requires tool-capable models")
@@ -170,4 +292,10 @@ def load_campaign(path: Path | str) -> CampaignConfig:
     value["tasks"] = [str((path.parent / p).resolve()) for p in value.get("tasks", [])]
     if value.get("suite_manifest"):
         value["suite_manifest"] = str((path.parent / value["suite_manifest"]).resolve())
+    for profile in value.get("model_profiles", []):
+        policy = profile.get("free_routing") if isinstance(profile, dict) else None
+        if isinstance(policy, dict):
+            for key in ("catalog_path", "endpoints_path", "account_evidence_path"):
+                if key in policy:
+                    policy[key] = str((path.parent / policy[key]).resolve())
     return CampaignConfig.model_validate(value)

@@ -8,9 +8,9 @@ The evaluator grades the agent's exported source and output artifacts in a **sep
 
 The implementation includes three deterministic scientific software families, immutable lineage, controlled tiered campaigns, conservative pre-call budgets, a trial registry, frozen-suite evaluation, trace-backed failure suggestions and static HTML/JSON/CSV reports. The [12 public examples](tasks/public_examples) are synthetic discovery fixtures, never a private holdout.
 
-Wave 3 container/offline validation now uses the actual pinned Harbor 0.13.2 runtime and native Linux Docker. Three fresh f2 tasks passed all 18 reference/negative controls; a semantic ETL child passed seven more controls. Eight malicious boundary probes passed, including protected worker/reward access, detached-process cleanup, artifact attacks and grader failures. The agent has no host bind mounts; the separate trusted verifier runs candidate code under a restricted UID. [Native evidence](docs/evidence/hf01-container-2026-11-01/summary.json) and the [final public-contract addendum](docs/evidence/hf01-contract-addendum-2026-11-01.json) record the exact tested hashes and disclosure-only delta. These are container/control results, **zero real model attempts**, not capability scores. The historical [12-task local report](reports/public-pilot/index.html) is preserved unchanged.
+Wave 3 container/offline validation now uses the actual pinned Harbor 0.13.2 runtime and native Linux Docker. Three fresh f2 tasks passed all 18 reference/negative controls; a semantic ETL child passed seven more controls. Eight malicious boundary probes passed, including protected worker/reward access, detached-process cleanup, artifact attacks and grader failures. The agent has no host bind mounts; the separate trusted verifier runs candidate code under a restricted UID. [Native evidence](docs/evidence/hf01-container-2026-11-01/summary.json) and the [final public-contract addendum](docs/evidence/hf01-contract-addendum-2026-11-01.json) record the exact tested hashes and disclosure-only delta. Those November 1 receipts are container/control results, **zero real model attempts**, not capability scores. The historical [12-task local report](reports/public-pilot/index.html) is preserved unchanged.
 
-[Wave 3 execution and handoff](docs/WAVE3_EXECUTION_2026-11-01.md) separates implemented code, native controls, offline tests and unrun paid gates. Earlier [124-test accounting evidence](docs/HF03_BUDGET_HARDENING_2026-11-01.md) remains a historical snapshot. The [proposed HF-02 pilot budget](docs/HF02_PILOT_BUDGET_PROPOSAL_2026-11-01.md) is $15 and has not been authorized or spent.
+[Wave 3 execution and handoff](docs/WAVE3_EXECUTION_2026-11-01.md) separates implemented code, native controls, offline tests and unrun paid gates. Earlier [124-test accounting evidence](docs/HF03_BUDGET_HARDENING_2026-11-01.md) remains a historical snapshot. The owner superseded the initial paid proposal with [an authorized $0 OpenRouter pilot](docs/HF02_FREE_OPENROUTER_2026-11-02.md). Three named free models passed actual availability probes at zero reported cost. The completed frozen calibration matrix recorded 18 attempts and 102 requests at $0: Super VL and Ultra each passed 6/6; North timed out 6/6. These are small development/calibration results, not a general model ranking. The earlier [$15 proposal](docs/HF02_PILOT_BUDGET_PROPOSAL_2026-11-01.md) remains historical and was never spent.
 
 ## Install and verify
 
@@ -72,3 +72,26 @@ Configured-price budgets use conservative input byte/output reservations at each
 The original prompt-only LangGraph program is preserved under [legacy](legacy/README.md); its scores are unverified and excluded from the new registry. The root `langgraph_red_team.py` now forwards to the bounded campaign controller. Legacy COBOL remains explicitly unverified. Optional Inspect AI integration, interactive UI and remote scaling follow successful real terminal validation; they are not represented as completed.
 
 The original recommendations and 13-PR backlog are preserved under [docs/redesign](docs/redesign/red_team_evaluation_redesign/README.md).
+
+## Authorized free-provider pilot
+
+The initial broker is OpenRouter. Selected roles are North Mini Code (coding screen),
+Nemotron 3.5 Super VL (balanced agent) and Nemotron 3 Ultra (deeper reasoning), all
+using exact `:free` SKUs. These role labels are hypotheses, not a model ranking.
+Both catalog and endpoint prices must be zero; provider/model fallback, paid
+plugins, BYOK routing and response caching are excluded by a host-only guard.
+Actual `usage.cost` must equal zero, and token/request/time limits remain active.
+
+The active FCC key is loaded privately into the controller process only. It is
+never written into tracked profiles, prompts or task containers. The shared
+workspace guardrail now permits the three free variants without deleting prior
+model choices. Profile evidence expires and must be renewed before a new frozen
+campaign; the guard never substitutes a paid or random model.
+
+`prepare_free_pilot.py` creates a fresh private calibration matrix after price and
+account preflight; `run_free_pilot.py` accepts only that zero-price scope. The
+scripts refuse reused output directories, preserve historical failures and use
+new immutable campaign/harness identities when the protocol changes. The free
+matrix has 18 planned trials, no retries and at most 216 guarded inference calls.
+Availability probes are separate from benchmark trials. No credit purchase or
+paid API route is authorized.

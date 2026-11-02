@@ -15,7 +15,8 @@ class PilotProposal(Contract):
     approval_status: Literal["proposed_not_authorized"]
     task_families: tuple[Literal["scientific-etl", "geospatial-raster", "repository-debug"], ...]
     provider_retry_allowance: int = Field(ge=0, le=2)
-    billing_scope: Literal["standard_global_text_only_uncached"]
+    billing_scope: Literal["standard_global_text_only_uncached", "openrouter_verified_free_only"]
+    matrix_mode: Literal["single_tier_pilot", "frozen_calibration_matrix"] = "single_tier_pilot"
     campaign: CampaignConfig
 
     @model_validator(mode="after")
@@ -24,14 +25,28 @@ class PilotProposal(Contract):
             raise ValueError("pilot needs distinct task families")
         if not self.campaign.model_profiles:
             raise ValueError("proposal needs explicit model profiles")
-        if self.campaign.tasks or self.campaign.suite_manifest:
-            raise ValueError("proposal is not an executable campaign or a frozen evaluation")
+        if self.matrix_mode == "single_tier_pilot":
+            if self.campaign.tasks or self.campaign.suite_manifest:
+                raise ValueError("proposal is not an executable campaign or a frozen evaluation")
+            if len({model.tier for model in self.campaign.model_profiles}) != 1:
+                raise ValueError("all pilot profiles must share one tier to retain the complete planned matrix")
+        else:
+            if self.billing_scope != "openrouter_verified_free_only":
+                raise ValueError("the tiered calibration matrix is restricted to the explicit free-only policy")
+            if self.campaign.objective != "fixed_evaluation" or self.campaign.cohort != "calibration":
+                raise ValueError("the complete tier matrix requires separately frozen fixed calibration evaluation")
+            if self.campaign.tasks and len(self.campaign.tasks) != len(self.task_families):
+                raise ValueError("calibration matrix task paths must match the declared task-family count")
         if self.campaign.budgets.max_task_revisions:
             raise ValueError("pilot proposal cannot silently include adaptive revisions")
         if self.campaign.discovery_policy is not None:
             raise ValueError("pilot proposal cannot include adaptive discovery policy")
-        if len({model.tier for model in self.campaign.model_profiles}) != 1:
-            raise ValueError("all pilot profiles must share one tier to retain the complete planned matrix")
+        free_profiles = [model.billing_mode == "free_only" for model in self.campaign.model_profiles]
+        if self.billing_scope == "openrouter_verified_free_only":
+            if not all(free_profiles) or self.provider_retry_allowance:
+                raise ValueError("free-only proposals require verified free profiles and no automatic provider retries")
+        elif any(free_profiles):
+            raise ValueError("standard price proposals cannot relabel free-only routing evidence")
         if self.campaign.budgets.max_provider_retries_total != self.provider_retry_allowance:
             raise ValueError("global provider-retry ceiling must match the proposed allowance")
         if self.campaign.harness_profile.max_input_tokens > 256_000:
@@ -43,6 +58,7 @@ def estimate_proposal(value: dict) -> dict:
     """Validate declared envelopes, without imports of providers, runners or registries."""
     proposal = PilotProposal.model_validate(value)
     config = proposal.campaign
+    free_only = proposal.billing_scope == "openrouter_verified_free_only"
     task_count = len(proposal.task_families)
     rows = []
     for model in config.model_profiles:
@@ -54,6 +70,9 @@ def estimate_proposal(value: dict) -> dict:
             "planned_attempts": task_count * model.repeats,
             "configured_token_ceiling_usd_per_attempt": float(token_ceiling),
             "reserved_usd_per_attempt": model.max_cost_usd_per_attempt,
+            "billing_mode": model.billing_mode,
+            "tier": model.tier,
+            "max_requests_per_attempt": model.free_routing.max_requests_per_attempt if free_only else None,
         })
     attempts = sum(row["planned_attempts"] for row in rows)
     retry_reserve = proposal.provider_retry_allowance * max(
@@ -80,7 +99,11 @@ def estimate_proposal(value: dict) -> dict:
         "approval_status": proposal.approval_status,
         "model_run_authorized": False,
         "model_requests_executed": 0,
-        "pricing_basis": "Declared dated prices; no account access or provider availability check",
+        "pricing_basis": ("Declared zero quotes with pinned catalog, endpoint and account evidence; "
+                          "execution transport must reverify hashes/content/freshness before every request"
+                          if free_only else "Declared dated prices; no account access or provider availability check"),
+        "billing_mode": "free_only" if free_only else "standard",
+        "matrix_mode": proposal.matrix_mode,
         "task_count": task_count,
         "models": rows,
         "planned_attempts": attempts,
@@ -91,10 +114,20 @@ def estimate_proposal(value: dict) -> dict:
         "retry_reservations_usd": float(retry_reserve),
         "total_reservations_usd": float(primary_reserve + retry_reserve),
         "campaign_hard_cap_usd": limits.campaign_usd_max,
+        "maximum_provider_requests": (sum(row["planned_attempts"] * row["max_requests_per_attempt"] for row in rows)
+                                      if free_only else None),
+        "per_request_hard_cap_usd": 0.0 if free_only else None,
         "limits": [
             "Conservative configured-price envelopes are not measured provider bills or a billing guarantee.",
             "Unknown usage stops execution for reconciliation; model failures are not retried.",
             "Parent/child confirmation and frozen-suite measurement need separate proposals.",
             "This proposal must be approved and concrete task/model/harness artifacts pinned before execution.",
+        ] if not free_only else [
+            "Named OpenRouter :free SKUs only; request routing has zero price caps and no paid or automatic fallback.",
+            "Catalog, endpoint and account evidence must be fresh, hash-matched and free of paid plugins/BYOK at send time.",
+            "Unknown or positive provider usage stops execution; failures do not trigger retries or alternate models.",
+            "The request bound includes every guarded LLM call, including summaries, inside these registered attempts.",
+            "Separate availability smokes are not part of this campaign request count and must be recorded separately.",
+            "This arithmetic neither freezes a suite nor authorizes a request; separate user free-only authorization applies.",
         ],
     }

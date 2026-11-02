@@ -1,5 +1,9 @@
 # HF-02 pilot budget proposal — November 1, 2026
 
+Historical proposal: the owner superseded the initial paid pilot on November 2
+with [a zero-cost OpenRouter pilot](HF02_FREE_OPENROUTER_2026-11-02.md). No spending
+from this proposal was approved or performed; retain it as prior planning evidence.
+
 **Proposed only. No paid model execution is authorized or performed.**
 The owner requested this proposal after container/offline work and before spending.
 

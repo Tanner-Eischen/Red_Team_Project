@@ -1,0 +1,238 @@
+{
+  "before_bootstrap": {
+    "exit_code": 127,
+    "image": "redforge-gate-fd2a6ac36491bd31",
+    "model_calls": 0,
+    "scope": "Read-only no-network pre-model tool presence check of existing immutable agent image",
+    "stderr": "",
+    "stdout": ""
+  },
+  "bootstrap_change": "Install asciinema and initialize its root configuration during agent image build; runtime stays no-network/read-only-root with recording enabled.",
+  "immutable_test_task_sha256": "ac66d7b40f6078211349a3788afa3f0b51d00e87e38ce842948c2c352a41e1e6",
+  "limits": [
+    "Representative oracle/no-op controls are not a substitute for a fresh full task quality gate on each actual pilot hash.",
+    "No provider/model request was made by this setup probe; real free pilot and account usage reconciliation remain root-owned."
+  ],
+  "model_calls": 0,
+  "native_setup_log_sha256": "c9479d29f201ce96b0e38dbf81fcef68563932f4d5cd2724f561b65d62bbb3fd",
+  "package_version": "harbor0.13.2",
+  "recorded_utc": "2026-11-02T10:06:12.241275+00:00",
+  "recording_bytes": 638,
+  "recording_sha256": "3360a8392093aa5f9f711784be09b209ccb51a9b21d2775aaa891c8cc167c36d",
+  "representative_controls": [
+    {
+      "control": "oracle",
+      "normalized_report_sha256": "46082d6cd114ea9a3ec327d28e28ceb6830f1af3b4a60422601f3ee38e94c1df",
+      "outcome": "PASS",
+      "reward": 1.0,
+      "runtime_isolation": {
+        "agent": {
+          "cap_add": [
+            "CAP_CHOWN",
+            "CAP_DAC_OVERRIDE",
+            "CAP_FOWNER",
+            "CAP_KILL",
+            "CAP_SETGID",
+            "CAP_SETUID"
+          ],
+          "cap_drop": [
+            "ALL"
+          ],
+          "image_id": "sha256:7f76f055e483da902045bccbb993b5f4558f542cb6db394ea4bc161a3cb16e42",
+          "init": true,
+          "memory_bytes": 2147483648,
+          "mounts": [],
+          "nano_cpus": 1000000000,
+          "network_mode": "none",
+          "passed": true,
+          "pid_mode": "",
+          "pids_limit": 64,
+          "policy_version": "hf-docker-v1",
+          "read_only_root": true,
+          "role": "agent",
+          "security_options": [
+            "no-new-privileges:true"
+          ],
+          "tmpfs": {
+            "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+            "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+            "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+            "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+            "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+          }
+        },
+        "verifier": {
+          "cap_add": [
+            "CAP_CHOWN",
+            "CAP_DAC_OVERRIDE",
+            "CAP_FOWNER",
+            "CAP_KILL",
+            "CAP_SETGID",
+            "CAP_SETUID"
+          ],
+          "cap_drop": [
+            "ALL"
+          ],
+          "image_id": "sha256:bbdeee3da761deac3c3d0377282fd1c96bb55c27e41fae213d768fc9bafc210d",
+          "init": true,
+          "memory_bytes": 2147483648,
+          "mounts": [],
+          "nano_cpus": 1000000000,
+          "network_mode": "none",
+          "passed": true,
+          "pid_mode": "",
+          "pids_limit": 64,
+          "policy_version": "hf-docker-v1",
+          "read_only_root": true,
+          "role": "verifier",
+          "security_options": [
+            "no-new-privileges:true"
+          ],
+          "tmpfs": {
+            "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+            "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+            "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+            "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+            "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+            "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+          }
+        }
+      }
+    },
+    {
+      "control": "nop",
+      "normalized_report_sha256": "054c72901196ec56304109b4b0c0f6400443a4b3827a4aa0f4ba50baf338174e",
+      "outcome": "MODEL_FAIL",
+      "reward": 0.0,
+      "runtime_isolation": {
+        "agent": {
+          "cap_add": [
+            "CAP_CHOWN",
+            "CAP_DAC_OVERRIDE",
+            "CAP_FOWNER",
+            "CAP_KILL",
+            "CAP_SETGID",
+            "CAP_SETUID"
+          ],
+          "cap_drop": [
+            "ALL"
+          ],
+          "image_id": "sha256:18ef1b2d59f502e9ea4d40fded8332f09256b72f908f6039da84fe076a15d02c",
+          "init": true,
+          "memory_bytes": 2147483648,
+          "mounts": [],
+          "nano_cpus": 1000000000,
+          "network_mode": "none",
+          "passed": true,
+          "pid_mode": "",
+          "pids_limit": 64,
+          "policy_version": "hf-docker-v1",
+          "read_only_root": true,
+          "role": "agent",
+          "security_options": [
+            "no-new-privileges:true"
+          ],
+          "tmpfs": {
+            "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+            "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+            "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+            "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+            "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+          }
+        },
+        "verifier": {
+          "cap_add": [
+            "CAP_CHOWN",
+            "CAP_DAC_OVERRIDE",
+            "CAP_FOWNER",
+            "CAP_KILL",
+            "CAP_SETGID",
+            "CAP_SETUID"
+          ],
+          "cap_drop": [
+            "ALL"
+          ],
+          "image_id": "sha256:39112d9b01b604c8bccf392ec6d3b81799c48e988127f91606d097fe3a4aa4a2",
+          "init": true,
+          "memory_bytes": 2147483648,
+          "mounts": [],
+          "nano_cpus": 1000000000,
+          "network_mode": "none",
+          "passed": true,
+          "pid_mode": "",
+          "pids_limit": 64,
+          "policy_version": "hf-docker-v1",
+          "read_only_root": true,
+          "role": "verifier",
+          "security_options": [
+            "no-new-privileges:true"
+          ],
+          "tmpfs": {
+            "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+            "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+            "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+            "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+            "/tests": "size=32m,mode=0700,exec,nosuid,nodev",
+            "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+          }
+        }
+      }
+    }
+  ],
+  "runtime": {
+    "cap_add": [
+      "CAP_CHOWN",
+      "CAP_DAC_OVERRIDE",
+      "CAP_FOWNER",
+      "CAP_KILL",
+      "CAP_SETGID",
+      "CAP_SETUID"
+    ],
+    "cap_drop": [
+      "ALL"
+    ],
+    "image_id": "sha256:4670d75c9157b3139f42782abe9cd32a83ad67bcd4b312ab5dd8947da73253d8",
+    "init": true,
+    "memory_bytes": 2147483648,
+    "mounts": [],
+    "nano_cpus": 1000000000,
+    "network_mode": "none",
+    "passed": true,
+    "pid_mode": "",
+    "pids_limit": 64,
+    "policy_version": "hf-docker-v1",
+    "read_only_root": true,
+    "role": "agent",
+    "security_options": [
+      "no-new-privileges:true"
+    ],
+    "tmpfs": {
+      "/app": "size=32m,mode=0755,exec,nosuid,nodev",
+      "/home/agent": "size=32m,uid=1000,gid=1000,mode=0700,exec,nosuid,nodev",
+      "/logs": "size=16m,mode=0755,noexec,nosuid,nodev",
+      "/solution": "size=8m,mode=0755,exec,nosuid,nodev",
+      "/tmp": "size=64m,mode=1777,exec,nosuid,nodev"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Actual native Docker BudgetedTerminus2 setup and terminal recording, with the model completion function replaced by a fail-if-called stub. Synthetic recording model metadata is a setup fixture, not real model evidence.",
+  "setup": "passed",
+  "source_sha256": {
+    "src/harborforge/adapters/isolated_docker.py": "32f0bc8c1fb7b5698c1b7f7de9831fd2f6449b71adc00a6477636127aa1465d7",
+    "src/harborforge/task_families/registry.py": "015118828d909c409db026c0c16e0c36c0fe4ffedd6aca126ad0d40b64464faa",
+    "tests/test_terminus_setup.py": "aadb9fdf5707ef529247a427303580674c627083bcaba6dfb43619954b521665"
+  },
+  "terminal_marker_recorded": true,
+  "trusted_asset_contract": "Only exact Harbor0.13.2 RECORD-verified get-asciinema-timestamp.sh to its fixed /tmp destination may be copied from a hardlinked package installation into a private nlink1 staging file. Candidate artifact link restrictions are unchanged.",
+  "trusted_tooling": [
+    {
+      "distribution": "harbor",
+      "original_links": 2,
+      "record_path": "harbor/agents/terminus_2/get-asciinema-timestamp.sh",
+      "sha256": "a75362b93fd028504d0f7e89ec777f5ecb2db3b74ce1bece2641cfbc0e01262f",
+      "staged_links": 1,
+      "target": "/tmp/get-asciinema-timestamp.sh",
+      "version": "0.13.2"
+    }
+  ]
+}

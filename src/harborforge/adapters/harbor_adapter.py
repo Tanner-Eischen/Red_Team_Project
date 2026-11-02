@@ -31,10 +31,14 @@ def classify_exception(exception: dict[str, Any]) -> tuple[str, str]:
     """Classify stage-specific errors without blaming a model for its tools."""
     kind = str(exception.get("exception_type", "UnknownError"))
     message = str(exception.get("exception_message", ""))
-    if kind == "ProviderUsageError":
+    if kind in {"ProviderUsageError", "FreeOnlyRoutingError"}:
         return "PROVIDER_ERROR", "provider_usage_unresolved"
     if kind == "AgentBudgetExceededError":
         return "AGENT_TIMEOUT", "budget_exhausted"
+    if kind == "OutputLengthExceededError":
+        return "AGENT_TIMEOUT", "output_limit_exhausted"
+    if kind == "ProviderResponseError":
+        return "UNSCORABLE", "provider_response_invalid"
     if kind == "AgentTimeoutError":
         return "AGENT_TIMEOUT", kind
     if any(term in kind for term in ("Authentication", "RateLimit", "PermissionDenied", "APIConnection", "APIError")):
@@ -123,6 +127,8 @@ class HarborAdapter:
                 "kwargs": kwargs,
             }
             if agent_name not in {"oracle", "nop"}:
+                if model.get("max_cost_usd_per_attempt") == 0 and model.get("billing_mode") != "free_only":
+                    raise ValueError("Zero-cost model runs require the verified free-only transport")
                 agent_config["model_name"] = model["model_id"]
                 if agent_name != "terminus-2":
                     raise ValueError("Only the budgeted Terminus2 terminal agent is supported")
@@ -133,7 +139,14 @@ class HarborAdapter:
                     "input_usd_per_million": model["input_usd_per_million"],
                     "output_usd_per_million": model["output_usd_per_million"],
                 }
-                kwargs["per_call_output_tokens"] = min(model["max_output_tokens"], 2048)
+                kwargs["per_call_output_tokens"] = min(model["max_output_tokens"], harness.get("per_call_output_tokens", 2048))
+                if model.get("billing_mode") == "free_only":
+                    free = dict(model["free_routing"])
+                    for field in ("catalog_path", "endpoints_path", "account_evidence_path"):
+                        free[field] = str(Path(free[field]).resolve())
+                    kwargs["free_routing"] = free
+                    from .openrouter_free import trusted_free_model_info
+                    kwargs["model_info"] = trusted_free_model_info(model["model_id"], free)
                 agent_config["name"] = None
                 agent_config["import_path"] = "harborforge.adapters.budgeted_agent:BudgetedTerminus2"
             config = {
