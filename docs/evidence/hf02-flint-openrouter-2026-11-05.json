@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-05",
+  "campaign_id": "free-flint-20261105T113710404010Z",
+  "scope": "Six-trial Flint supplement on unchanged November2 development/calibration tasks; comparison spans dates, not holdout or universal ranking",
+  "model_id": "openrouter/recursive/flint-v1.0:free",
+  "canonical_snapshot": "recursive/flint-v1.0-20261021",
+  "provider_endpoint": "recursive/bf16",
+  "profile_id": "free-flint-20261105T113710404010Z-output8192",
+  "reference_campaign_id": "free-pilot-20261102T101906Z",
+  "planned_trials": 6,
+  "observed_trials": 6,
+  "unrun_trials": 0,
+  "outcomes": {
+    "AGENT_TIMEOUT": 4,
+    "PASS": 2
+  },
+  "per_family_outcomes": {
+    "geospatial-raster": {
+      "AGENT_TIMEOUT": 2
+    },
+    "repository-debug": {
+      "PASS": 2
+    },
+    "scientific-etl": {
+      "AGENT_TIMEOUT": 2
+    }
+  },
+  "actual_provider_requests": 36,
+  "provider_request_ceiling": 72,
+  "cost_usd": 0,
+  "all_provider_receipts_known_and_zero": true,
+  "native_input_tokens": 187365,
+  "native_output_tokens": 123992,
+  "agent_budget_stops": {
+    "output_limit_exhausted": 3,
+    "budget_exhausted": 1
+  },
+  "availability_probe": {
+    "requests": 1,
+    "cost_usd": 0,
+    "status": "passed"
+  },
+  "exact_reference_tasks_reused": true,
+  "harness_and_sampling_matched": true,
+  "task_quality_suites_passed": 3,
+  "workspace_configuration_changes": false,
+  "paid_routes_or_credits": false,
+  "automatic_retries": 0,
+  "snapshots_sha256": {
+    "campaign.yaml": "4c8e5715321f838b8ada2dadc9e22003d54cd6597a8d47a3f60a75b9695c5caa",
+    "frozen-suite.json": "ecd355f3848e4137858870d13d19b4694555288fcdca9638b871221a141dce5b",
+    "harness-provenance.json": "e07759a9ba4e5ee0830a1b6d0af97935730ecd532346c20ea52747e661703a12",
+    "reference-link.json": "f7e01b43538d6d9c78f0fc6c3edc504a8249e2335f10d14246ca430871da6b5b",
+    "catalog.json": "45a0e112335e529ffac856eff7efa20ce55db3aa6f6e114594dfabf5e011095f",
+    "recursive__flint-v1.0_free-endpoints.json": "d03864b2fc0914907411be61d1604666a3913248c5471868c3c62b269552f08a",
+    "account-safety.json": "9cd6038d65a49149d1b5916c24bee879adf432cddd158ebb2d9bf8f11d121d60"
+  },
+  "source_hash_definition": "SHA256 of LF-canonicalized Python; unchanged before and after live supplement",
+  "source_sha256": {
+    "harbor_renderer/__init__.py": "eb4d9a9f7255a78072c20359e188a96e191d425902562262c461550e2d051b9f",
+    "harbor_renderer/renderer.py": "200c2caa846d453b721672a7ce1b377617d2fcc87809c62f559e2908c9fc9dfe",
+    "harbor_renderer/spec.py": "74ca3770d01f8d33da3c9e3f6cb8e3809337cc9caf7b5788512f40202c8ae451",
+    "scripts/audit_container_images.py": "adc79738e9aa957f154592dc14bbf82870667c9f24fbcd8d950b645fcfee405b",
+    "scripts/build_public_pilot.py": "8dc35ecd12b359fdd1ef4dfc2e6ca0974ac2dc7af03aee44e433f5c7c4864764",
+    "scripts/check_public_tasks.py": "6b22a2751d464c118962d774a66c3f1a768a2b475f08a3dfa088ead19371f7c9",
+    "scripts/prepare_free_pilot.py": "7520ad8395796d5704ff0a8b4766d9f87adb36466e30526482a9d0e31a50b846",
+    "scripts/probe_container_boundary.py": "9262a961ed8d4f43bdae99e5259d52f92548044dbbed541f6590c550bb1aeed8",
+    "scripts/probe_openrouter_free.py": "eb3347cdf1ff21aeaf3f06126ad831cafe23bfb6dde6fce930612ecde24ae4bc",
+    "scripts/run_container_controls.py": "d8abcf6f9e03fd60f5880281fa4aff590452ca880de190bf433828ef428e6774",
+    "scripts/run_free_pilot.py": "986a1f3754fb81e06ab1046804a3b9f3c50102eb1f251477a360328c0cbf067a",
+    "src/harborforge/__init__.py": "bf537e4d2af156dcd6666c88ba11bbe7072e1eb57a768f89a99a10e9c6d35c03",
+    "src/harborforge/__main__.py": "e61100e8782cac7271bee52e4441347da3830068b950121f96529a687df64226",
+    "src/harborforge/adapters/__init__.py": "126b8405658e758952f31cbf6fccfcf82b0864b4c89e0a234f018fda98995e0f",
+    "src/harborforge/adapters/budgeted_agent.py": "bc0bf8033ba963cafe2cdadb71b9acba74586c615bbd9328a953afae7ed2aa79",
+    "src/harborforge/adapters/call_budget.py": "5e29080d6224a6689f1457292098353cbe78d7c1653c39a65ed5c7422ded111a",
+    "src/harborforge/adapters/harbor_adapter.py": "321df54f683f1dbf9ea5f23d772c72a209bcf1abad8bc528c63acbe9b5545c63",
+    "src/harborforge/adapters/isolated_docker.py": "32f0bc8c1fb7b5698c1b7f7de9831fd2f6449b71adc00a6477636127aa1465d7",
+    "src/harborforge/adapters/openrouter_free.py": "edea4fbbc49b05b231461405917bf41a9fb52bcecacb66214d29335319f24423",
+    "src/harborforge/analysis/__init__.py": "3d627a87137abc71f9bdb03527c66054928077fdb579d430e20a98e05a071a28",
+    "src/harborforge/analysis/budget_proposal.py": "90d3346ca4454aacc633eb2d5c1cc5550e9c7af098c20aa704be9049f059f49a",
+    "src/harborforge/analysis/failure_classifier.py": "4497c4b883858e596e35ee3cb53eedae796b0fcef7b5b4d122434e972a4077e3",
+    "src/harborforge/analysis/reporting.py": "32cdebb271842fd6ec4bc96438cb521ff4d4c34532ed0db438087004848f2621",
+    "src/harborforge/analysis/statistics.py": "330e377d0169bab06119335ba0ccc7e341544403edfd6f22a5138c6c278701b5",
+    "src/harborforge/analysis/trace_scanner.py": "deb7dad608e3c1e6219edeece9d7e6e9bbcf14e6bf5147fbb3310f5eab45b586",
+    "src/harborforge/authoring/__init__.py": "8cdb1ba1ea7610c049d02cd35a52fd3e132a3739fb499d7e015d745ecbc75f76",
+    "src/harborforge/authoring/mutations.py": "9a12113dc78fc305b8c9ba0acb8faedcdca199d33b89f7c37ca7e3f588212847",
+    "src/harborforge/authoring/proposals.py": "4f2059a642eebfe1136e940fb42d3acce4e66835f021311dfa0bfa468566b589",
+    "src/harborforge/authoring/provenance.py": "9cd8076e8d45ecd2a7e96b73adea5cc2f5ab882c512fe3394152a14cef319c7e",
+    "src/harborforge/cli.py": "f521506c7487b3d543bfdb315120406c1878f26cce371feea71ec18dee991162",
+    "src/harborforge/config.py": "287e393e2449d50238345581b2e560fe7cbf7dd6552ee8b6769fe59df98ac752",
+    "src/harborforge/evaluation/__init__.py": "3fb405e3e4f9dfcf207c51330b0892e07ca91588281e3dc6f62026a38f22e5a8",
+    "src/harborforge/evaluation/frozen.py": "8541e9459dd4060300101ff9a2cd6b1259dcfe587fc3d6a6c8cbd90fa53b0c6a",
+    "src/harborforge/execution/__init__.py": "46efb73eba3e25236bfee95ea8152076b32941aa1c88e1147c02e8210637aa1f",
+    "src/harborforge/execution/budget.py": "0c9402ee8a557332b5694f19d315b7fcc6eb325189b1f310b748b9fa6a6adb2c",
+    "src/harborforge/execution/campaign.py": "7bbd0f416a26d3b099282fd1b211229078b0ae6c31ca53bf6ef7e595f881eae5",
+    "src/harborforge/execution/policy.py": "5a2d546811e432435ea080c24576be132cf0fcc893624881b370239c8a597b27",
+    "src/harborforge/storage/__init__.py": "b2b1a0e0b846a2085357806ac71fb3b09285773774c81bfe874462bc77652ecc",
+    "src/harborforge/storage/artifact_store.py": "9f6bbe57f98c1618bbaf81f1048c3be92f75beab79f085258ba64dd4c84e50a2",
+    "src/harborforge/storage/registry.py": "acd9124af2f49ea526f0e43e1e9eb119fc725ed38058c9bda986f44921e5dfb6",
+    "src/harborforge/task_families/__init__.py": "34e958b73737da60f6917926323082e15b585d6db7518d31285d339452984556",
+    "src/harborforge/task_families/geospatial_raster.py": "40be16cff3ed01ca2d655a317319559022acd057962e2c8d1501d753d90bb6dc",
+    "src/harborforge/task_families/registry.py": "015118828d909c409db026c0c16e0c36c0fe4ffedd6aca126ad0d40b64464faa",
+    "src/harborforge/task_families/repository_debug.py": "93c1ad119da6a8adca1f7beaee62c520dd07e709cc21cb24faa78b2240cc4cf1",
+    "src/harborforge/task_families/scientific_etl.py": "5a304731adc817c435987d14b64e3db99b9325162109f4da740d73486fc2fffc",
+    "src/harborforge/task_families/verifier_template.py": "c12a7b46b45d53cdd2d4bbc05d776b7542f2fede40671ae1331a180faeef672c",
+    "src/harborforge/validation/__init__.py": "e9a338b05d33818531e35eca55a8b1fba642b37b582f657aa636057178385c5c",
+    "src/harborforge/validation/quality_gates.py": "2acbcb69e8ca555c965518975003f097109b4e5c07202be836a43f16696dd21d"
+  },
+  "verification": {
+    "windows": {
+      "passed": 388,
+      "skipped": 2,
+      "log_sha256": "3e162958c4ace3ae8938659fc37f6f14eca27e5a3c762d925dd17fc70483a2ae"
+    },
+    "linux": {
+      "passed": 389,
+      "skipped": 1,
+      "log_sha256": "0ab0f6eb0e384a4a30d092f590ab3d90d16b38a63db6d98b85ca5d70ae4edf22"
+    }
+  },
+  "credential_exact_value_scan": {
+    "private_files_scanned": 653,
+    "matches": 0
+  },
+  "reconciled_at_utc": "2026-11-05T12:00:39.364772+00:00",
+  "limits": [
+    "Only three calibration task templates, two repeats each.",
+    "Budget stops count as unsuccessful completions; missing usage is never treated as zero.",
+    "Raw calibration tasks, candidate artifacts, provider traces and registry are private."
+  ]
+}

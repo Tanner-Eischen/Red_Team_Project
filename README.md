@@ -75,9 +75,17 @@ The original recommendations and 13-PR backlog are preserved under [docs/redesig
 
 ## Authorized free-provider pilot
 
-The initial broker is OpenRouter. Selected roles are North Mini Code (coding screen),
+The initial broker is OpenRouter. The original roles were North Mini Code (coding screen),
 Nemotron 3.5 Super VL (balanced agent) and Nemotron 3 Ultra (deeper reasoning), all
 using exact `:free` SKUs. These role labels are hypotheses, not a model ranking.
+The [Flint supplement](docs/HF02_FLINT_SUPPLEMENT_2026-11-05.md) adds
+`recursive/flint-v1.0:free` against the same frozen calibration tasks and harness.
+It completed all six registered attempts at $0: two verified passes, three
+per-response output-limit stops and one cumulative-token stop, using 36 requests
+plus one separate availability probe. Super VL remains the initial default
+recommendation within this small calibration pilot.
+Prepare it with `scripts/prepare_free_pilot.py --flint-supplement-from REFERENCE_CAMPAIGN`
+and fresh zero-price/account evidence; the original matrix remains unchanged.
 Both catalog and endpoint prices must be zero; provider/model fallback, paid
 plugins, BYOK routing and response caching are excluded by a host-only guard.
 Actual `usage.cost` must equal zero, and token/request/time limits remain active.

@@ -36,6 +36,12 @@ The current model pages are [North Mini Code](https://openrouter.ai/cohere/north
 [Ultra](https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b:free).
 Availability may change; the guard stops instead of replacing a frozen model.
 
+On November 5 the owner requested Flint. Its endpoint was healthy again, and a
+separate [matched Flint supplement](HF02_FLINT_SUPPLEMENT_2026-11-05.md) reused
+these exact tasks/harness without changing the November 2 experiment or receipt.
+Flint completed 2/6 trials successfully at $0; the other four hit output/token
+limits.
+
 ## Workspace and zero-cost controls
 
 The existing default-workspace model guardrail was edited and saved: Cohere and

@@ -22,11 +22,20 @@ from .call_budget import ACTIVE_REQUEST_RESERVATION, AgentBudgetExceededError, P
 
 API_BASE = "https://openrouter.ai/api/v1"
 MODEL_PATTERN = re.compile(r"openrouter/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+:free\Z")
+PROVIDER_TAG_PATTERN = re.compile(r"[A-Za-z0-9_-]{1,64}(?:/[A-Za-z0-9_-]{1,64}){0,3}\Z")
 DISABLED_PLUGINS = {"web", "file-parser", "response-healing", "armor", "pareto-router", "context-compression"}
 
 
 class FreeOnlyRoutingError(ProviderUsageError):
     """No further dispatch is allowed until free-only evidence is reconciled."""
+
+
+def _provider_base(tag: Any) -> str:
+    # OpenRouter endpoint slugs are provider[/variant][/region][/tier]. Keep the
+    # exact full slug for routing; workspace BYOK settings belong to its provider.
+    if not isinstance(tag, str) or not PROVIDER_TAG_PATTERN.fullmatch(tag):
+        raise FreeOnlyRoutingError("Endpoint has no valid explicit provider tag")
+    return tag.split("/", 1)[0]
 
 
 def _zero(value: Any) -> bool:
@@ -120,17 +129,19 @@ def verify_free_evidence(model_id: str, policy: dict, *, now: datetime | None = 
     if not isinstance(routes, list) or not routes:
         raise FreeOnlyRoutingError("No explicitly priced free endpoint")
     tags = []
+    provider_bases = set()
     supported = set(model.get("supported_parameters") or [])
     for route in routes:
         if route.get("model_id") != slug or type(route.get("status")) is not int or route["status"] != 0:
             raise FreeOnlyRoutingError("Endpoint is unavailable or is another model")
         _pricing(route.get("pricing"))
         tag = route.get("tag")
-        if not isinstance(tag, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", tag):
-            raise FreeOnlyRoutingError("Endpoint has no explicit provider tag")
+        provider_bases.add(_provider_base(tag))
         tags.append(tag)
         supported &= set(route.get("supported_parameters") or [])
-    if any(account.get("byok_providers", {}).get(tag) != "Not configured" for tag in tags):
+    byok_providers = account.get("byok_providers")
+    if not isinstance(byok_providers, dict) or any(
+            byok_providers.get(provider) != "Not configured" for provider in provider_bases):
         raise FreeOnlyRoutingError("Selected provider BYOK status is not verified absent")
     canonical = model.get("canonical_slug")
     known = {slug, slug.removesuffix(":free")}

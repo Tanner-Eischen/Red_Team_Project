@@ -10,7 +10,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from test_openrouter_free import MODEL, SLUG
+from test_openrouter_free import MODEL, SLUG, rewrite
 from test_openrouter_free import policy as policy_fixture
 from harborforge.adapters.call_budget import BudgetedLLM, CallBudget
 from harborforge.adapters.openrouter_free import OpenRouterFreeLLM
@@ -51,9 +51,13 @@ def sdk_setup(monkeypatch):
 
 
 @pytest.mark.parametrize("reasoning", [None, "low"])
-def test_actual_sdk_http_body_preserves_zero_guards_and_raw_provider_cost(monkeypatch, policy, reasoning):
+@pytest.mark.parametrize("provider_tag", ["recording", "recursive/bf16"])
+def test_actual_sdk_http_body_preserves_zero_guards_and_raw_provider_cost(monkeypatch, policy, reasoning, provider_tag):
     import httpx
     sdk_setup(monkeypatch)
+    rewrite(policy, "endpoints", lambda d: d["data"]["endpoints"][0].update(tag=provider_tag))
+    rewrite(policy, "account_evidence", lambda d: d.update(
+        byok_providers={provider_tag.split("/", 1)[0]: "Not configured"}))
     seen = []
     async def transport(request):
         from jsonschema import Draft202012Validator
@@ -73,7 +77,7 @@ def test_actual_sdk_http_body_preserves_zero_guards_and_raw_provider_cost(monkey
     request = seen[0]
     assert request["url"] == "https://openrouter.ai/api/v1/chat/completions"
     assert request["body"]["model"] == SLUG and request["cache_header"] == "false"
-    assert request["body"]["provider"] == {"only": ["recording"], "allow_fallbacks": False,
+    assert request["body"]["provider"] == {"only": [provider_tag], "allow_fallbacks": False,
         "require_parameters": True, "max_price": {"prompt": 0, "completion": 0, "request": 0, "image": 0}}
     assert all(plugin["enabled"] is False for plugin in request["body"]["plugins"])
     assert len(request["body"]["plugins"]) == 6 and not any(p["id"] == "alignment" for p in request["body"]["plugins"])

@@ -62,6 +62,39 @@ def wrapper(policy, completion, **kwargs):
                              completion=completion, **kwargs)
 
 
+@pytest.mark.parametrize("tag", ["recursive/bf16", "baseten/fp4/us/priority"])
+def test_endpoint_variant_preserves_exact_route_and_requires_base_provider_byok(policy, tag):
+    rewrite(policy, "endpoints", lambda d: d["data"]["endpoints"][0].update(tag=tag))
+    rewrite(policy, "account_evidence", lambda d: d.update(
+        byok_providers={tag.split("/", 1)[0]: "Not configured"}))
+    evidence = verify_free_evidence(MODEL, policy)
+    assert evidence["provider_tags"] == [tag]
+
+
+@pytest.mark.parametrize("byok", [
+    {"recursive/bf16": "Not configured"},
+    {"recursive": "Configured", "recursive/bf16": "Not configured"},
+    {},
+    None,
+])
+def test_endpoint_variant_never_infers_base_provider_byok_absence(policy, byok):
+    rewrite(policy, "endpoints", lambda d: d["data"]["endpoints"][0].update(tag="recursive/bf16"))
+    rewrite(policy, "account_evidence", lambda d: d.update(byok_providers=byok))
+    with pytest.raises(FreeOnlyRoutingError, match="BYOK"):
+        verify_free_evidence(MODEL, policy)
+
+
+@pytest.mark.parametrize("tag", [
+    None, "", "/recursive", "recursive/", "recursive//bf16", " recursive/bf16", "recursive/bf16 ",
+    "https://recursive/bf16", "recursive/../bf16", "recursive/bf16?x=1", "recursive/bf16\n",
+    "a/b/c/d/e", "recursive/" + "x" * 65, "recursiv\u0435/bf16",
+])
+def test_malformed_endpoint_provider_tag_fails_closed(policy, tag):
+    rewrite(policy, "endpoints", lambda d: d["data"]["endpoints"][0].update(tag=tag))
+    with pytest.raises(FreeOnlyRoutingError, match="provider tag"):
+        verify_free_evidence(MODEL, policy)
+
+
 def test_recorded_request_has_all_free_guards_and_provider_actual_zero(policy):
     calls = []
     async def complete(**kwargs):
