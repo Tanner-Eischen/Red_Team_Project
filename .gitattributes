@@ -21,3 +21,6 @@ legacy/langgraph_red_team.py whitespace=-blank-at-eol
 
 # Immutable runtime receipts bind raw evidence bytes, including text logs.
 docs/evidence/hf01-container-2026-11-01/** -text diff
+
+# Preserve byte-identical generated case-study snapshots across checkout.
+reports/free-model-case-study/** -text diff

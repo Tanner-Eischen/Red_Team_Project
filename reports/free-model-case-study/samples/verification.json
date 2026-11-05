@@ -1,0 +1,39 @@
+{
+  "kind": "local_author_reference_replay",
+  "model_calls": 0,
+  "runtime": "local",
+  "container_isolation_verified": false,
+  "eligible_for_model_evaluation": false,
+  "task": "repository-debug-100-v1",
+  "task_sha256": "8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d",
+  "before_verifier_exit_code": 1,
+  "after_verifier_exit_code": 0,
+  "controls": [
+    {
+      "name": "oracle_1",
+      "passed": true
+    },
+    {
+      "name": "oracle_2",
+      "passed": true
+    },
+    {
+      "name": "nop",
+      "passed": true
+    },
+    {
+      "name": "known_bad",
+      "passed": true
+    },
+    {
+      "name": "alternate",
+      "passed": true
+    },
+    {
+      "name": "negative_mutation_1",
+      "passed": true
+    }
+  ],
+  "legacy_structure_notice": "This archived public fixture lacks tests/Dockerfile; full current quality/Docker eligibility is not claimed.",
+  "explanation": "The broken '<' comparison fails to merge touching half-open intervals; '<=' repairs that contract."
+}

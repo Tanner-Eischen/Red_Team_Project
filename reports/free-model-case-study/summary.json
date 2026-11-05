@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "study": "Free OpenRouter terminal-agent calibration",
+  "cohort": "calibration",
+  "task_templates": 3,
+  "repeats_per_model_task": 2,
+  "trial_count": 24,
+  "outcomes": {
+    "AGENT_TIMEOUT": 10,
+    "PASS": 14
+  },
+  "trial_provider_requests": 138,
+  "availability_provider_requests": 4,
+  "earlier_protocol_development_requests_excluded": 2,
+  "cost_usd": 0,
+  "new_model_calls": 0,
+  "models": [
+    {
+      "model": "North Mini Code",
+      "model_id": "openrouter/cohere/north-mini-code:free",
+      "date": "2026-11-02",
+      "attempts": 6,
+      "passes": 0,
+      "outcomes": {
+        "AGENT_TIMEOUT": 6
+      },
+      "completion_rate": 0.0,
+      "cost_usd": 0,
+      "input_tokens": 133954,
+      "output_tokens": 68677
+    },
+    {
+      "model": "Nemotron 3.5 Super VL",
+      "model_id": "openrouter/nvidia/nemotron-3.5-super-vl:free",
+      "date": "2026-11-02",
+      "attempts": 6,
+      "passes": 6,
+      "outcomes": {
+        "PASS": 6
+      },
+      "completion_rate": 1.0,
+      "cost_usd": 0,
+      "input_tokens": 128097,
+      "output_tokens": 23818
+    },
+    {
+      "model": "Nemotron 3 Ultra",
+      "model_id": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "date": "2026-11-02",
+      "attempts": 6,
+      "passes": 6,
+      "outcomes": {
+        "PASS": 6
+      },
+      "completion_rate": 1.0,
+      "cost_usd": 0,
+      "input_tokens": 197031,
+      "output_tokens": 43696
+    },
+    {
+      "model": "Flint",
+      "model_id": "openrouter/recursive/flint-v1.0:free",
+      "date": "2026-11-05",
+      "attempts": 6,
+      "passes": 2,
+      "outcomes": {
+        "AGENT_TIMEOUT": 4,
+        "PASS": 2
+      },
+      "completion_rate": 0.3333333333333333,
+      "cost_usd": 0,
+      "input_tokens": 187365,
+      "output_tokens": 123992
+    }
+  ],
+  "sources": [
+    {
+      "file": "hf02-free-openrouter-2026-11-02.json",
+      "sha256": "354c3b7f381129dfd3f5168772f029f20d4c5e05324bf70ffda52c92f715b0f5",
+      "date": "2026-11-02"
+    },
+    {
+      "file": "hf02-flint-openrouter-2026-11-05.json",
+      "sha256": "a35c6920cb45ee313cd82a853a16726f062c4d7b2f440d6355d6d5b475f6f83f",
+      "date": "2026-11-05"
+    }
+  ],
+  "harness_provenance_sha256": "e07759a9ba4e5ee0830a1b6d0af97935730ecd532346c20ea52747e661703a12",
+  "limits": [
+    "Three calibration templates, two repeats per model; descriptive only, no holdout or universal ranking.",
+    "Flint ran November 5; the other models ran November 2. Tasks and harness matched across dates.",
+    "AGENT_TIMEOUT includes token/output stops; no causal failure mechanism is inferred from that category.",
+    "The public sample is an author/reference replay, not a model response or new capability measurement."
+  ],
+  "public_reference_sample": {
+    "kind": "local_author_reference_replay",
+    "model_calls": 0,
+    "runtime": "local",
+    "container_isolation_verified": false,
+    "eligible_for_model_evaluation": false,
+    "task": "repository-debug-100-v1",
+    "task_sha256": "8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d",
+    "before_verifier_exit_code": 1,
+    "after_verifier_exit_code": 0,
+    "controls": [
+      {
+        "name": "oracle_1",
+        "passed": true
+      },
+      {
+        "name": "oracle_2",
+        "passed": true
+      },
+      {
+        "name": "nop",
+        "passed": true
+      },
+      {
+        "name": "known_bad",
+        "passed": true
+      },
+      {
+        "name": "alternate",
+        "passed": true
+      },
+      {
+        "name": "negative_mutation_1",
+        "passed": true
+      }
+    ],
+    "legacy_structure_notice": "This archived public fixture lacks tests/Dockerfile; full current quality/Docker eligibility is not claimed.",
+    "explanation": "The broken '<' comparison fails to merge touching half-open intervals; '<=' repairs that contract."
+  }
+}

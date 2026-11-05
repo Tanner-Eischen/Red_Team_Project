@@ -1,0 +1,69 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>
+<title>HarborForge  /  Free-model case study</title><style>
+:root{color-scheme:light;--ink:#173247;--accent:#0b756d;--line:#d5e1e4}*{box-sizing:border-box}
+body{margin:0;background:#f2f6f5;color:var(--ink);font:16px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:48px 24px}
+h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.13;max-width:850px;margin:12px 0 20px}h2{margin:0 0 16px;font-size:1.6rem}
+a{color:var(--accent)}.eyebrow{color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
+.lead{max-width:800px;font-size:1.15rem}section{background:white;border:1px solid var(--line);border-radius:18px;padding:28px;margin:24px 0}
+.metrics,.columns{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.metric{padding:20px;border:1px solid var(--line);border-radius:14px;background:white}
+.metric strong{font-size:2rem;display:block}.columns{grid-template-columns:1fr 1fr}.scroll{overflow:auto}
+table{border-collapse:collapse;width:100%;font-size:.94rem}th,td{text-align:left;padding:14px 10px;border-bottom:1px solid var(--line)}th{font-weight:650}
+.bar{width:120px;background:#e5eeee;border-radius:8px;height:12px}.bar i{display:block;background:var(--accent);height:100%;border-radius:8px}
+pre{background:#142d3c;color:#e0f1ef;padding:20px;border-radius:12px;overflow:auto;font:13px/1.55 ui-monospace,monospace}code{overflow-wrap:anywhere}
+.note{border-left:4px solid #c38b36;padding-left:16px}small{overflow-wrap:anywhere;color:#526977}li{margin:8px 0}footer{color:#526977;margin:30px 0}
+@media(max-width:700px){main{padding:28px 14px}section{padding:20px}.metrics,.columns{grid-template-columns:1fr 1fr}.columns{grid-template-columns:1fr}}
+</style><main><header><div class=eyebrow>HarborForge / worked example / November 2026</div>
+<h1>Can free models finish scientific Python engineering tasks?</h1><p class=lead>Four models used the same three calibration tasks and two repeats.
+This page brings the recorded results together, then walks through one reproducible public repair.</p></header>
+<div class=metrics><div class=metric><strong>24</strong>real model trials</div>
+<div class=metric><strong>14</strong>verified passes</div>
+<div class=metric><strong>138</strong>trial requests</div><div class=metric><strong>$0</strong>recorded model cost</div></div>
+<section><h2>Recorded model results</h2><p>Completion includes every registered attempt. Token/output stops count as unsuccessful completions.</p>
+<div class=scroll><table><thead><tr><th>Model</th><th>Run date</th><th>Passes</th><th>Completion</th><th>Outcomes</th><th>Cost</th></tr></thead><tbody><tr><th>North Mini Code</th><td>2026-11-02</td><td>0/6</td><td><div class=bar><i style='width:0.0%'></i></div></td><td>6 AGENT_TIMEOUT</td><td>$0</td></tr><tr><th>Nemotron 3.5 Super VL</th><td>2026-11-02</td><td>6/6</td><td><div class=bar><i style='width:100.0%'></i></div></td><td>6 PASS</td><td>$0</td></tr><tr><th>Nemotron 3 Ultra</th><td>2026-11-02</td><td>6/6</td><td><div class=bar><i style='width:100.0%'></i></div></td><td>6 PASS</td><td>$0</td></tr><tr><th>Flint</th><td>2026-11-05</td><td>2/6</td><td><div class=bar><i style='width:33.3%'></i></div></td><td>4 AGENT_TIMEOUT, 2 PASS</td><td>$0</td></tr></tbody></table></div>
+<p>Three task templates  /  two repeats  /  fixed terminal-agent harness. 4 availability requests are separate;
+two earlier protocol-development requests are excluded from this matrix. Rebuilding this report makes zero model calls.</p></section>
+<section><h2>The workflow</h2><ol><li>Write an explicit task contract and freeze the input/task version.</li>
+<li>Require oracle, alternate and negative controls before model trials.</li><li>Freeze model IDs, harness, repeats and token/time/cost limits.</li>
+<li>Run the terminal agent; export its source and output to a separate verifier.</li><li>Retain every outcome and provider receipt, including budget stops.</li>
+<li>Compare completion rates and inspect a concrete success or failure.</li></ol></section>
+<section><div class=eyebrow>Hands-on public sample  /  reference replay  /  no model call</div><h2>Repair touching intervals</h2>
+<p>The input contains duplicate, empty, negative, overlapping and touching half-open intervals. The broken utility keeps touching intervals separate.
+Its total length can look right while its interval representation violates the API contract.</p><p class=note>This example executes existing public author/reference code locally. It is not a model response,
+a Docker-isolation test, or an additional model score. This archived fixture lacks a separate verifier Dockerfile; only its public behavioral controls are replayed.</p><div class=columns><div><h3>Before  /  verifier rejects</h3><pre>{
+  &quot;intervals&quot;: [
+    [-11, -6],
+    [-4, 0],
+    [0, 3],
+    [5, 9],
+    [9, 14]
+  ],
+  &quot;covered&quot;: 21
+}</pre></div>
+<div><h3>After  /  verifier accepts</h3><pre>{
+  &quot;intervals&quot;: [
+    [-11, -6],
+    [-4, 3],
+    [5, 14]
+  ],
+  &quot;covered&quot;: 21
+}</pre></div></div><h3>The source change</h3><pre>--- before/pipeline.py
++++ after/pipeline.py
+@@ -8,7 +8,7 @@
+         return {&#x27;error&#x27;: &#x27;reversed_interval&#x27;}
+     merged = []
+     for start, end in sorted((a, b) for a, b in intervals if a &lt; b):
+-        if merged and start &lt; merged[-1][1]:
++        if merged and start &lt;= merged[-1][1]:
+             merged[-1][1] = max(merged[-1][1], end)
+         else:
+             merged.append([start, end])
+</pre>
+<p><a href=samples/input.json>Input JSON</a>  /  <a href=samples/pipeline.py>Repaired source</a>  /  <a href=samples/pipeline.patch>Patch</a>  /
+<a href=samples/verification.json>Verifier/control evidence</a></p><p>Before verifier exit: 1; after: 0.
+Public task hash: <code>8161a46014a3b42fb57375902d64a3b054a2487887884f11b5640b214a151d4d</code>.</p></section>
+<section><h2>Rebuild without an API key</h2><pre>python scripts/build_free_model_case_study.py --output-dir artifacts/case-study-replay</pre>
+<p>Use a new output directory for each replay. Requires the repository's Python environment; no provider SDK, credentials or Docker engine is needed.</p>
+<p><a href=summary.json>Structured summary</a>  /  <a href=model-results.csv>Model results CSV</a></p></section>
+<section><h2>Evidence and limits</h2><ul><li>Three calibration templates, two repeats per model; descriptive only, no holdout or universal ranking.</li><li>Flint ran November 5; the other models ran November 2. Tasks and harness matched across dates.</li><li>AGENT_TIMEOUT includes token/output stops; no causal failure mechanism is inferred from that category.</li><li>The public sample is an author/reference replay, not a model response or new capability measurement.</li></ul><h3>Public source receipts</h3><ul><li><code>hf02-free-openrouter-2026-11-02.json</code><br><small>SHA256 354c3b7f381129dfd3f5168772f029f20d4c5e05324bf70ffda52c92f715b0f5</small></li><li><code>hf02-flint-openrouter-2026-11-05.json</code><br><small>SHA256 a35c6920cb45ee313cd82a853a16726f062c4d7b2f440d6355d6d5b475f6f83f</small></li></ul>
+<p>Matched harness SHA256: <code>e07759a9ba4e5ee0830a1b6d0af97935730ecd532346c20ea52747e661703a12</code>. Raw calibration tasks, model-generated source and provider traces remain private.</p></section>
+<footer>HarborForge Eval Lab  /  Historical calibration, November 2 and 5, 2026  /  Local public reference replay</footer></main></html>

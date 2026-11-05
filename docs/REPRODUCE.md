@@ -19,6 +19,21 @@ redforge task validate --task tasks/generated/scientific-etl-123-v1 --runtime lo
 
 The evidence must show both oracle runs and the alternate passing; no-op, wrong and negative mutation must be rejected. `eligible_for_model_evaluation` remains false for local checks. Generated packages are immutable: choose a new seed or output directory instead of overwriting. Evidence must stay outside the package or its hash becomes invalid. Git attributes preserve exact authored bytes for cross-platform hashes, including the CSV writer's CRLF records.
 
+Rebuild the [four-model case study](CASE_STUDY_FREE_MODEL_WORKFLOW.md) and its
+worked public example without provider access:
+
+```powershell
+python scripts/build_free_model_case_study.py --output-dir artifacts/case-study-replay
+```
+
+Choose a fresh output directory. Open its `index.html` and inspect `summary.json`,
+`model-results.csv` and `samples/`. The model comparison reads published receipts
+from the completed calibration. The example separately runs trusted public
+reference code: starter rejection, repaired acceptance, before/after JSON, a
+patch and six local behavioral controls. It is an archived public fixture replay,
+not a new model trial or fresh Docker eligibility result. Private calibration
+task content and candidate traces are not exported by this command.
+
 Rebuild the full public control report without any provider calls:
 
 ```powershell

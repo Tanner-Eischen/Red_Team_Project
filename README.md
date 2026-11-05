@@ -6,6 +6,12 @@ The evaluator grades the agent's exported source and output artifacts in a **sep
 
 ## Current evidence
 
+Start with the [worked case study](docs/CASE_STUDY_FREE_MODEL_WORKFLOW.md) and
+[visual report](reports/free-model-case-study/index.html). They bring together
+24 actual calibration trials across four free models, then show a runnable
+public repair with before/after outputs, a code patch and verifier results.
+Rebuilding the example makes no model calls.
+
 The implementation includes three deterministic scientific software families, immutable lineage, controlled tiered campaigns, conservative pre-call budgets, a trial registry, frozen-suite evaluation, trace-backed failure suggestions and static HTML/JSON/CSV reports. The [12 public examples](tasks/public_examples) are synthetic discovery fixtures, never a private holdout.
 
 Wave 3 container/offline validation now uses the actual pinned Harbor 0.13.2 runtime and native Linux Docker. Three fresh f2 tasks passed all 18 reference/negative controls; a semantic ETL child passed seven more controls. Eight malicious boundary probes passed, including protected worker/reward access, detached-process cleanup, artifact attacks and grader failures. The agent has no host bind mounts; the separate trusted verifier runs candidate code under a restricted UID. [Native evidence](docs/evidence/hf01-container-2026-11-01/summary.json) and the [final public-contract addendum](docs/evidence/hf01-contract-addendum-2026-11-01.json) record the exact tested hashes and disclosure-only delta. Those November 1 receipts are container/control results, **zero real model attempts**, not capability scores. The historical [12-task local report](reports/public-pilot/index.html) is preserved unchanged.
